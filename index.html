@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marota Cinematography & Software Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+   
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                <img src="marota_logo2.jpg" alt="Marota Cinematography & Software Academy" style="width: 50px; height: 50px; border-radius: 50%;">
+            </a> Marota Cinematography & Software Academy
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#showcase">Showcase</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#" class="btn-nav" id="signBtn">Sign In</a></li>
+                    <li><a href="#" class="btn-nav primary" id="registerBtn">Sign Up</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-title">
+                <h3>Sign In to Your Account</h3>
+                <p>Access your courses, projects, and resources</p>
+            </div>
+            <form class="modal-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+                <div class="form-footer">
+                    <label>
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="#">Forgot password?</a>
+                </div>
+            </form>
+            <div class="switch-form">
+                <p>Don't have an account? <a href="#" id="switchToRegister">Sign Up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-title">
+                <h3>Create an Account</h3>
+                <p>Join our community of filmmakers and developers</p>
+            </div>
+            <form class="modal-form">
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Email Address</label>
+                    <input type="email" id="reg-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Password</label>
+                    <input type="password" id="reg-password" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" required> I agree to the <a href="#">Terms & Conditions</a>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+            </form>
+            <div class="switch-form">
+                <p>Already have an account? <a href="#" id="switchToLogin">Sign In</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Where <span class="film">Cinematic Art</span> Meets <span>Digital Innovation</span></h1>
+                <p>Marota Cinematography & Software Academy is a creative hub where we craft stunning visual stories and develop cutting-edge software solutions. We train the next generation of filmmakers and developers.</p>
+                <div class="hero-btns">
+                    <a href="#courses" class="btn btn-primary">Explore Courses</a>
+                    <a href="#contact" class="btn">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+                <p>We offer a unique blend of cinematography and software development services to bring your creative visions to life.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon film">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Film Production</h3>
+                        <p>Professional film production services from concept development to final editing. We create compelling visual stories for all platforms.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon software">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Software Development</h3>
+                        <p>Custom software solutions tailored to your business needs. From mobile apps to enterprise systems, we deliver excellence.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon film">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Cinematography Training</h3>
+                        <p>Master the art of visual storytelling with our comprehensive cinematography courses taught by industry professionals.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon software">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Coding Academy</h3>
+                        <p>Transform your career with our intensive software development programs. Learn in-demand skills from expert instructors.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase Section -->
+    <section class="section showcase" id="showcase">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Portfolio</h2>
+                <p>Explore our latest projects in cinematography and software development.</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-image" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="portfolio-overlay">
+                        <h3>Feature Film: Midnight Echo</h3>
+                        <p>Award-winning psychological thriller shot on location in Europe.</p>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <div class="portfolio-image" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="portfolio-overlay">
+                        <h3>Enterprise CRM System</h3>
+                        <p>Custom CRM solution for a multinational corporation.</p>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <div class="portfolio-image" style="background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="portfolio-overlay">
+                        <h3>Commercial Campaign</h3>
+                        <p>Automotive campaign featuring breathtaking landscapes.</p>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <div class="portfolio-image" style="background-image: url('https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="portfolio-overlay">
+                        <h3>E-Learning Platform</h3>
+                        <p>Interactive learning system for professional development.</p>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="section courses" id="courses">
+        <div class="container">
+            <div class="section-title">
+                <h2>Academy Courses</h2>
+                <p>Transform your passion into expertise with our industry-leading programs.</p>
+            </div>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>Cinematography Mastery</h3>
+                    </div>
+                    <div class="course-body">
+                        <p>12-week intensive program covering all aspects of professional filmmaking.</p>
+                        <ul class="course-features">
+                            <li>Lighting & Composition Techniques</li>
+                            <li>Advanced Camera Operation</li>
+                            <li>Color Grading & Post-Production</li>
+                            <li>Visual Storytelling Principles</li>
+                            <li>Industry Software Training</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Enroll Now</a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>Full-Stack Development</h3>
+                    </div>
+                    <div class="course-body">
+                        <p>Become a professional developer with our comprehensive coding bootcamp.</p>
+                        <ul class="course-features">
+                            <li>Front-End Development (HTML, CSS, JS)</li>
+                            <li>Back-End with Node.js & Python</li>
+                            <li>Database Design & Implementation</li>
+                            <li>API Development & Integration</li>
+                            <li>DevOps & Deployment Strategies</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Enroll Now</a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>Film Direction Workshop</h3>
+                    </div>
+                    <div class="course-body">
+                        <p>Master the art of directing with guidance from award-winning filmmakers.</p>
+                        <ul class="course-features">
+                            <li>Script Analysis & Breakdown</li>
+                            <li>Working with Actors</li>
+                            <li>Visual Language & Style</li>
+                            <li>Production Management</li>
+                            <li>Post-Production Supervision</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Enroll Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In Touch</h2>
+                <p>We'd love to hear about your project or answer any questions.</p>
+            </div>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p>Reach out to us for collaborations, training inquiries, or project discussions.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Our Studio</h4>
+                                <p>123 Creative Avenue, Los Angeles, CA 90028</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Phone</h4>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <p>info@marotastudio.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Subject">
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Marota Studio</h4>
+                    <p>Where cinematic artistry and digital innovation converge to create extraordinary experiences.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#showcase">Portfolio</a></li>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Academy Programs</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Cinematography Mastery</a></li>
+                        <li><a href="#">Film Direction Workshop</a></li>
+                        <li><a href="#">Full-Stack Development</a></li>
+                        <li><a href="#">UI/UX Design</a></li>
+                        <li><a href="#">Digital Marketing</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to our newsletter for the latest updates and offers.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Marota Cinematography & Software Academy. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.querySelector('i').classList.toggle('fa-bars');
+            mobileMenuBtn.querySelector('i').classList.toggle('fa-times');
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                    mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                }
+            });
+        });
+        
+        // Modal functionality
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const closeModalBtns = document.querySelectorAll('.close-modal');
+        const switchToRegister = document.getElementById('switchToRegister');
+        const switchToLogin = document.getElementById('switchToLogin');
+        
+        // Open login modal
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'flex';
+        });
+        
+        // Open register modal
+        registerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.style.display = 'flex';
+        });
+        
+        // Close modals
+        closeModalBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                loginModal.style.display = 'none';
+                registerModal.style.display = 'none';
+            });
+        });
+        
+        // Switch to register form
+        switchToRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'none';
+            registerModal.style.display = 'flex';
+        });
+        
+        // Switch to login form
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.style.display = 'none';
+            loginModal.style.display = 'flex';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (e.target === registerModal) {
+                registerModal.style.display = 'none';
+            }
+        });
+        
+        // Prevent form submission for demo
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Form submission successful! In a real application, this would send data to a server.');
+                loginModal.style.display = 'none';
+                registerModal.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
