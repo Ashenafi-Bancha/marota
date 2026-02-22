@@ -64,7 +64,7 @@ function Footer() {
             <a href="#" title="Join us on Telegram" className="rounded-full border border-white/15 bg-sky-500 p-2 transition transform hover:-translate-y-1">
               <FaTelegramPlane className="text-white" size={22} />
             </a>
-            <a href="https://www.tiktok.com/@marota.acadamy?_t=ZN-8xuxFw8tk2Q&_r=1" target="_blank" rel="noreferrer" title="Follow us on TikTok" className="rounded-full border border-white/15 bg-black p-2 transition transform hover:-translate-y-1">
+            <a href="https://www.tiktok.com/@mfsc2857?_r=1&_t=ZN-947iwf01KQY" target="_blank" rel="noreferrer" title="Follow us on TikTok" className="rounded-full border border-white/15 bg-black p-2 transition transform hover:-translate-y-1">
               <FaTiktok className="text-white" size={22} />
             </a>
             <a href="#" target="_blank" rel="noreferrer" title="Follow us on LinkedIn" className="rounded-full border border-white/15 bg-blue-700 p-2 transition transform hover:-translate-y-1">
