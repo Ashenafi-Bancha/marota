@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Camera, Code, Users, Award } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 import Hero1 from "../assets/pc-users-group.jpg";
 import Hero2 from "../assets/camera.jpg";
@@ -14,6 +16,7 @@ const images = [Hero1, Hero9,Hero10, Hero2, Hero3, Hero4, Hero5,];
 
 export default function Hero() {
   const [currentImage, setCurrentImage] = useState(0);
+  const { user } = useAuth();
 
   // Change image every 4 seconds
   useEffect(() => {
@@ -73,19 +76,12 @@ export default function Hero() {
         </p>
 
         <div className="flex flex-wrap gap-3 sm:gap-4 justify-center mb-2 py-2 w-full max-w-xl mx-auto">
-          <a
-            href="#services"
-            className="px-6 py-3 border border-[var(--accent-blue)] text-[var(--accent-blue)] md:rounded-lg rounded-3xl hover:bg-[rgba(100,255,218,0.1)] hover:translate-y-[-3px] hover:shadow-lg transition w-full sm:w-auto text-center"
+          <Link
+            to={user ? "/dashboard" : "/signup"}
+            className="px-7 py-3 bg-[var(--accent-blue)] text-[var(--primary-dark)] md:rounded-lg rounded-3xl hover:bg-[rgba(100,255,218,0.9)] hover:shadow-lg transition w-full sm:w-auto text-center hover:translate-y-[-3px] font-semibold"
           >
-            Our Services
-          </a>
-
-          <a
-            href="#portfolio"
-            className="px-6 py-3 bg-[var(--accent-blue)] text-[var(--primary-dark)] md:rounded-lg rounded-3xl hover:bg-[rgba(100,255,218,0.9)] hover:shadow-lg transition w-full sm:w-auto text-center hover:translate-y-[-3px]"
-          >
-            View Portifolio
-          </a>
+            Get Started
+          </Link>
         </div>
       </div>
 

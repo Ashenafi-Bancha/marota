@@ -16,6 +16,8 @@ function Footer() {
     <footer className="mt-14 border-t border-white/10 bg-[linear-gradient(180deg,#071021_0%,#040b17_100%)] text-gray-300 pt-14 pb-6">
       <div className="max-w-7xl mx-auto px-6 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
 
+        
+
         {/* About */}
         <div>
           <h4 className="mb-4 text-xl font-semibold text-white">
@@ -24,6 +26,8 @@ function Footer() {
           <p className="text-sm leading-relaxed text-slate-300">
             Where cinematic artistry and digital innovation converge, Marota empowers Ethiopia’s next generation in film, software, and creative technology.
           </p>
+
+
           <a
             href="/#contact"
             className="inline-flex mt-4 px-4 py-2 rounded-full bg-cyan-500 text-[#081325] text-sm font-semibold hover:bg-cyan-400 transition"
@@ -63,31 +67,32 @@ function Footer() {
             ))}
           </ul>
         </div>
-
+      
         {/* Follow Us / Social Links */}
         <div>
           <h4 className="text-xl font-semibold text-white mb-4">
             Follow Us
           </h4>
-          <div className="mt-2 flex flex-wrap gap-3">
-            <a href="https://www.facebook.com/profile.php?id=100087120218376" target="_blank" rel="noreferrer" title="Follow us on Facebook" className="rounded-full border border-white/15 bg-blue-600 p-2 transition transform hover:-translate-y-1">
-              <FaFacebookF className="text-white" size={22} />
+          <div className="mt-2 flex items-center gap-2 flex-nowrap overflow-x-auto pb-1">
+            <a href="https://www.facebook.com/profile.php?id=100087120218376" target="_blank" rel="noreferrer" title="Follow us on Facebook" className="rounded-full border border-white/15 bg-blue-600 p-1.5 transition transform hover:-translate-y-1 shrink-0">
+              <FaFacebookF className="text-white" size={18} />
             </a>
-            <a href="#" title="Join us on Telegram" className="rounded-full border border-white/15 bg-sky-500 p-2 transition transform hover:-translate-y-1">
-              <FaTelegramPlane className="text-white" size={22} />
+            <a href="#" title="Join us on Telegram" className="rounded-full border border-white/15 bg-sky-500 p-1.5 transition transform hover:-translate-y-1 shrink-0">
+              <FaTelegramPlane className="text-white" size={18} />
             </a>
-            <a href="https://www.tiktok.com/@mfsc2857?_r=1&_t=ZN-947iwf01KQY" target="_blank" rel="noreferrer" title="Follow us on TikTok" className="rounded-full border border-white/15 bg-black p-2 transition transform hover:-translate-y-1">
-              <FaTiktok className="text-white" size={22} />
+            <a href="https://www.tiktok.com/@mfsc2857?_r=1&_t=ZN-947iwf01KQY" target="_blank" rel="noreferrer" title="Follow us on TikTok" className="rounded-full border border-white/15 bg-black p-1.5 transition transform hover:-translate-y-1 shrink-0">
+              <FaTiktok className="text-white" size={18} />
             </a>
-            <a href="#" target="_blank" rel="noreferrer" title="Follow us on LinkedIn" className="rounded-full border border-white/15 bg-blue-700 p-2 transition transform hover:-translate-y-1">
-              <FaLinkedinIn className="text-white" size={22} />
+            <a href="#" target="_blank" rel="noreferrer" title="Follow us on LinkedIn" className="rounded-full border border-white/15 bg-blue-700 p-1.5 transition transform hover:-translate-y-1 shrink-0">
+              <FaLinkedinIn className="text-white" size={18} />
             </a>
             
-            <a href="#" title="Follow us on Instagram" className="rounded-full border border-white/15 bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-400 p-2 transition transform hover:-translate-y-1">
-              <FaInstagram className="text-white" size={22} />
+            <a href="#" title="Follow us on Instagram" className="rounded-full border border-white/15 bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-400 p-1.5 transition transform hover:-translate-y-1 shrink-0">
+              <FaInstagram className="text-white" size={18} />
             </a>
-            <a href="https://www.youtube.com/channel/UCYxPI7bef6t6uGjywEnYJsQ" target="_blank" rel="noreferrer" title="Visit our YouTube channel" className="rounded-full border border-white/15 bg-red-600 p-2 transition transform hover:-translate-y-1">
-              <FaYoutube className="text-white" size={22} />
+            <a href="https://www.youtube.com/channel/UCYxPI7bef6t6uGjywEnYJsQ" target="_blank" rel="noreferrer" title="Visit our YouTube channel" className="rounded-full border border-white/15 bg-red-600 p-1.5 transition transform hover:-translate-y-1 shrink-0">
+              <FaYoutube className="text-white" size={18} />
+
             </a>
           </div>
           <p className="text-xs text-slate-400 mt-4 leading-relaxed">
