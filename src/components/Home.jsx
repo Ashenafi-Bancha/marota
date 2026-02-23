@@ -16,7 +16,10 @@ const images = [Hero1, Hero9,Hero10, Hero2, Hero3, Hero4, Hero5,];
 
 export default function Hero() {
   const [currentImage, setCurrentImage] = useState(0);
+  const [typedAdText, setTypedAdText] = useState("");
   const { user } = useAuth();
+  const adText = "Coming Soon in Addis Ababa";
+  const adPrefix = "Coming Soon in ";
 
   // Change image every 4 seconds
   useEffect(() => {
@@ -25,6 +28,37 @@ export default function Hero() {
     }, 4000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    let charIndex = 0;
+    let activeTimeout;
+    let isCancelled = false;
+
+    const runTyping = () => {
+      if (isCancelled) return;
+
+      if (charIndex < adText.length) {
+        charIndex += 1;
+        setTypedAdText(adText.slice(0, charIndex));
+        activeTimeout = window.setTimeout(runTyping, 90);
+      } else {
+        activeTimeout = window.setTimeout(() => {
+          charIndex = 0;
+          setTypedAdText("");
+          runTyping();
+        }, 2400);
+      }
+    };
+
+    runTyping();
+
+    return () => {
+      isCancelled = true;
+      if (activeTimeout) {
+        window.clearTimeout(activeTimeout);
+      }
+    };
+  }, [adText]);
 
   return (
     <section id="home" className="relative min-h-[92vh] md:min-h-screen flex flex-col items-center justify-center overflow-hidden px-3">
@@ -58,8 +92,9 @@ export default function Hero() {
                 Big Update
               </p>
               <h2 className="mt-1 text-2xl sm:text-3xl md:text-4xl font-black leading-tight text-white">
-                <span className="text-yellow-300">Coming Soon</span> in
-                <span className="text-[var(--accent-blue)]"> Addis Ababa</span>
+                <span className="text-yellow-300">{typedAdText.slice(0, Math.min(typedAdText.length, adPrefix.length))}</span>
+                <span className="text-[var(--accent-blue)]">{typedAdText.length > adPrefix.length ? typedAdText.slice(adPrefix.length) : ""}</span>
+                <span className="ml-1 inline-block w-[2px] h-[1em] bg-[var(--accent-blue)] animate-pulse align-middle" />
               </h2>
               <p className="mt-2 text-sm sm:text-base text-gray-200">
                 Marota is expanding with a new branch in Addis Ababa.
@@ -75,7 +110,7 @@ export default function Hero() {
         </div>
 
         <h1 className="font-bold leading-tight my-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl p-2 mx-auto text-center">
-          Welcome to Marota Film
+          Marota Film
           <span className="text-[var(--accent-blue)]">
             {" "}
             and Software Collage </span>
@@ -89,7 +124,7 @@ export default function Hero() {
         <div className="flex flex-wrap gap-3 sm:gap-4 justify-center mb-2 py-2 w-full max-w-xl mx-auto">
           <Link
             to={user ? "/dashboard" : "/signup"}
-            className="px-7 py-3 bg-[var(--accent-blue)] text-[var(--primary-dark)] md:rounded-lg rounded-3xl hover:bg-[rgba(100,255,218,0.9)] hover:shadow-lg transition w-full sm:w-auto text-center hover:translate-y-[-3px] font-semibold"
+            className="px-7 py-3 bg-[var(--accent-blue)] text-[var(--primary-dark)] md:rounded-lg rounded-3xl hover:bg-[#14b8a6] hover:text-white hover:shadow-lg transition w-full sm:w-auto text-center hover:translate-y-[-3px] font-semibold"
           >
             Get Started
           </Link>

@@ -30,7 +30,7 @@ function Footer() {
 
           <a
             href="/#contact"
-            className="inline-flex mt-4 px-6 py-3 bg-[var(--accent-blue)] text-[var(--primary-dark)] md:rounded-lg rounded-3xl hover:bg-[rgba(100,255,218,0.9)] hover:shadow-lg transition hover:translate-y-[-3px] text-sm font-semibold"
+            className="inline-flex mt-4 px-6 py-3 bg-[var(--accent-blue)] text-[var(--primary-dark)] md:rounded-lg rounded-3xl hover:bg-[#14b8a6] hover:text-white hover:shadow-lg transition hover:translate-y-[-3px] text-sm font-semibold"
           >
             Contact Admissions
           </a>
