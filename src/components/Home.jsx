@@ -49,13 +49,28 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 w-full max-w-7xl px-3 sm:px-5 text-center mt-2 md:mt-0 mx-auto">
         <div className="mb-5 flex justify-center">
-          <div className="inline-flex flex-col items-center gap-2 rounded-2xl border border-yellow-300/40 bg-[#0b1d36]/90 px-5 py-3 shadow-[0_0_28px_rgba(250,204,21,0.16)]">
-            <p className="text-sm sm:text-base font-semibold text-white">
-              Campus: Wolaita Sodo
-            </p>
-            <p className="inline-flex items-center rounded-full border border-yellow-300/40 bg-yellow-400/10 px-3 py-1 text-sm sm:text-base font-semibold text-yellow-200 shadow-[0_0_20px_rgba(250,204,21,0.12)]">
-              Coming Soon in Addis Ababa
-            </p>
+          <div className="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-yellow-300/50 bg-[#0b1d36]/90 px-5 py-4 sm:px-7 sm:py-5 shadow-[0_0_36px_rgba(250,204,21,0.2)]">
+            <span className="absolute -top-8 -left-8 h-28 w-28 rounded-full bg-yellow-300/20 blur-2xl animate-pulse" />
+            <span className="absolute -bottom-10 -right-10 h-36 w-36 rounded-full bg-cyan-300/20 blur-2xl animate-pulse" />
+
+            <div className="relative z-10 text-center">
+              <p className="text-sm sm:text-base font-extrabold tracking-[0.2em] uppercase text-yellow-300 animate-pulse">
+                Big Update
+              </p>
+              <h2 className="mt-1 text-2xl sm:text-3xl md:text-4xl font-black leading-tight text-white">
+                <span className="text-yellow-300">Coming Soon</span> in
+                <span className="text-[var(--accent-blue)]"> Addis Ababa</span>
+              </h2>
+              <p className="mt-2 text-sm sm:text-base text-gray-200">
+                Marota is expanding with a new branch in Addis Ababa.
+              </p>
+
+              <div className="mt-3 flex items-center justify-center gap-2">
+                <span className="h-2.5 w-2.5 rounded-full bg-yellow-300 animate-bounce" />
+                <span className="h-2.5 w-2.5 rounded-full bg-cyan-300 animate-bounce [animation-delay:120ms]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-yellow-300 animate-bounce [animation-delay:240ms]" />
+              </div>
+            </div>
           </div>
         </div>
 
