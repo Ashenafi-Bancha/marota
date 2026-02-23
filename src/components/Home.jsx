@@ -49,16 +49,12 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 w-full max-w-7xl px-3 sm:px-5 text-center mt-2 md:mt-0 mx-auto">
         <div className="mb-5 flex justify-center">
-          <div className="inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-3 rounded-2xl border border-yellow-300/60 bg-[#0b1d36]/90 px-5 py-3 sm:px-6 sm:py-4 shadow-[0_0_35px_rgba(250,204,21,0.2)] animate-pulse">
-            <span className="inline-flex items-center gap-2 rounded-full bg-yellow-400 px-3.5 py-1.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#0a192f]">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0a192f] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#0a192f]"></span>
-              </span>
-              Big Update
-            </span>
-            <p className="text-base sm:text-lg md:text-2xl font-bold text-white text-center sm:text-left leading-snug">
-              <span className="text-yellow-300">Coming Soon:</span> New Marota Branch in <span className="text-[var(--accent-blue)]">Addis Ababa</span>
+          <div className="inline-flex flex-col items-center gap-2 rounded-2xl border border-yellow-300/40 bg-[#0b1d36]/90 px-5 py-3 shadow-[0_0_28px_rgba(250,204,21,0.16)]">
+            <p className="text-sm sm:text-base font-semibold text-white">
+              Campus: Wolaita Sodo
+            </p>
+            <p className="inline-flex items-center rounded-full border border-yellow-300/40 bg-yellow-400/10 px-3 py-1 text-sm sm:text-base font-semibold text-yellow-200 shadow-[0_0_20px_rgba(250,204,21,0.12)]">
+              Coming Soon in Addis Ababa
             </p>
           </div>
         </div>

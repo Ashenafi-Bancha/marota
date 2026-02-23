@@ -95,9 +95,14 @@ function Footer() {
 
             </a>
           </div>
-          <p className="text-xs text-slate-400 mt-4 leading-relaxed">
-            Campus: Wolaita Sodo • Coming Soon: Addis Ababa Branch
-          </p>
+          <div className="mt-4 space-y-1">
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Campus: Wolaita Sodo
+            </p>
+            <p className="inline-flex items-center rounded-full border border-yellow-300/40 bg-yellow-400/10 px-3 py-1 text-xs font-semibold text-yellow-200 shadow-[0_0_20px_rgba(250,204,21,0.12)]">
+              Coming Soon in Addis Ababa
+            </p>
+          </div>
         </div>
 
       </div>
