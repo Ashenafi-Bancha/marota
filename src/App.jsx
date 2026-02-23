@@ -10,6 +10,8 @@ import MyCourses from "./pages/MyCourses";
 import Profile from "./pages/Profile";
 import AdminDashboard from "./pages/AdminDashboard";
 import CourseLearning from "./pages/CourseLearning";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
 
 function App() {
   return (
@@ -89,6 +91,22 @@ function App() {
               <ProtectedRoute>
                 <CourseLearning />
               </ProtectedRoute>
+            </Layout>
+          }
+        />
+        <Route
+          path="/privacy"
+          element={
+            <Layout>
+              <PrivacyPolicy />
+            </Layout>
+          }
+        />
+        <Route
+          path="/terms"
+          element={
+            <Layout>
+              <TermsOfService />
             </Layout>
           }
         />

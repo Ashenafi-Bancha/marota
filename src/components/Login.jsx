@@ -1,7 +1,15 @@
 // src/components/Login.jsx
 import { useState } from "react";
 import { supabase } from "../lib/supabaseClient";
-import { FaEye, FaEyeSlash, FaEnvelope, FaLock } from "react-icons/fa";
+import {
+  FaEye,
+  FaEyeSlash,
+  FaEnvelope,
+  FaLock,
+  FaGoogle,
+  FaLinkedinIn,
+  FaGithub,
+} from "react-icons/fa";
 
 export default function Login({ onLoginSuccess, onSwitchToRegister }) {
   const [email, setEmail] = useState("");
@@ -9,6 +17,13 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [oauthLoadingProvider, setOauthLoadingProvider] = useState(null);
+
+  const oauthProviders = [
+    { key: "google", label: "Continue with Google", icon: FaGoogle },
+    { key: "github", label: "Continue with GitHub", icon: FaGithub },
+    { key: "linkedin_oidc", label: "Continue with LinkedIn", icon: FaLinkedinIn },
+  ];
 
   const validateForm = () => {
     const newErrors = {};
@@ -69,6 +84,28 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
     }
   };
 
+  const handleOAuthSignIn = async (provider) => {
+    setErrors({});
+    setOauthLoadingProvider(provider);
+
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/dashboard`,
+        },
+      });
+
+      if (error) {
+        setErrors({ form: error.message });
+      }
+    } catch (err) {
+      setErrors({ form: err.message || "Unable to start social login." });
+    } finally {
+      setOauthLoadingProvider(null);
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className="w-full space-y-5">
       <div className="space-y-2 text-center">
@@ -83,6 +120,32 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
           {errors.form}
         </div>
       )}
+
+      <div className="space-y-2">
+        {oauthProviders.map((provider) => {
+          const Icon = provider.icon;
+          const isLoading = oauthLoadingProvider === provider.key;
+
+          return (
+            <button
+              key={provider.key}
+              type="button"
+              onClick={() => handleOAuthSignIn(provider.key)}
+              disabled={loading || Boolean(oauthLoadingProvider)}
+              className="btn-oauth flex w-full items-center justify-center gap-2 rounded-xl border border-[#355678] bg-[rgba(10,25,47,0.8)] px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-[var(--accent-blue)]/60 hover:bg-[rgba(20,44,75,0.92)] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              <Icon className="text-base" />
+              <span>{isLoading ? "Redirecting..." : provider.label}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="flex items-center gap-3">
+        <span className="h-px flex-1 bg-white/15" />
+        <span className="text-xs uppercase tracking-[0.16em] text-slate-400">or</span>
+        <span className="h-px flex-1 bg-white/15" />
+      </div>
 
       <div>
         <label className="mb-2 block text-sm font-medium text-[var(--text-light)]">Email</label>
@@ -102,9 +165,11 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
             }`}
             required
             autoComplete="email"
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? "login-email-error" : undefined}
           />
         </div>
-        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+        {errors.email && <p id="login-email-error" className="text-red-500 text-sm mt-1">{errors.email}</p>}
       </div>
 
       <div>
@@ -125,6 +190,9 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
             }`}
             required
             autoComplete="current-password"
+            minLength={6}
+            aria-invalid={Boolean(errors.password)}
+            aria-describedby={errors.password ? "login-password-error" : "login-password-hint"}
           />
           <button
             type="button"
@@ -135,7 +203,11 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
         </div>
-        {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+        {errors.password ? (
+          <p id="login-password-error" className="text-red-500 text-sm mt-1">{errors.password}</p>
+        ) : (
+          <p id="login-password-hint" className="mt-1 text-xs text-slate-400">Password must be at least 6 characters.</p>
+        )}
       </div>
 
       <button

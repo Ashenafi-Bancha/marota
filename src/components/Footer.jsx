@@ -1,5 +1,6 @@
 // src/components/Footer.jsx
 import { FaFacebookF, FaTelegramPlane, FaTiktok, FaLinkedinIn, FaInstagram, FaYoutube } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import logo from "../assets/logo1.png";
 import { diplomaLevels, shortCourses } from "../data/courses";
 
@@ -109,15 +110,27 @@ function Footer() {
 
       {/* Copyright */}
       <div className="mt-10 border-t border-white/10 pt-4 text-slate-400">
-        <div className="flex items-center justify-center gap-2 flex-nowrap">
-          <img
-            src={logo}
-            alt="Marota Logo"
-            className="w-5 h-5 md:w-6 md:h-6 rounded-full object-contain"
-          />
-          <span className="text-xs sm:text-sm md:text-base text-center whitespace-nowrap">
-            &copy; {new Date().getFullYear()} Marota Film & Software College. All Rights Reserved.
-          </span>
+        <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 px-6 md:flex-row">
+          <div className="flex items-center justify-center gap-2 text-center md:justify-start md:text-left">
+            <img
+              src={logo}
+              alt="Marota Logo"
+              className="h-5 w-5 rounded-full object-contain md:h-6 md:w-6"
+            />
+            <span className="text-xs sm:text-sm md:text-[15px] leading-relaxed">
+              &copy; {new Date().getFullYear()} Marota Film & Software College. All Rights Reserved.
+            </span>
+          </div>
+
+          <nav aria-label="Legal" className="flex items-center justify-center gap-3 text-[11px] sm:text-xs md:justify-end text-slate-500/90">
+            <Link to="/privacy" className="text-inherit transition-colors duration-200 hover:text-slate-300">
+              Privacy Policy
+            </Link>
+            <span className="text-slate-700">|</span>
+            <Link to="/terms" className="text-inherit transition-colors duration-200 hover:text-slate-300">
+              Terms of Service
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>

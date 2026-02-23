@@ -40,6 +40,23 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const ensureProfile = async (currentUser) => {
+    if (!currentUser) return;
+
+    const fallbackName = currentUser.email
+      ? currentUser.email.split("@")[0]
+      : "Student";
+
+    const payload = {
+      id: currentUser.id,
+      full_name: currentUser.user_metadata?.full_name || fallbackName,
+      phone: currentUser.user_metadata?.phone || null,
+      role: "student",
+    };
+
+    await supabase.from("profiles").upsert(payload, { onConflict: "id" });
+  };
+
   useEffect(() => {
     const getSession = async () => {
       try {
@@ -58,6 +75,9 @@ export const AuthProvider = ({ children }) => {
       (_event, session) => {
         const sessionUser = session?.user ?? null;
         setUser(sessionUser);
+        if (sessionUser) {
+          ensureProfile(sessionUser);
+        }
         resolveRole(sessionUser);
         setLoading(false);
       }

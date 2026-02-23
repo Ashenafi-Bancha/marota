@@ -1,7 +1,17 @@
 // src/components/Register.jsx
 import { useState } from "react";
 import { supabase } from "../lib/supabaseClient";
-import { FaEye, FaEyeSlash, FaUser, FaEnvelope, FaLock, FaPhone } from "react-icons/fa";
+import {
+  FaEye,
+  FaEyeSlash,
+  FaUser,
+  FaEnvelope,
+  FaLock,
+  FaPhone,
+  FaGoogle,
+  FaLinkedinIn,
+  FaGithub,
+} from "react-icons/fa";
 
 export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
   const [name, setName] = useState("");
@@ -13,8 +23,50 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
   const [errors, setErrors] = useState({});
   const [statusMessage, setStatusMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [oauthLoadingProvider, setOauthLoadingProvider] = useState(null);
+
+  const trimmedPassword = password.trim();
+  const hasMinLength = trimmedPassword.length >= 6;
+  const hasLetter = /[A-Za-z]/.test(trimmedPassword);
+  const hasNumber = /\d/.test(trimmedPassword);
+  const hasSymbol = /[^A-Za-z0-9\s]/.test(trimmedPassword);
+  const passwordsMatch = password.length > 0 && password === confirmPassword;
+  const strengthScore = [hasMinLength, hasLetter, hasNumber, hasSymbol].filter(Boolean).length;
+  const strengthPercent = (strengthScore / 4) * 100;
+
+  const strengthLabel =
+    trimmedPassword.length === 0
+      ? "Not set"
+      : strengthScore <= 1
+        ? "Weak"
+        : strengthScore <= 3
+          ? "Medium"
+          : "Strong";
+
+  const strengthColorClass =
+    trimmedPassword.length === 0
+      ? "bg-slate-600"
+      : strengthScore <= 1
+        ? "bg-red-500"
+        : strengthScore <= 3
+          ? "bg-amber-400"
+          : "bg-emerald-500";
+
+  const strengthTextClass =
+    trimmedPassword.length === 0
+      ? "text-slate-400"
+      : strengthScore <= 1
+        ? "text-red-300"
+        : strengthScore <= 3
+          ? "text-amber-300"
+          : "text-emerald-300";
 
   const successRedirectDelayMs = 2500;
+  const oauthProviders = [
+    { key: "google", label: "Continue with Google", icon: FaGoogle },
+    { key: "github", label: "Continue with GitHub", icon: FaGithub },
+    { key: "linkedin_oidc", label: "Continue with LinkedIn", icon: FaLinkedinIn },
+  ];
 
   const validateForm = () => {
     const newErrors = {};
@@ -158,6 +210,32 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
     }
   };
 
+  const handleOAuthSignIn = async (provider) => {
+    setErrors({});
+    setStatusMessage(null);
+    setOauthLoadingProvider(provider);
+
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/dashboard`,
+        },
+      });
+
+      if (error) {
+        setStatusMessage({ type: "error", text: error.message });
+      }
+    } catch (err) {
+      setStatusMessage({
+        type: "error",
+        text: err.message || "Unable to start social sign in.",
+      });
+    } finally {
+      setOauthLoadingProvider(null);
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className="w-full space-y-5">
       <div className="space-y-2 text-center">
@@ -177,6 +255,32 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
         </div>
       )}
 
+      <div className="space-y-2">
+        {oauthProviders.map((provider) => {
+          const Icon = provider.icon;
+          const isLoading = oauthLoadingProvider === provider.key;
+
+          return (
+            <button
+              key={provider.key}
+              type="button"
+              onClick={() => handleOAuthSignIn(provider.key)}
+              disabled={loading || Boolean(oauthLoadingProvider)}
+              className="btn-oauth flex w-full items-center justify-center gap-2 rounded-xl border border-[#355678] bg-[rgba(10,25,47,0.8)] px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-[var(--accent-blue)]/60 hover:bg-[rgba(20,44,75,0.92)] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              <Icon className="text-base" />
+              <span>{isLoading ? "Redirecting..." : provider.label}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="flex items-center gap-3">
+        <span className="h-px flex-1 bg-white/15" />
+        <span className="text-xs uppercase tracking-[0.16em] text-slate-400">or</span>
+        <span className="h-px flex-1 bg-white/15" />
+      </div>
+
       <div>
         <label className="mb-2 block text-sm font-medium text-[var(--text-light)]">Full Name</label>
         <div className="relative">
@@ -195,9 +299,11 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
             }`}
             required
             autoComplete="name"
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? "register-name-error" : undefined}
           />
         </div>
-        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+        {errors.name && <p id="register-name-error" className="text-red-500 text-sm mt-1">{errors.name}</p>}
       </div>
 
       <div>
@@ -218,9 +324,11 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
             }`}
             required
             autoComplete="email"
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? "register-email-error" : undefined}
           />
         </div>
-        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+        {errors.email && <p id="register-email-error" className="text-red-500 text-sm mt-1">{errors.email}</p>}
       </div>
 
       <div>
@@ -242,9 +350,11 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
                 : "border-[#28476b] focus:ring-[var(--accent-blue)]/50"
             }`}
             autoComplete="tel"
+            aria-invalid={Boolean(errors.phone)}
+            aria-describedby={errors.phone ? "register-phone-error" : undefined}
           />
         </div>
-        {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+        {errors.phone && <p id="register-phone-error" className="text-red-500 text-sm mt-1">{errors.phone}</p>}
       </div>
 
       <div>
@@ -265,6 +375,9 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
             }`}
             required
             autoComplete="new-password"
+            minLength={6}
+            aria-invalid={Boolean(errors.password)}
+            aria-describedby={errors.password ? "register-password-error" : "register-password-hint"}
           />
           <button
             type="button"
@@ -275,7 +388,28 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
         </div>
-        {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+        {errors.password && <p id="register-password-error" className="text-red-500 text-sm mt-1">{errors.password}</p>}
+        <div id="register-password-hint" className="mt-2 rounded-lg border border-white/10 bg-[var(--primary-dark)]/45 px-3 py-2 text-xs text-slate-300">
+          <div className="mb-2">
+            <div className="mb-1 flex items-center justify-between">
+              <span className="text-slate-300">Strength</span>
+              <span className={`font-semibold ${strengthTextClass}`}>{strengthLabel}</span>
+            </div>
+            <div className="h-2 w-full overflow-hidden rounded-full bg-slate-700/80">
+              <div
+                className={`h-full rounded-full transition-all duration-300 ${strengthColorClass}`}
+                style={{ width: `${strengthPercent}%` }}
+              />
+            </div>
+          </div>
+          <p className="mb-1 font-medium text-slate-200">Password guidance:</p>
+          <ul className="space-y-1">
+            <li className={hasMinLength ? "text-emerald-300" : "text-slate-400"}>• Minimum 6 characters</li>
+            <li className={hasLetter ? "text-emerald-300" : "text-slate-400"}>• Include at least one letter</li>
+            <li className={hasNumber ? "text-emerald-300" : "text-slate-400"}>• Include at least one number (recommended)</li>
+            <li className={hasSymbol ? "text-emerald-300" : "text-slate-400"}>• Include at least one symbol (recommended)</li>
+          </ul>
+        </div>
       </div>
 
       <div>
@@ -296,9 +430,22 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
             }`}
             required
             autoComplete="new-password"
+            minLength={6}
+            aria-invalid={Boolean(errors.confirmPassword)}
+            aria-describedby={errors.confirmPassword ? "register-confirm-error" : "register-confirm-hint"}
           />
         </div>
-        {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>}
+        {errors.confirmPassword ? (
+          <p id="register-confirm-error" className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
+        ) : (
+          <p id="register-confirm-hint" className={`mt-1 text-xs ${password.length === 0 || passwordsMatch ? "text-slate-400" : "text-amber-300"}`}>
+            {password.length === 0
+              ? "Confirm password must match and be at least 6 characters."
+              : passwordsMatch
+                ? "Passwords match."
+                : "Passwords do not match yet."}
+          </p>
+        )}
       </div>
 
       <button
