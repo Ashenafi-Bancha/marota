@@ -26,18 +26,24 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
       icon: FaGoogle,
       iconClassName:
         "bg-[conic-gradient(from_210deg,_#ea4335_0deg,_#ea4335_90deg,_#fbbc05_90deg,_#fbbc05_180deg,_#34a853_180deg,_#34a853_270deg,_#4285f4_270deg,_#4285f4_360deg)] bg-clip-text text-transparent",
+      hoverClassName:
+        "hover:border-[#4285f4]/70 hover:shadow-[0_0_0_1px_rgba(66,133,244,0.18),0_0_18px_rgba(234,67,53,0.15)]",
     },
     {
       key: "github",
       label: "Continue with GitHub",
       icon: FaGithub,
       iconClassName: "text-slate-200",
+      hoverClassName:
+        "hover:border-slate-300/45 hover:shadow-[0_0_0_1px_rgba(226,232,240,0.12)]",
     },
     {
       key: "linkedin_oidc",
       label: "Continue with LinkedIn",
       icon: FaLinkedinIn,
       iconClassName: "text-[#0a66c2]",
+      hoverClassName:
+        "hover:border-[#0a66c2]/70 hover:shadow-[0_0_0_1px_rgba(10,102,194,0.18),0_0_14px_rgba(10,102,194,0.2)]",
     },
   ];
 
@@ -142,6 +148,7 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
           const Icon = provider.icon;
           const isLoading = oauthLoadingProvider === provider.key;
           const iconClassName = provider.iconClassName || "text-slate-100";
+          const hoverClassName = provider.hoverClassName || "hover:border-[var(--accent-blue)]/60";
 
           return (
             <button
@@ -149,7 +156,7 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
               type="button"
               onClick={() => handleOAuthSignIn(provider.key)}
               disabled={loading || Boolean(oauthLoadingProvider)}
-              className="btn-oauth flex w-full items-center justify-center gap-2 rounded-xl border border-[#355678] bg-[rgba(10,25,47,0.8)] px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-[var(--accent-blue)]/60 hover:bg-[rgba(20,44,75,0.92)] disabled:cursor-not-allowed disabled:opacity-60"
+              className={`btn-oauth flex w-full items-center justify-center gap-2 rounded-xl border border-[#355678] bg-[rgba(10,25,47,0.8)] px-4 py-3 text-sm font-medium text-slate-100 transition duration-200 hover:bg-[rgba(20,44,75,0.92)] ${hoverClassName} disabled:cursor-not-allowed disabled:opacity-60`}
             >
               <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/95 shadow-sm">
                 <Icon className={`text-base ${iconClassName}`} />
