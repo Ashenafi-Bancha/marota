@@ -20,9 +20,25 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
   const [oauthLoadingProvider, setOauthLoadingProvider] = useState(null);
 
   const oauthProviders = [
-    { key: "google", label: "Continue with Google", icon: FaGoogle },
-    { key: "github", label: "Continue with GitHub", icon: FaGithub },
-    { key: "linkedin_oidc", label: "Continue with LinkedIn", icon: FaLinkedinIn },
+    {
+      key: "google",
+      label: "Continue with Google",
+      icon: FaGoogle,
+      iconClassName:
+        "bg-[conic-gradient(from_210deg,_#ea4335_0deg,_#ea4335_90deg,_#fbbc05_90deg,_#fbbc05_180deg,_#34a853_180deg,_#34a853_270deg,_#4285f4_270deg,_#4285f4_360deg)] bg-clip-text text-transparent",
+    },
+    {
+      key: "github",
+      label: "Continue with GitHub",
+      icon: FaGithub,
+      iconClassName: "text-slate-200",
+    },
+    {
+      key: "linkedin_oidc",
+      label: "Continue with LinkedIn",
+      icon: FaLinkedinIn,
+      iconClassName: "text-[#0a66c2]",
+    },
   ];
 
   const validateForm = () => {
@@ -125,6 +141,7 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
         {oauthProviders.map((provider) => {
           const Icon = provider.icon;
           const isLoading = oauthLoadingProvider === provider.key;
+          const iconClassName = provider.iconClassName || "text-slate-100";
 
           return (
             <button
@@ -134,7 +151,9 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
               disabled={loading || Boolean(oauthLoadingProvider)}
               className="btn-oauth flex w-full items-center justify-center gap-2 rounded-xl border border-[#355678] bg-[rgba(10,25,47,0.8)] px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-[var(--accent-blue)]/60 hover:bg-[rgba(20,44,75,0.92)] disabled:cursor-not-allowed disabled:opacity-60"
             >
-              <Icon className="text-base" />
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/95 shadow-sm">
+                <Icon className={`text-base ${iconClassName}`} />
+              </span>
               <span>{isLoading ? "Redirecting..." : provider.label}</span>
             </button>
           );
