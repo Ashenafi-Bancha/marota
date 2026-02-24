@@ -6,7 +6,6 @@ import {
   FaEyeSlash,
   FaEnvelope,
   FaLock,
-  FaLinkedinIn,
   FaGithub,
 } from "react-icons/fa";
 
@@ -36,8 +35,6 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
     {
       key: "linkedin_oidc",
       label: "Continue with LinkedIn",
-      icon: FaLinkedinIn,
-      iconClassName: "text-[#0a66c2]",
       hoverClassName:
         "hover:border-[#0a66c2]/70 hover:shadow-[0_0_0_1px_rgba(10,102,194,0.18),0_0_14px_rgba(10,102,194,0.2)]",
     },
@@ -62,6 +59,20 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
           <path
             fill="#EA4335"
             d="M9 3.5809c1.3214 0 2.5077.4541 3.4405 1.3459l2.5813-2.5814C13.4632.8918 11.4268 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9595l3.0063 2.3318C4.6718 5.1641 6.6559 3.5809 9 3.5809z"
+          />
+        </svg>
+      );
+    }
+
+    if (provider.key === "linkedin_oidc") {
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+          <rect x="2" y="2" width="20" height="20" rx="3" fill="#0A66C2" />
+          <circle cx="8" cy="8" r="1.45" fill="#FFFFFF" />
+          <rect x="6.75" y="10" width="2.5" height="8" fill="#FFFFFF" />
+          <path
+            fill="#FFFFFF"
+            d="M11.2 10h2.35v1.1h.03c.33-.62 1.13-1.27 2.32-1.27 2.48 0 2.94 1.63 2.94 3.75V18H16.4v-3.89c0-.93-.02-2.13-1.3-2.13-1.3 0-1.5 1.01-1.5 2.05V18H11.2V10z"
           />
         </svg>
       );
