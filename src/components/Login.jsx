@@ -6,7 +6,6 @@ import {
   FaEyeSlash,
   FaEnvelope,
   FaLock,
-  FaGoogle,
   FaLinkedinIn,
   FaGithub,
 } from "react-icons/fa";
@@ -23,9 +22,6 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
     {
       key: "google",
       label: "Continue with Google",
-      icon: FaGoogle,
-      iconClassName:
-        "bg-[conic-gradient(from_210deg,_#ea4335_0deg,_#ea4335_90deg,_#fbbc05_90deg,_#fbbc05_180deg,_#34a853_180deg,_#34a853_270deg,_#4285f4_270deg,_#4285f4_360deg)] bg-clip-text text-transparent",
       hoverClassName:
         "hover:border-[#4285f4]/70 hover:shadow-[0_0_0_1px_rgba(66,133,244,0.18),0_0_18px_rgba(234,67,53,0.15)]",
     },
@@ -33,7 +29,7 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
       key: "github",
       label: "Continue with GitHub",
       icon: FaGithub,
-      iconClassName: "text-slate-200",
+      iconClassName: "text-[#111827]",
       hoverClassName:
         "hover:border-slate-300/45 hover:shadow-[0_0_0_1px_rgba(226,232,240,0.12)]",
     },
@@ -46,6 +42,34 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
         "hover:border-[#0a66c2]/70 hover:shadow-[0_0_0_1px_rgba(10,102,194,0.18),0_0_14px_rgba(10,102,194,0.2)]",
     },
   ];
+
+  const renderOAuthIcon = (provider) => {
+    if (provider.key === "google") {
+      return (
+        <svg viewBox="0 0 13 15" aria-hidden="true" className="h-4 w-4">
+          <path
+            fill="#EA4335"
+            d="M12.545 8.658c0-.576-.052-1.13-.149-1.658H6v3.138h3.663a3.132 3.132 0 0 1-1.358 2.056v1.708h2.194c1.284-1.182 2.046-2.924 2.046-5.244z"
+          />
+          <path
+            fill="#34A853"
+            d="M6 15c1.755 0 3.226-.58 4.301-1.57l-2.194-1.708c-.61.408-1.389.65-2.107.65-1.62 0-2.992-1.094-3.482-2.565H.248v1.764A6.5 6.5 0 0 0 6 15z"
+          />
+          <path
+            fill="#4285F4"
+            d="M2.518 9.807A3.903 3.903 0 0 1 2.323 8.5c0-.454.079-.894.195-1.307V5.43H.248A6.5 6.5 0 0 0 0 8.5c0 1.045.25 2.033.693 2.929l1.825-1.622z"
+          />
+          <path
+            fill="#FBBC05"
+            d="M6 2.628c.954 0 1.81.328 2.484.972l1.863-1.863C9.223.716 7.752 0 6 0A6.5 6.5 0 0 0 .248 3.43l2.27 1.764C3.008 3.722 4.38 2.628 6 2.628z"
+          />
+        </svg>
+      );
+    }
+
+    const Icon = provider.icon;
+    return <Icon className={`text-base ${provider.iconClassName || "text-slate-100"}`} />;
+  };
 
   const validateForm = () => {
     const newErrors = {};
@@ -145,9 +169,7 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
 
       <div className="space-y-2">
         {oauthProviders.map((provider) => {
-          const Icon = provider.icon;
           const isLoading = oauthLoadingProvider === provider.key;
-          const iconClassName = provider.iconClassName || "text-slate-100";
           const hoverClassName = provider.hoverClassName || "hover:border-[var(--accent-blue)]/60";
 
           return (
@@ -159,7 +181,7 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
               className={`btn-oauth flex w-full items-center justify-center gap-2 rounded-xl border border-[#355678] bg-[rgba(10,25,47,0.8)] px-4 py-3 text-sm font-medium text-slate-100 transition duration-200 hover:bg-[rgba(20,44,75,0.92)] ${hoverClassName} disabled:cursor-not-allowed disabled:opacity-60`}
             >
               <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/95 shadow-sm">
-                <Icon className={`text-base ${iconClassName}`} />
+                {renderOAuthIcon(provider)}
               </span>
               <span>{isLoading ? "Redirecting..." : provider.label}</span>
             </button>
