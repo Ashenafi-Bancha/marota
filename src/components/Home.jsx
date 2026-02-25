@@ -116,6 +116,12 @@ export default function Hero() {
             and Software Collage </span>
         </h1>
 
+        <p className="hero-brand-slogan mx-auto mb-2 max-w-4xl px-3 text-base sm:text-xl md:text-2xl lg:text-3xl font-semibold leading-snug">
+          <span className="hero-brand-slogan-text">
+            Your Gateway to a Limitless Digital Future
+          </span>
+        </p>
+
         <p className="text-base sm:text-lg md:text-2xl mb-2 max-w-3xl text-gray-200 leading-relaxed mx-auto px-2 sm:px-4 py-2">
           Join our comprehensive programs in cinematography and software
           development. Learn from experts and launch your creative career.
