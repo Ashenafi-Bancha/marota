@@ -109,13 +109,13 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
 
     if (provider.key === "linkedin_oidc") {
       return (
-        <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+        <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4.5 w-4.5">
           <rect x="2" y="2" width="20" height="20" rx="3" fill="#0A66C2" />
-          <circle cx="8" cy="8" r="1.45" fill="#FFFFFF" />
-          <rect x="6.75" y="10" width="2.5" height="8" fill="#FFFFFF" />
+          <circle cx="8" cy="8" r="1.7" fill="#FFFFFF" />
+          <rect x="6.6" y="10" width="2.8" height="8.4" fill="#FFFFFF" />
           <path
             fill="#FFFFFF"
-            d="M11.2 10h2.35v1.1h.03c.33-.62 1.13-1.27 2.32-1.27 2.48 0 2.94 1.63 2.94 3.75V18H16.4v-3.89c0-.93-.02-2.13-1.3-2.13-1.3 0-1.5 1.01-1.5 2.05V18H11.2V10z"
+            d="M11 10h2.55v1.2h.04c.36-.68 1.24-1.4 2.55-1.4 2.72 0 3.22 1.79 3.22 4.12V18.4h-2.66v-4.28c0-1.02-.02-2.34-1.43-2.34-1.44 0-1.65 1.1-1.65 2.25v4.37H11V10z"
           />
         </svg>
       );
@@ -123,6 +123,14 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
 
     const Icon = provider.icon;
     return <Icon className={`text-base ${provider.iconClassName || "text-slate-100"}`} />;
+  };
+
+  const getOAuthIconBadgeClass = (providerKey) => {
+    if (providerKey === "linkedin_oidc") {
+      return "inline-flex h-6.5 w-6.5 items-center justify-center rounded-md bg-[#0A66C2] shadow-[0_0_0_1px_rgba(10,102,194,0.35)]";
+    }
+
+    return "inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/95 shadow-sm";
   };
 
   const validateForm = () => {
@@ -325,7 +333,7 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
               disabled={loading || Boolean(oauthLoadingProvider)}
               className={`btn-oauth flex w-full items-center justify-center gap-2 rounded-xl border border-[#355678] bg-[rgba(10,25,47,0.8)] px-4 py-3 text-sm font-medium text-slate-100 transition duration-200 hover:bg-[rgba(20,44,75,0.92)] ${hoverClassName} disabled:cursor-not-allowed disabled:opacity-60`}
             >
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/95 shadow-sm">
+              <span className={getOAuthIconBadgeClass(provider.key)}>
                 {renderOAuthIcon(provider)}
               </span>
               <span>{isLoading ? "Redirecting..." : provider.label}</span>
