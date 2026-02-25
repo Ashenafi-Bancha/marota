@@ -68,6 +68,12 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
         "hover:border-[#4285f4]/70 hover:shadow-[0_0_0_1px_rgba(66,133,244,0.18),0_0_18px_rgba(234,67,53,0.15)]",
     },
     {
+      key: "facebook",
+      label: "Continue with Facebook",
+      hoverClassName:
+        "hover:border-[#1877f2]/70 hover:shadow-[0_0_0_1px_rgba(24,119,242,0.2),0_0_14px_rgba(24,119,242,0.2)]",
+    },
+    {
       key: "github",
       label: "Continue with GitHub",
       icon: FaGithub,
@@ -102,6 +108,21 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
           <path
             fill="#EA4335"
             d="M9 3.5809c1.3214 0 2.5077.4541 3.4405 1.3459l2.5813-2.5814C13.4632.8918 11.4268 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9595l3.0063 2.3318C4.6718 5.1641 6.6559 3.5809 9 3.5809z"
+          />
+        </svg>
+      );
+    }
+
+    if (provider.key === "facebook") {
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
+          <path
+            fill="#1877F2"
+            d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073c0 6.025 4.388 11.02 10.125 11.927v-8.438H7.078v-3.49h3.047V9.413c0-3.017 1.792-4.687 4.533-4.687 1.313 0 2.686.236 2.686.236v2.961h-1.514c-1.491 0-1.956.93-1.956 1.885v2.264h3.328l-.532 3.49h-2.796V24C19.612 23.093 24 18.098 24 12.073z"
+          />
+          <path
+            fill="#FFFFFF"
+            d="M16.671 15.562l.532-3.49h-3.328V9.808c0-.955.465-1.885 1.956-1.885h1.514V4.962s-1.373-.236-2.686-.236c-2.741 0-4.533 1.67-4.533 4.687v2.659H7.078v3.49h3.047V24a12.18 12.18 0 003.75 0v-8.438h2.796z"
           />
         </svg>
       );
