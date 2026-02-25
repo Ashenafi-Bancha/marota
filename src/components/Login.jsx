@@ -66,13 +66,13 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
 
     if (provider.key === "linkedin_oidc") {
       return (
-        <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4.5 w-4.5">
+        <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
           <rect x="2" y="2" width="20" height="20" rx="3" fill="#0A66C2" />
-          <circle cx="8" cy="8" r="1.7" fill="#FFFFFF" />
-          <rect x="6.6" y="10" width="2.8" height="8.4" fill="#FFFFFF" />
+          <circle cx="8" cy="8" r="1.9" fill="#FFFFFF" />
+          <rect x="6.4" y="10" width="3.2" height="8.6" fill="#FFFFFF" />
           <path
             fill="#FFFFFF"
-            d="M11 10h2.55v1.2h.04c.36-.68 1.24-1.4 2.55-1.4 2.72 0 3.22 1.79 3.22 4.12V18.4h-2.66v-4.28c0-1.02-.02-2.34-1.43-2.34-1.44 0-1.65 1.1-1.65 2.25v4.37H11V10z"
+            d="M10.8 10h2.7v1.26h.04c.38-.72 1.32-1.48 2.72-1.48 2.9 0 3.44 1.92 3.44 4.41v4.73h-2.84v-4.58c0-1.09-.02-2.5-1.53-2.5-1.53 0-1.76 1.18-1.76 2.4v4.68h-2.77V10z"
           />
         </svg>
       );
@@ -82,13 +82,8 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
     return <Icon className={`text-base ${provider.iconClassName || "text-slate-100"}`} />;
   };
 
-  const getOAuthIconBadgeClass = (providerKey) => {
-    if (providerKey === "linkedin_oidc") {
-      return "inline-flex h-6.5 w-6.5 items-center justify-center rounded-md bg-[#0A66C2] shadow-[0_0_0_1px_rgba(10,102,194,0.35)]";
-    }
-
-    return "inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/95 shadow-sm";
-  };
+  const getOAuthIconBadgeClass = () =>
+    "inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/95 shadow-sm";
 
   const validateForm = () => {
     const newErrors = {};
