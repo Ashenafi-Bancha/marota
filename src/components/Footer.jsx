@@ -21,11 +21,16 @@ function Footer() {
 
         {/* About */}
         <div>
-          <h4 className="mb-4 text-xl font-semibold text-white">
-            MAROTA FILM & SOFTWARE COLLEGE
-          </h4>
-          <p className="text-sm leading-relaxed text-slate-300">
-            Where cinematic artistry and digital innovation converge, Marota empowers Ethiopia’s next generation in film, software, and creative technology.
+          <div className="mb-4 flex items-center gap-3">
+            <img
+              src={logo}
+              alt="Marota Logo"
+              className="h-9 w-9 rounded-full object-contain ring-2 ring-yellow-300/35"
+            />
+            <h4 className="text-2xl font-bold tracking-wide text-yellow-300">Marota</h4>
+          </div>
+          <p className="max-w-sm text-sm leading-relaxed text-slate-300">
+            Practical film and software training for a digital-first future.
           </p>
 
 
@@ -118,7 +123,7 @@ function Footer() {
               className="h-5 w-5 rounded-full object-contain md:h-6 md:w-6"
             />
             <span className="text-xs sm:text-sm md:text-[15px] leading-relaxed">
-              &copy; {new Date().getFullYear()} Marota Film & Software College. All Rights Reserved.
+              &copy; {new Date().getFullYear()} Marota. All Rights Reserved.
             </span>
           </div>
 
