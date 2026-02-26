@@ -2,20 +2,21 @@
 import { FaFacebookF, FaTelegramPlane, FaTiktok, FaLinkedinIn, FaInstagram, FaYoutube } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo1.png";
-import { diplomaLevels, shortCourses } from "../data/courses";
 
 function Footer() {
-  const diplomaCourseTitles = Array.from(
-    new Set(
-      diplomaLevels.flatMap((level) => level.courses.map((course) => course.title))
-    )
-  );
-
-  const shortCourseTitles = shortCourses.map((course) => course.title);
+  const quickLinks = [
+    { label: "Home", href: "/#home" },
+    { label: "About", href: "/#about" },
+    { label: "Courses", href: "/#services" },
+    { label: "Portifolio", href: "/#portfolio" },
+    { label: "Gallery", href: "/#gallery" },
+    { label: "Instructors", href: "/#instructors" },
+    { label: "Contact", href: "/#contact" },
+  ];
 
   return (
     <footer className="mt-14 border-t border-white/10 bg-[linear-gradient(180deg,#071021_0%,#040b17_100%)] text-gray-300 pt-14 pb-6">
-      <div className="max-w-7xl mx-auto px-6 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+      <div className="max-w-7xl mx-auto px-6 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
 
         
 
@@ -42,32 +43,16 @@ function Footer() {
           </a>
         </div>
 
-        {/* Diploma Courses */}
+        {/* Quick Links */}
         <div>
           <h4 className="text-xl font-semibold text-white mb-4">
-            Diploma Courses
+            Quick Links
           </h4>
           <ul className="space-y-2 text-sm text-slate-300">
-            {diplomaCourseTitles.map((courseTitle) => (
-              <li key={`dip-${courseTitle}`}>
-                <a href="/#services" className="hover:text-yellow-200 transition">
-                  {courseTitle}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Short Term Courses */}
-        <div>
-          <h4 className="text-xl font-semibold text-white mb-4">
-            Short Term Courses
-          </h4>
-          <ul className="space-y-2 text-sm text-slate-300">
-            {shortCourseTitles.map((courseTitle) => (
-              <li key={`short-${courseTitle}`}>
-                <a href="/#services" className="hover:text-yellow-200 transition">
-                  {courseTitle}
+            {quickLinks.map((item) => (
+              <li key={item.label}>
+                <a href={item.href} className="hover:text-yellow-200 transition">
+                  {item.label}
                 </a>
               </li>
             ))}
