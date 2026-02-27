@@ -34,16 +34,8 @@ function Footer() {
             <h4 className="text-2xl font-bold tracking-wide text-yellow-300 drop-shadow-[0_0_14px_rgba(250,204,21,0.22)]">Marota</h4>
           </div>
           <p className="max-w-sm text-sm leading-relaxed text-slate-300/95">
-            Practical film and software training for a digital-first future.
+            Marota equips students with practical skills in film production and software development through hands-on training, mentorship, and industry-focused learning.
           </p>
-
-
-          <a
-            href="/#contact"
-            className="mt-5 inline-flex rounded-full bg-[var(--accent-blue)] px-6 py-3 text-sm font-semibold text-[var(--primary-dark)] transition hover:translate-y-[-3px] hover:bg-[#14b8a6] hover:text-white hover:shadow-lg"
-          >
-            Contact Admissions
-          </a>
         </div>
 
         {/* Quick Links */}
