@@ -10,6 +10,36 @@ const SEO_BY_ROUTE = {
     description:
       "Marota Film and Software College offers professional training in software development, film making, graphics design, web development, and digital skills in Ethiopia.",
   },
+  "/about": {
+    title: "About Marota | Film and Software College",
+    description:
+      "Learn about Marota's mission, vision, values, and impact in film and software education.",
+  },
+  "/courses": {
+    title: "Courses | Marota Film and Software College",
+    description:
+      "Explore Marota diploma and short-term courses in film, software, design, and digital skills.",
+  },
+  "/portfolio": {
+    title: "Portfolio | Marota",
+    description:
+      "View selected student and institutional projects across film production, web, and design.",
+  },
+  "/gallery": {
+    title: "Gallery | Marota",
+    description:
+      "See moments from Marota classes, events, and campus activities.",
+  },
+  "/instructors": {
+    title: "Instructors | Marota",
+    description:
+      "Meet Marota instructors and mentors with practical industry experience.",
+  },
+  "/contact": {
+    title: "Contact Marota",
+    description:
+      "Contact Marota for admissions, location details, and inquiries.",
+  },
   "/login": {
     title: "Sign In | Marota Film and Software College",
     description:

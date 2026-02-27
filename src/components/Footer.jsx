@@ -5,13 +5,13 @@ import logo from "../assets/logo1.png";
 
 function Footer() {
   const quickLinks = [
-    { label: "Home", href: "/#home" },
-    { label: "About", href: "/#about" },
-    { label: "Courses", href: "/#services" },
-    { label: "Portifolio", href: "/#portfolio" },
-    { label: "Gallery", href: "/#gallery" },
-    { label: "Instructors", href: "/#instructors" },
-    { label: "Contact", href: "/#contact" },
+    { label: "Home", to: "/" },
+    { label: "About", to: "/about" },
+    { label: "Courses", to: "/courses" },
+    { label: "Portifolio", to: "/portfolio" },
+    { label: "Gallery", to: "/gallery" },
+    { label: "Instructors", to: "/instructors" },
+    { label: "Contact", to: "/contact" },
   ];
 
   return (
@@ -46,12 +46,12 @@ function Footer() {
           <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-slate-300">
             {quickLinks.map((item) => (
               <li key={item.label}>
-                <a
-                  href={item.href}
+                <Link
+                  to={item.to}
                   className="inline-flex items-center text-slate-300 transition duration-200 hover:translate-x-1 hover:text-yellow-200"
                 >
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -110,7 +110,7 @@ function Footer() {
             </span>
           </div>
 
-          <nav aria-label="Legal" className="flex items-center justify-center gap-3 text-[11px] text-slate-500/90 sm:text-xs md:justify-end">
+          <nav aria-label="Legal" className="flex items-center justify-center gap-3 text-sm text-slate-500/90 md:justify-end">
             <Link to="/privacy" className="text-inherit transition-colors duration-200 hover:text-slate-200">
               Privacy Policy
             </Link>

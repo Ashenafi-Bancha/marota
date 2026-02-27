@@ -1,6 +1,12 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout";
-import HomeContent from "./components/HomeContent"; // Hero, About, etc.
+import Hero from "./components/Home";
+import About from "./components/About";
+import Services from "./components/Services";
+import Instructors from "./components/Instructors";
+import Portfolio from "./components/Portfolio";
+import Gallery from "./components/Gallery";
+import Contact from "./components/Contact";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 import LoginPage from "./pages/LoginPage";
@@ -22,10 +28,59 @@ function App() {
           path="/"
           element={
             <Layout>
-              <HomeContent />  {/* Hero, About, Services, etc. */}
+              <Hero />
             </Layout>
           }
         />
+        <Route
+          path="/about"
+          element={
+            <Layout>
+              <About />
+            </Layout>
+          }
+        />
+        <Route
+          path="/courses"
+          element={
+            <Layout>
+              <Services />
+            </Layout>
+          }
+        />
+        <Route
+          path="/portfolio"
+          element={
+            <Layout>
+              <Portfolio />
+            </Layout>
+          }
+        />
+        <Route
+          path="/gallery"
+          element={
+            <Layout>
+              <Gallery />
+            </Layout>
+          }
+        />
+        <Route
+          path="/instructors"
+          element={
+            <Layout>
+              <Instructors />
+            </Layout>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <Layout>
+              <Contact />
+            </Layout>
+          }
+        />
+        <Route path="/services" element={<Navigate to="/courses" replace />} />
 
         {/* Login/Register standalone pages */}
         <Route

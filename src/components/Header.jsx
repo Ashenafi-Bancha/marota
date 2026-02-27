@@ -22,18 +22,16 @@ import Modal from "./Modal";
   const { user, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const isHome = location.pathname === "/";
-  const [activeSection, setActiveSection] = useState("home");
   const normalizedQuery = searchQuery.trim().toLowerCase();
-  const navSections = useMemo(
+  const navItems = useMemo(
     () => [
-      "home",
-      "about",
-      "services",
-      "portfolio",
-      "gallery",
-      "instructors",
-      "contact",
+      { label: "Home", path: "/" },
+      { label: "About", path: "/about" },
+      { label: "Courses", path: "/courses" },
+      { label: "Portifolio", path: "/portfolio" },
+      { label: "Gallery", path: "/gallery" },
+      { label: "Instructors", path: "/instructors" },
+      { label: "Contact", path: "/contact" },
     ],
     []
   );
@@ -71,18 +69,12 @@ import Modal from "./Modal";
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     if (!searchQuery.trim()) return;
-    const target = document.getElementById("services");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    navigate("/courses");
   };
 
   const handleCourseSelect = (title) => {
     setSearchQuery(title);
-    const target = document.getElementById("services");
-    if (target) {
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    navigate("/courses");
   };
 
   const goToProtectedPage = (path) => {
@@ -114,65 +106,6 @@ import Modal from "./Modal";
     user?.user_metadata?.full_name ||
     user?.email?.split("@")[0] ||
     "User";
-
-  const handleSectionClick = (event, sectionId) => {
-    if (!isHome) return;
-    event.preventDefault();
-    const target = document.getElementById(sectionId);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-      setActiveSection(sectionId);
-    }
-  };
-
-  useEffect(() => {
-    if (!isHome) return;
-
-    let frameId = null;
-    const handleScroll = () => {
-      if (frameId) return;
-      frameId = window.requestAnimationFrame(() => {
-        const scrollPosition = window.scrollY + 140;
-        let currentSection = "home";
-
-        navSections.forEach((section) => {
-          const element = document.getElementById(section);
-          if (!element) return;
-          if (element.offsetTop <= scrollPosition) {
-            currentSection = section;
-          }
-        });
-
-        setActiveSection(currentSection);
-        frameId = null;
-      });
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      if (frameId) {
-        window.cancelAnimationFrame(frameId);
-      }
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [isHome, navSections]);
-
-  useEffect(() => {
-    if (!isHome) return;
-    const hash = location.hash?.replace("#", "").trim();
-    if (!hash) return;
-
-    const timer = window.setTimeout(() => {
-      const target = document.getElementById(hash);
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-        setActiveSection(hash);
-      }
-    }, 0);
-
-    return () => window.clearTimeout(timer);
-  }, [isHome, location.hash]);
 
   useEffect(() => {
     setProfileMenuOpen(false);
@@ -252,36 +185,21 @@ import Modal from "./Modal";
         
         {/* Desktop Nav */}
         <nav className="mx-6 hidden items-center gap-3 rounded-full border border-white/10 bg-[#112240]/70 px-4 py-2 xl:flex 2xl:gap-4">
-          {["Home", "About", "Services", "Portfolio", "Gallery", "Instructors", "Contact"].map(
-            (item) => {
-              const sectionId = item.toLowerCase();
-              const isActive = isHome && activeSection === sectionId;
-              return isHome ? (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  onClick={(event) => handleSectionClick(event, sectionId)}
-                  className={`rounded-full px-3 py-1.5 text-sm transition-colors hover:text-[var(--accent-blue)] ${
-                    isActive ? "bg-cyan-400/15 text-[var(--accent-blue)]" : ""
-                  }`}
-                >
-                  {item}
-                </a>
-              ) : (
-                <Link
-                  key={item}
-                  to={
-                    item === "Portfolio" || item === "Contact"
-                      ? `/#${sectionId}`
-                      : "/"
-                  }
-                  className="rounded-full px-3 py-1.5 text-sm transition-colors hover:bg-cyan-400/10 hover:text-[var(--accent-blue)]"
-                >
-                  {item === "Portfolio" ? "Portifolio" : item}
-                </Link>
-              );
-            }
-          )}
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.path;
+
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`rounded-full px-3 py-1.5 text-sm transition-colors hover:bg-cyan-400/10 hover:text-[var(--accent-blue)] ${
+                  isActive ? "bg-cyan-400/15 text-[var(--accent-blue)]" : ""
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Search + Auth */}
@@ -439,40 +357,22 @@ import Modal from "./Modal";
       {/* Mobile Nav */}
       {menuOpen && (
         <div className="xl:hidden flex max-h-[calc(100vh-7.5rem)] overflow-y-auto flex-col items-stretch gap-4 border-t border-white/10 bg-[#0d1f3c]/95 px-4 py-4 pb-6 backdrop-blur-md">
-          {["Home", "About", "Services", "Portfolio", "Gallery", "Instructors", "Contact"].map(
-            (item) => {
-              const sectionId = item.toLowerCase();
-              const isActive = isHome && activeSection === sectionId;
-              return isHome ? (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  onClick={(event) => {
-                    handleSectionClick(event, sectionId);
-                    setMenuOpen(false);
-                  }}
-                  className={`rounded-lg px-3 py-2 text-center transition-colors hover:bg-cyan-400/10 hover:text-[var(--accent-blue)] ${
-                    isActive ? "bg-cyan-400/15 text-[var(--accent-blue)]" : ""
-                  }`}
-                >
-                  {item}
-                </a>
-              ) : (
-                <Link
-                  key={item}
-                  to={
-                    item === "Portfolio" || item === "Contact"
-                      ? `/#${sectionId}`
-                      : "/"
-                  }
-                  onClick={() => setMenuOpen(false)}
-                  className="rounded-lg px-3 py-2 text-center transition-colors hover:bg-cyan-400/10 hover:text-[var(--accent-blue)]"
-                >
-                  {item === "Portfolio" ? "Portifolio" : item}
-                </Link>
-              );
-            }
-          )}
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.path;
+
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={() => setMenuOpen(false)}
+                className={`rounded-lg px-3 py-2 text-center transition-colors hover:bg-cyan-400/10 hover:text-[var(--accent-blue)] ${
+                  isActive ? "bg-cyan-400/15 text-[var(--accent-blue)]" : ""
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         {user ? (
           <div className="flex flex-col items-center gap-3 w-full">
             {!isAdmin && (
