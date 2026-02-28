@@ -77,26 +77,26 @@ export default function Hero() {
         ))}
 
         {/* Overlay gradient for readability */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(17,34,64,0.8)_0%,_rgba(10,25,47,0.95)_70%)]"></div>
+        <div className="hero-overlay absolute inset-0"></div>
       </div>
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-7xl px-3 sm:px-5 text-center mt-2 md:mt-0 mx-auto">
         <div className="mb-5 flex justify-center">
-          <div className="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-yellow-300/50 bg-[#0b1d36]/90 px-5 py-4 sm:px-7 sm:py-5 shadow-[0_0_36px_rgba(250,204,21,0.2)]">
+          <div className="hero-announcement-card relative w-full max-w-4xl overflow-hidden rounded-2xl px-5 py-4 sm:px-7 sm:py-5">
             <span className="absolute -top-8 -left-8 h-28 w-28 rounded-full bg-yellow-300/20 blur-2xl animate-pulse" />
             <span className="absolute -bottom-10 -right-10 h-36 w-36 rounded-full bg-cyan-300/20 blur-2xl animate-pulse" />
 
             <div className="relative z-10 text-center">
-              <p className="text-sm sm:text-base font-extrabold tracking-[0.2em] uppercase text-yellow-300 animate-pulse">
+              <p className="hero-announcement-label text-sm sm:text-base font-extrabold tracking-[0.2em] uppercase animate-pulse">
                 Big Update
               </p>
-              <h2 className="mt-1 text-2xl sm:text-3xl md:text-4xl font-black leading-tight text-white">
-                <span className="text-yellow-300">{typedAdText.slice(0, Math.min(typedAdText.length, adPrefix.length))}</span>
-                <span className="text-[var(--accent-blue)]">{typedAdText.length > adPrefix.length ? typedAdText.slice(adPrefix.length) : ""}</span>
-                <span className="ml-1 inline-block w-[2px] h-[1em] bg-[var(--accent-blue)] animate-pulse align-middle" />
+              <h2 className="hero-announcement-title mt-1 text-2xl sm:text-3xl md:text-4xl font-black leading-tight">
+                <span className="hero-announcement-prefix">{typedAdText.slice(0, Math.min(typedAdText.length, adPrefix.length))}</span>
+                <span className="hero-announcement-main">{typedAdText.length > adPrefix.length ? typedAdText.slice(adPrefix.length) : ""}</span>
+                <span className="hero-announcement-cursor ml-1 inline-block w-[2px] h-[1em] animate-pulse align-middle" />
               </h2>
-              <p className="mt-2 text-sm sm:text-base text-gray-200">
+              <p className="hero-announcement-desc mt-2 text-sm sm:text-base">
                 Marota is expanding with a new branch in Addis Ababa.
               </p>
 
@@ -109,9 +109,9 @@ export default function Hero() {
           </div>
         </div>
 
-        <h1 className="font-bold leading-tight my-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl p-2 mx-auto text-center">
+        <h1 className="hero-main-title font-bold leading-tight my-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl p-2 mx-auto text-center">
           Marota Film
-          <span className="text-[var(--accent-blue)]">
+          <span className="hero-main-title-accent">
             {" "}
             and Software Collage </span>
         </h1>
@@ -122,7 +122,7 @@ export default function Hero() {
           </span>
         </p>
 
-        <p className="text-base sm:text-lg md:text-2xl mb-2 max-w-3xl text-gray-200 leading-relaxed mx-auto px-2 sm:px-4 py-2">
+        <p className="hero-main-description text-base sm:text-lg md:text-2xl mb-2 max-w-3xl leading-relaxed mx-auto px-2 sm:px-4 py-2">
           Join our comprehensive programs in cinematography and software
           development. Learn from experts and launch your creative career.
         </p>
@@ -130,13 +130,13 @@ export default function Hero() {
         <div className="flex flex-wrap gap-3 sm:gap-4 justify-center mb-2 py-2 w-full max-w-xl mx-auto">
           <Link
             to={user ? "/dashboard" : "/signup"}
-            className="px-7 py-3 bg-[var(--accent-blue)] text-[var(--primary-dark)] md:rounded-lg rounded-3xl hover:bg-[#14b8a6] hover:text-white hover:shadow-lg transition w-full sm:w-auto text-center hover:translate-y-[-3px] font-semibold"
+            className="hero-primary-cta px-7 py-3 md:rounded-lg rounded-3xl transition w-full sm:w-auto text-center hover:translate-y-[-3px] font-semibold"
           >
             Get Started
           </Link>
           <Link
             to="/courses"
-            className="px-7 py-3 rounded-3xl md:rounded-lg border border-white/30 bg-white/5 text-white hover:border-[var(--accent-blue)] hover:text-[var(--accent-blue)] hover:bg-[var(--primary-light)]/70 transition w-full sm:w-auto text-center font-semibold"
+            className="hero-secondary-cta px-7 py-3 rounded-3xl md:rounded-lg transition w-full sm:w-auto text-center font-semibold"
           >
             Explore Courses
           </Link>
@@ -150,7 +150,7 @@ export default function Hero() {
           ].map((item) => (
             <span
               key={item}
-              className="inline-flex items-center rounded-full border border-white/15 bg-white/8 px-4 py-1.5 text-xs sm:text-sm text-slate-200 backdrop-blur-sm"
+              className="hero-trust-chip inline-flex items-center rounded-full px-4 py-1.5 text-xs sm:text-sm backdrop-blur-sm"
             >
               {item}
             </span>
@@ -180,36 +180,36 @@ export default function Hero() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-4">
               <Users className="h-8 w-8 text-[var(--accent-blue)]" />
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">500+</h3>
-            <p className="text-gray-300 text-sm sm:text-base">Graduated Students</p>
+            <h3 className="hero-stat-value text-2xl sm:text-3xl font-bold mb-2">500+</h3>
+            <p className="hero-stat-label text-sm sm:text-base">Graduated Students</p>
           </div>
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-4">
               <GraduationCap className="h-8 w-8 text-[var(--accent-blue)]" />
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">3</h3>
-            <p className="text-gray-300 text-sm sm:text-base">Diploma Level Courses</p>
+            <h3 className="hero-stat-value text-2xl sm:text-3xl font-bold mb-2">3</h3>
+            <p className="hero-stat-label text-sm sm:text-base">Diploma Level Courses</p>
           </div>
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-4">
               <Clock3 className="h-8 w-8 text-[var(--accent-blue)]" />
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">8</h3>
-            <p className="text-gray-300 text-sm sm:text-base">Short Term Courses</p>
+            <h3 className="hero-stat-value text-2xl sm:text-3xl font-bold mb-2">8</h3>
+            <p className="hero-stat-label text-sm sm:text-base">Short Term Courses</p>
           </div>
           <div className="text-center pt-2 ">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-4">
               <Award className="h-8 w-8 text-[var(--accent-blue)]" />
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 ">95%</h3>
-            <p className="text-gray-300 text-sm sm:text-base">Job Placement Rate</p>
+            <h3 className="hero-stat-value text-2xl sm:text-3xl font-bold mb-2 ">95%</h3>
+            <p className="hero-stat-label text-sm sm:text-base">Job Placement Rate</p>
           </div>
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-4">
               <Code className="h-8 w-8 text-[var(--accent-blue)]" />
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">8</h3>
-            <p className="text-gray-300 text-sm sm:text-base">Years Experience</p>
+            <h3 className="hero-stat-value text-2xl sm:text-3xl font-bold mb-2">8</h3>
+            <p className="hero-stat-label text-sm sm:text-base">Years Experience</p>
           </div>
         </div>
       </div>
