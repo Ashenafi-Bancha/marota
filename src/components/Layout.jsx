@@ -126,7 +126,11 @@ const Layout = ({ children }) => {
   return (
     <SearchProvider>
       <Header />
-      <main className="pt-24 md:pt-28">{children}</main>
+      <main className="pt-24 md:pt-28 overflow-x-clip">
+        <div key={location.pathname} className="route-transition">
+          {children}
+        </div>
+      </main>
       <Footer />
     </SearchProvider>
   );

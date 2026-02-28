@@ -1,9 +1,30 @@
+import { useNavigate } from "react-router-dom";
+import { FaTimes } from "react-icons/fa";
+
 function PrivacyPolicy() {
   const updatedOn = "February 23, 2026";
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+      return;
+    }
+
+    navigate("/");
+  };
 
   return (
     <main className="min-h-[65vh] px-6 py-16">
-      <section className="mx-auto w-full max-w-4xl rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-10 shadow-[0_20px_55px_rgba(2,6,23,0.35)] backdrop-blur-sm">
+      <section className="relative mx-auto w-full max-w-4xl rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-10 shadow-[0_20px_55px_rgba(2,6,23,0.35)] backdrop-blur-sm">
+        <button
+          type="button"
+          onClick={handleClose}
+          className="btn-modal-close absolute right-4 top-4"
+          aria-label="Close privacy policy"
+        >
+          <FaTimes />
+        </button>
         <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Legal</p>
         <h1 className="mb-5 text-3xl font-bold text-white">Privacy Policy</h1>
         <p className="mb-8 text-xs text-slate-400">Last updated: {updatedOn}</p>

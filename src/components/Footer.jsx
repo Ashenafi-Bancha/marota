@@ -25,14 +25,14 @@ function Footer() {
 
         {/* About */}
         <div className="surface-card p-6 sm:p-7">
-          <div className="mb-4 flex items-center gap-3">
+          <Link to="/" className="mb-4 inline-flex items-center gap-3">
             <img
               src={logo}
               alt="Marota Logo"
               className="h-10 w-10 rounded-full object-contain ring-2 ring-yellow-300/35"
             />
-            <h4 className="text-2xl font-bold tracking-wide text-yellow-300 drop-shadow-[0_0_14px_rgba(250,204,21,0.22)]">Marota</h4>
-          </div>
+            <h4 className="brand-wordmark text-2xl font-bold tracking-wide">Marota</h4>
+          </Link>
           <p className="max-w-sm text-sm leading-relaxed text-slate-300/95">
             Marota equips students with practical skills in film production and software development through hands-on training, mentorship, and industry-focused learning.
           </p>

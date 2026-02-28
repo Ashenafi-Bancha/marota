@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Camera, Code, Users, Award } from "lucide-react";
+import { Camera, Code, Users, Award, GraduationCap, Clock3 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -134,6 +134,27 @@ export default function Hero() {
           >
             Get Started
           </Link>
+          <Link
+            to="/courses"
+            className="px-7 py-3 rounded-3xl md:rounded-lg border border-white/30 bg-white/5 text-white hover:border-[var(--accent-blue)] hover:text-[var(--accent-blue)] hover:bg-[var(--primary-light)]/70 transition w-full sm:w-auto text-center font-semibold"
+          >
+            Explore Courses
+          </Link>
+        </div>
+
+        <div className="mx-auto mt-3 flex w-full max-w-3xl flex-wrap items-center justify-center gap-2 sm:gap-3 px-2">
+          {[
+            "No prior experience required",
+            "Hands-on projects",
+            "Industry-focused training",
+          ].map((item) => (
+            <span
+              key={item}
+              className="inline-flex items-center rounded-full border border-white/15 bg-white/8 px-4 py-1.5 text-xs sm:text-sm text-slate-200 backdrop-blur-sm"
+            >
+              {item}
+            </span>
+          ))}
         </div>
       </div>
 
@@ -154,7 +175,7 @@ export default function Hero() {
 
       {/* Stats Section */}
       <div className="relative z-10 max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 mt-4 mb-4 w-full">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6 my-2 p-2 sm:p-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 sm:gap-6 my-2 p-2 sm:p-4">
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-4">
               <Users className="h-8 w-8 text-[var(--accent-blue)]" />
@@ -164,10 +185,17 @@ export default function Hero() {
           </div>
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-4">
-              <Camera className="h-8 w-8 text-[var(--accent-blue)]" />
+              <GraduationCap className="h-8 w-8 text-[var(--accent-blue)]" />
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">12</h3>
-            <p className="text-gray-300 text-sm sm:text-base">Specialized Courses</p>
+            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">3</h3>
+            <p className="text-gray-300 text-sm sm:text-base">Diploma Level Courses</p>
+          </div>
+          <div className="text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-4">
+              <Clock3 className="h-8 w-8 text-[var(--accent-blue)]" />
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">8</h3>
+            <p className="text-gray-300 text-sm sm:text-base">Short Term Courses</p>
           </div>
           <div className="text-center pt-2 ">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-4">

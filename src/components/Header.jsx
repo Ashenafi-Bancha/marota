@@ -9,6 +9,7 @@ import { useAuth } from "../context/AuthContext";
 import Login from "./Login";
 import Register from "./Register";
 import Modal from "./Modal";
+import ThemeSwitcher from "./ThemeSwitcher";
 
  const Header = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -138,10 +139,10 @@ import Modal from "./Modal";
       <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-2 px-3 py-3 lg:px-5">
 
         {/* Logo */}
-        <div className="logo flex min-w-0 shrink-0 cursor-pointer items-center gap-2">
+        <Link to="/" className="logo flex min-w-0 shrink-0 cursor-pointer items-center gap-2">
           <img src={logo} alt="Marota Logo" className="h-10 rounded-full ring-2 ring-cyan-300/30 sm:h-11 lg:h-12"/>
-          <p className="block text-sm font-bold uppercase leading-none text-yellow-300 drop-shadow-[0_0_10px_rgba(250,204,21,0.28)] sm:text-lg lg:text-2xl font-serif">Marota</p>
-        </div>
+          <p className="brand-wordmark block text-sm font-bold uppercase leading-none sm:text-lg lg:text-2xl font-serif">Marota</p>
+        </Link>
 
         <div className="xl:hidden flex-1 flex justify-center px-2 relative">
           <form
@@ -204,6 +205,10 @@ import Modal from "./Modal";
 
         {/* Search + Auth */}
         <div className="flex items-center gap-2 lg:gap-3 shrink-0">
+          <div className="hidden lg:block">
+            <ThemeSwitcher compact />
+          </div>
+
           {/* Search Bar */}
           <div className="hidden 2xl:block relative">
             <form
@@ -357,6 +362,8 @@ import Modal from "./Modal";
       {/* Mobile Nav */}
       {menuOpen && (
         <div className="xl:hidden flex max-h-[calc(100vh-7.5rem)] overflow-y-auto flex-col items-stretch gap-4 border-t border-white/10 bg-[#0d1f3c]/95 px-4 py-4 pb-6 backdrop-blur-md">
+          <ThemeSwitcher />
+
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
 
