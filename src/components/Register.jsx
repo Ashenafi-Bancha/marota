@@ -2,6 +2,10 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import {
+  getOAuthNotConfiguredMessage,
+  isOAuthProviderConfigured,
+} from "../config/oauthStatus";
+import {
   FaEye,
   FaEyeSlash,
   FaUser,
@@ -294,6 +298,15 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
   const handleOAuthSignIn = async (provider) => {
     setErrors({});
     setStatusMessage(null);
+
+    if (!isOAuthProviderConfigured(provider)) {
+      setStatusMessage({
+        type: "error",
+        text: getOAuthNotConfiguredMessage(provider),
+      });
+      return;
+    }
+
     setOauthLoadingProvider(provider);
 
     try {
@@ -339,6 +352,7 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
       <div className="space-y-2">
         {oauthProviders.map((provider) => {
           const isLoading = oauthLoadingProvider === provider.key;
+          const isNotConfigured = !isOAuthProviderConfigured(provider.key);
           const hoverClassName = provider.hoverClassName || "hover:border-[var(--accent-blue)]/60";
 
           return (
@@ -347,12 +361,19 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
               type="button"
               onClick={() => handleOAuthSignIn(provider.key)}
               disabled={loading || Boolean(oauthLoadingProvider)}
-              className={`btn-oauth flex w-full items-center justify-center gap-2 rounded-xl border border-[#355678] bg-[rgba(10,25,47,0.8)] px-4 py-3 text-sm font-medium text-slate-100 transition duration-200 hover:bg-[rgba(20,44,75,0.92)] ${hoverClassName} disabled:cursor-not-allowed disabled:opacity-60`}
+              className={`btn-oauth flex w-full items-center justify-center gap-2 rounded-xl border border-[#355678] bg-[rgba(10,25,47,0.8)] px-4 py-3 text-sm font-medium text-slate-100 transition duration-200 hover:bg-[rgba(20,44,75,0.92)] ${hoverClassName} ${
+                isNotConfigured ? "opacity-80 saturate-75" : ""
+              } disabled:cursor-not-allowed disabled:opacity-60`}
             >
               <span className={getOAuthIconBadgeClass(provider.key)}>
                 {renderOAuthIcon(provider)}
               </span>
               <span>{isLoading ? "Redirecting..." : provider.label}</span>
+              {isNotConfigured && (
+                <span className="ml-1 rounded-full border border-amber-300/35 bg-amber-400/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-amber-200">
+                  Coming soon
+                </span>
+              )}
             </button>
           );
         })}

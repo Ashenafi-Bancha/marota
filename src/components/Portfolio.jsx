@@ -1,5 +1,6 @@
 // src/components/Portfolio.jsx
 import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 import Portfolio1 from "../assets/portfolio/school-life-portfolio.jpg";
 import Portfolio2 from "../assets/portfolio/hotel-web.jpg";
 import Portfolio3 from "../assets/portfolio/portfolio-logo.jpg";
@@ -63,9 +64,10 @@ export default function Portfolio() {
           <button
             type="button"
             onClick={() => setShowAll((prev) => !prev)}
-            className="bg-[var(--accent-blue)] text-black px-6 py-2 rounded-md font-semibold hover:bg-teal-300 hover:text-white transition"
+            className="inline-flex items-center gap-2 rounded-md bg-[var(--accent-blue)] px-6 py-2 font-semibold text-black transition hover:bg-teal-300 hover:text-white"
           >
             {showAll ? "View less portifolio" : "View more portifolio"}
+            <ArrowRight size={16} />
           </button>
         </div>
       )}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Camera, Code, Users, Award, GraduationCap, Clock3 } from "lucide-react";
+import { Camera, Code, Users, Award, GraduationCap, Clock3, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -130,15 +130,17 @@ export default function Hero() {
         <div className="flex flex-wrap gap-3 sm:gap-4 justify-center mb-2 py-2 w-full max-w-xl mx-auto">
           <Link
             to={user ? "/dashboard" : "/signup"}
-            className="hero-primary-cta px-7 py-3 md:rounded-lg rounded-3xl transition w-full sm:w-auto text-center hover:translate-y-[-3px] font-semibold"
+            className="hero-primary-cta group inline-flex w-full items-center justify-center gap-2 px-7 py-3 text-center font-semibold transition hover:translate-y-[-3px] md:rounded-lg rounded-3xl sm:w-auto"
           >
             Get Started
+            <ArrowRight size={18} className="transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
           <Link
             to="/courses"
-            className="hero-secondary-cta px-7 py-3 rounded-3xl md:rounded-lg transition w-full sm:w-auto text-center font-semibold"
+            className="hero-secondary-cta group inline-flex w-full items-center justify-center gap-2 px-7 py-3 rounded-3xl text-center font-semibold transition md:rounded-lg sm:w-auto"
           >
             Explore Courses
+            <ArrowRight size={18} className="transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
         </div>
 

@@ -1,5 +1,6 @@
 // src/components/Footer.jsx
 import { FaFacebookF, FaTelegramPlane, FaTiktok, FaLinkedinIn, FaInstagram, FaYoutube } from "react-icons/fa";
+import { FiArrowUpRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo1.png";
 
@@ -15,16 +16,13 @@ function Footer() {
   ];
 
   return (
-    <footer className="relative mt-16 overflow-hidden border-t border-white/10 bg-[linear-gradient(180deg,#060f1f_0%,#040b17_100%)] pt-14 pb-6 text-gray-300">
-      <span className="pointer-events-none absolute -left-20 top-8 h-52 w-52 rounded-full bg-cyan-300/10 blur-3xl" />
-      <span className="pointer-events-none absolute -right-20 bottom-10 h-56 w-56 rounded-full bg-yellow-300/10 blur-3xl" />
-
-      <div className="relative z-10 mx-auto grid max-w-7xl gap-6 px-6 md:grid-cols-2 lg:grid-cols-3">
+    <footer className="mt-16 border-t border-white/10 bg-[#050d1a] pt-14 pb-6 text-gray-300">
+      <div className="mx-auto grid max-w-7xl gap-10 px-6 md:grid-cols-2 lg:grid-cols-3">
 
         
 
         {/* About */}
-        <div className="surface-card p-6 sm:p-7">
+        <div>
           <Link to="/" className="mb-4 inline-flex items-center gap-3">
             <img
               src={logo}
@@ -39,7 +37,7 @@ function Footer() {
         </div>
 
         {/* Quick Links */}
-        <div className="surface-card p-6 sm:p-7">
+        <div>
           <h4 className="mb-4 text-xl font-semibold text-white">
             Quick Links
           </h4>
@@ -48,9 +46,10 @@ function Footer() {
               <li key={item.label}>
                 <Link
                   to={item.to}
-                  className="inline-flex items-center text-slate-300 transition duration-200 hover:translate-x-1 hover:text-yellow-200"
+                  className="group inline-flex items-center gap-1 text-slate-300 transition duration-200 hover:translate-x-1 hover:text-yellow-200"
                 >
                   {item.label}
+                  <FiArrowUpRight className="text-xs transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </Link>
               </li>
             ))}
@@ -58,7 +57,7 @@ function Footer() {
         </div>
       
         {/* Follow Us / Social Links */}
-        <div className="surface-card p-6 sm:p-7">
+        <div>
           <h4 className="mb-4 text-xl font-semibold text-white">
             Follow Us
           </h4>
@@ -97,7 +96,7 @@ function Footer() {
       </div>
 
       {/* Copyright */}
-      <div className="relative z-10 mt-10 border-t border-white/10 pt-5 text-slate-400">
+      <div className="mt-10 border-t border-white/10 pt-5 text-slate-400">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 px-6 md:flex-row">
           <div className="flex items-center justify-center gap-2 text-center md:justify-start md:text-left">
             <img

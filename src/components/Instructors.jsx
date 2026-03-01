@@ -1,5 +1,6 @@
 // src/components/Instructors.jsx
 import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 import Mathewos from "../assets/instructors/Ermias.jpg";
 import Lidya from "../assets/instructors/Lidya.jpg";
 import Eyonadab from "../assets/instructors/eyonadab.jpg";
@@ -76,9 +77,10 @@ export default function Instructors() {
           <button
             type="button"
             onClick={() => setShowAll((prev) => !prev)}
-            className="bg-[var(--accent-blue)] text-black px-6 py-2 rounded-md font-semibold hover:bg-teal-300 hover:text-white transition"
+            className="inline-flex items-center gap-2 rounded-md bg-[var(--accent-blue)] px-6 py-2 font-semibold text-black transition hover:bg-teal-300 hover:text-white"
           >
             {showAll ? "View less instructors" : "View more instructors"}
+            <ArrowRight size={16} />
           </button>
         </div>
       )}
