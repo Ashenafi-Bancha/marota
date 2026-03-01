@@ -347,33 +347,34 @@ h1,h2,h3,h4,h5 {
   display: inline-flex;
   align-items: center;
   gap: 0;
-  background: var(--theme-control-bg);
-  border: 1px solid var(--theme-control-border);
-  border-radius: 9999px;
-  padding: 0.22rem;
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
-  backdrop-filter: blur(8px);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 .theme-switcher__btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 9999px;
-  border: 1px solid var(--theme-control-border);
+  border-radius: 0;
+  border: none;
   background: transparent;
   color: var(--theme-control-text);
   font-size: 0.9rem;
-  width: 2.15rem;
-  height: 2.15rem;
+  width: auto;
+  height: auto;
   padding: 0;
   font-weight: 600;
-  transition: all 0.2s ease;
+  box-shadow: none;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .theme-switcher__btn:hover {
-  transform: translateY(-1px) scale(1.01);
-  border-color: color-mix(in srgb, var(--accent-blue) 55%, var(--theme-control-border) 45%);
+  transform: translateY(-1px);
+  color: var(--accent-blue);
 }
 
 .theme-switcher__btn:focus-visible {
@@ -382,34 +383,30 @@ h1,h2,h3,h4,h5 {
 }
 
 .theme-switcher__btn[data-active="true"] {
-  background: color-mix(in srgb, var(--accent-blue) 20%, transparent 80%);
-  border-color: color-mix(in srgb, var(--accent-blue) 62%, white 38%);
+  background: transparent;
+  border: none;
   color: color-mix(in srgb, var(--accent-blue) 85%, white 15%);
   transform: translateY(-1px);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--accent-blue) 30%, transparent 70%),
-    0 8px 16px color-mix(in srgb, var(--accent-blue) 20%, transparent 80%);
+  box-shadow: none;
 }
 
 .theme-switcher__btn[data-theme-option="marota"][data-active="true"] {
   color: #facc15;
-  background: rgba(250, 204, 21, 0.16);
-  border-color: rgba(250, 204, 21, 0.65);
+  background: transparent;
+  border: none;
 }
 
 .theme-switcher__btn[data-theme-option="dark"][data-active="true"] {
   color: #cbd5e1;
-  background: rgba(148, 163, 184, 0.16);
-  border-color: rgba(148, 163, 184, 0.65);
+  background: transparent;
+  border: none;
 }
 
 .theme-switcher--compact {
-  gap: 0.25rem;
+  gap: 0;
 }
 
 .theme-switcher--compact .theme-switcher__btn {
-  width: 1.95rem;
-  height: 1.95rem;
   font-size: 0.8rem;
 }
 
