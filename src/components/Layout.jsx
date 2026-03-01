@@ -4,6 +4,8 @@ import { SearchProvider } from "../context/SearchContext";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+const SITE_URL = "https://marota.tech";
+
 const SEO_BY_ROUTE = {
   "/": {
     title: "Marota Film and Software College | Learn Software & Film Skills",
@@ -39,41 +41,61 @@ const SEO_BY_ROUTE = {
     title: "Contact Marota",
     description:
       "Contact Marota for admissions, location details, and inquiries.",
+    indexable: true,
   },
   "/login": {
     title: "Sign In | Marota Film and Software College",
     description:
       "Sign in to your Marota account to manage your courses, profile, certificates, and learning progress.",
+    indexable: false,
   },
   "/signup": {
     title: "Create Account | Marota Film and Software College",
     description:
       "Create your Marota account and start learning software, film making, and digital skills with expert instructors.",
+    indexable: false,
   },
   "/dashboard": {
     title: "Student Dashboard | Marota",
     description:
       "Track your course applications, approvals, and progress from your Marota student dashboard.",
+    indexable: false,
   },
   "/my-courses": {
     title: "My Courses & Certificates | Marota",
     description:
       "View your enrolled courses, completion status, and certificates at Marota Film and Software College.",
+    indexable: false,
   },
   "/profile": {
     title: "My Profile | Marota",
     description:
       "Manage your Marota profile information, learning identity, and student details.",
+    indexable: false,
   },
   "/admin": {
     title: "Admin Dashboard | Marota",
     description:
       "Manage users, enrollments, and platform activity from the Marota admin dashboard.",
+    indexable: false,
   },
   "/learning": {
     title: "Course Learning | Marota",
     description:
       "Access lessons, modules, quizzes, projects, and final tests in your approved Marota courses.",
+    indexable: false,
+  },
+  "/privacy": {
+    title: "Privacy Policy | Marota",
+    description:
+      "Read Marota's privacy policy for data use, security practices, and user rights.",
+    indexable: true,
+  },
+  "/terms": {
+    title: "Terms of Service | Marota",
+    description:
+      "Review Marota's terms of service for platform usage, responsibilities, and policies.",
+    indexable: true,
   },
 };
 
@@ -103,18 +125,36 @@ const updateMetaTag = (name, content, property = false) => {
   tag.setAttribute("content", content);
 };
 
+const updateCanonicalTag = (href) => {
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement("link");
+    canonical.setAttribute("rel", "canonical");
+    document.head.appendChild(canonical);
+  }
+
+  canonical.setAttribute("href", href);
+};
+
 const Layout = ({ children }) => {
   const location = useLocation();
 
   useEffect(() => {
     const seo = resolveSeoForPath(location.pathname);
+    const normalizedPath = location.pathname === "/" ? "/" : `${location.pathname.replace(/\/+$/, "")}/`;
+    const pageUrl = `${SITE_URL}${normalizedPath}`;
+    const robotsValue = seo.indexable === false ? "noindex, nofollow" : "index, follow";
 
     document.title = seo.title;
     updateMetaTag("description", seo.description);
+    updateMetaTag("robots", robotsValue);
+    updateMetaTag("googlebot", robotsValue);
     updateMetaTag("og:title", seo.title, true);
     updateMetaTag("og:description", seo.description, true);
+    updateMetaTag("og:url", pageUrl, true);
     updateMetaTag("twitter:title", seo.title);
     updateMetaTag("twitter:description", seo.description);
+    updateCanonicalTag(pageUrl);
   }, [location.pathname]);
 
   useEffect(() => {
