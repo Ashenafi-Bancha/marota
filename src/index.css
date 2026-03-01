@@ -363,7 +363,7 @@ h1,h2,h3,h4,h5 {
   border: none;
   background: transparent;
   color: var(--theme-control-text);
-  font-size: 0.9rem;
+  font-size: 1.15rem;
   width: auto;
   height: auto;
   padding: 0;
@@ -407,7 +407,7 @@ h1,h2,h3,h4,h5 {
 }
 
 .theme-switcher--compact .theme-switcher__btn {
-  font-size: 0.8rem;
+  font-size: 1.05rem;
 }
 
 .brand-wordmark {
