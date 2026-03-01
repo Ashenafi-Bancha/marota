@@ -1,10 +1,9 @@
 import { useTheme } from "../context/ThemeContext";
-import { FaPalette, FaMoon, FaSun } from "react-icons/fa";
+import { FaPalette, FaMoon } from "react-icons/fa";
 
 const THEME_OPTIONS = [
-  { value: "marota", label: "Marota Theme", icon: FaPalette },
-  { value: "dark", label: "Dark Theme", icon: FaMoon },
-  { value: "bright", label: "Bright Theme", icon: FaSun },
+  { value: "marota", label: "Marota", icon: FaPalette },
+  { value: "dark", label: "Dark", icon: FaMoon },
 ];
 
 export default function ThemeSwitcher({ compact = false }) {
@@ -33,6 +32,9 @@ export default function ThemeSwitcher({ compact = false }) {
             data-active={isActive ? "true" : "false"}
           >
             <Icon aria-hidden="true" />
+            <span className={`theme-switcher__label ${compact ? "theme-switcher__label--compact" : ""}`}>
+              {option.label}
+            </span>
           </button>
         );
       })}

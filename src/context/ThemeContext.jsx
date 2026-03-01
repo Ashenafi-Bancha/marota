@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 const ThemeContext = createContext();
 
 const STORAGE_KEY = "marota-theme";
-const THEMES = ["marota", "dark", "bright"];
+const THEMES = ["marota", "dark"];
 const DEFAULT_THEME = "marota";
 
 export const ThemeProvider = ({ children }) => {
