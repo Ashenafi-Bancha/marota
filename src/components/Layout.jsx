@@ -3,24 +3,29 @@ import Footer from "./Footer";
 import { SearchProvider } from "../context/SearchContext";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { diplomaLevels, shortCourses } from "../data/courses";
 
 const SITE_URL = "https://marota.tech";
+const DEFAULT_OG_IMAGE = `${SITE_URL}/favicon.png`;
 
 const SEO_BY_ROUTE = {
   "/": {
-    title: "Marota Film and Software College | Learn Software & Film Skills",
+    title: "Marota Film and Software College | AI Courses, Software Training & Film Education in Ethiopia",
     description:
-      "Marota Film and Software College offers professional training in software development, film making, graphics design, web development, and digital skills in Ethiopia.",
+      "Marota Film and Software College offers AI courses, software development training, and film production education in Ethiopia.",
+    indexable: true,
   },
   "/about": {
-    title: "About Marota | Film and Software College",
+    title: "About Marota Film and Software College | AI and Software Training in Ethiopia",
     description:
-      "Learn about Marota's mission, vision, values, and impact in film and software education.",
+      "Learn about Marota Film and Software College, an Ethiopian institution focused on AI, software training, and film education.",
+    indexable: true,
   },
   "/courses": {
-    title: "Courses | Marota Film and Software College",
+    title: "AI Courses, Software Development & Film Production Training | Marota Ethiopia",
     description:
-      "Explore Marota diploma and short-term courses in film, software, design, and digital skills.",
+      "Explore AI courses, software development training, and film production programs at Marota Film and Software College in Ethiopia.",
+    indexable: true,
   },
   "/portfolio": {
     title: "Portfolio | Marota",
@@ -38,9 +43,9 @@ const SEO_BY_ROUTE = {
       "Meet Marota instructors and mentors with practical industry experience.",
   },
   "/contact": {
-    title: "Contact Marota",
+    title: "Contact Marota Film and Software College | AI, Software & Film Education Ethiopia",
     description:
-      "Contact Marota for admissions, location details, and inquiries.",
+      "Contact Marota Film and Software College for admissions, AI and software course inquiries, and film training information in Ethiopia.",
     indexable: true,
   },
   "/login": {
@@ -136,6 +141,112 @@ const updateCanonicalTag = (href) => {
   canonical.setAttribute("href", href);
 };
 
+const updateStructuredDataTag = (id, payload) => {
+  const existing = document.getElementById(id);
+
+  if (!payload) {
+    if (existing) existing.remove();
+    return;
+  }
+
+  const script = existing || document.createElement("script");
+  script.id = id;
+  script.setAttribute("type", "application/ld+json");
+  script.textContent = JSON.stringify(payload);
+
+  if (!existing) {
+    document.head.appendChild(script);
+  }
+};
+
+const buildCoursesStructuredData = (pageUrl) => {
+  const allCourses = [
+    ...diplomaLevels.flatMap((level) =>
+      level.courses.map((course) => ({
+        ...course,
+        category: `Diploma - ${level.level}`,
+      }))
+    ),
+    ...shortCourses.map((course) => ({
+      ...course,
+      category: "Short Course",
+    })),
+  ];
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        name: "AI Courses, Software Development & Film Production Training | Marota Ethiopia",
+        description:
+          "Explore AI courses, software development training, and film production programs at Marota Film and Software College in Ethiopia.",
+        url: pageUrl,
+      },
+      {
+        "@type": "ItemList",
+        name: "Marota Course Catalog",
+        itemListOrder: "https://schema.org/ItemListOrderAscending",
+        numberOfItems: allCourses.length,
+        itemListElement: allCourses.map((course, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "Course",
+            name: course.title,
+            description: course.description,
+            courseMode: "OnSite",
+            educationalCredentialAwarded:
+              course.category === "Short Course" ? "Certificate" : "Diploma",
+            provider: {
+              "@type": "EducationalOrganization",
+              name: "Marota Film and Software College",
+              url: SITE_URL,
+            },
+          },
+        })),
+      },
+    ],
+  };
+};
+
+const buildContactStructuredData = (pageUrl) => ({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ContactPage",
+      name: "Contact Marota Film and Software College",
+      description:
+        "Contact Marota Film and Software College for admissions, AI and software course inquiries, and film training information in Ethiopia.",
+      url: pageUrl,
+      mainEntity: {
+        "@type": "EducationalOrganization",
+        name: "Marota Film and Software College",
+        url: SITE_URL,
+        telephone: "+251928976393",
+        email: "mathsermi50@gmail.com",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Wolaita Sodo",
+          addressCountry: "ET",
+        },
+      },
+    },
+  ],
+});
+
+const resolveRouteStructuredData = (pathname, pageUrl) => {
+  if (pathname === "/courses") {
+    return buildCoursesStructuredData(pageUrl);
+  }
+
+  if (pathname === "/contact") {
+    return buildContactStructuredData(pageUrl);
+  }
+
+  return null;
+};
+
 const Layout = ({ children }) => {
   const location = useLocation();
 
@@ -152,9 +263,15 @@ const Layout = ({ children }) => {
     updateMetaTag("og:title", seo.title, true);
     updateMetaTag("og:description", seo.description, true);
     updateMetaTag("og:url", pageUrl, true);
+    updateMetaTag("og:image", seo.image || DEFAULT_OG_IMAGE, true);
+    updateMetaTag("twitter:card", "summary_large_image");
     updateMetaTag("twitter:title", seo.title);
     updateMetaTag("twitter:description", seo.description);
+    updateMetaTag("twitter:image", seo.image || DEFAULT_OG_IMAGE);
     updateCanonicalTag(pageUrl);
+
+    const routeStructuredData = resolveRouteStructuredData(location.pathname, pageUrl);
+    updateStructuredDataTag("route-structured-data", routeStructuredData);
   }, [location.pathname]);
 
   useEffect(() => {
