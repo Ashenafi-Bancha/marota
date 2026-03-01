@@ -4,12 +4,10 @@ const ThemeContext = createContext();
 
 const STORAGE_KEY = "marota-theme";
 const THEMES = ["marota", "dark", "bright"];
+const DEFAULT_THEME = "marota";
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = window.localStorage.getItem(STORAGE_KEY);
-    return THEMES.includes(savedTheme) ? savedTheme : "marota";
-  });
+  const [theme, setTheme] = useState(DEFAULT_THEME);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);

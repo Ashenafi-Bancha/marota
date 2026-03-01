@@ -66,7 +66,7 @@ function Footer() {
             <a href="https://www.facebook.com/profile.php?id=100087120218376" target="_blank" rel="noreferrer" title="Follow us on Facebook" className="shrink-0 rounded-full border border-white/15 bg-blue-600 p-2 transition hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(37,99,235,0.32)]">
               <FaFacebookF className="text-white" size={18} />
             </a>
-            <a href="#" title="Join us on Telegram" className="shrink-0 rounded-full border border-white/15 bg-sky-500 p-2 transition hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(14,165,233,0.32)]">
+            <a href="https://t.me/marota132" target="_blank" rel="noreferrer" title="Join us on Telegram" className="shrink-0 rounded-full border border-white/15 bg-sky-500 p-2 transition hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(14,165,233,0.32)]">
               <FaTelegramPlane className="text-white" size={18} />
             </a>
             <a href="https://www.tiktok.com/@mfsc2857?_r=1&_t=ZN-947iwf01KQY" target="_blank" rel="noreferrer" title="Follow us on TikTok" className="shrink-0 rounded-full border border-white/15 bg-black p-2 transition hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(148,163,184,0.25)]">
