@@ -1,13 +1,25 @@
 import { useTheme } from "../context/ThemeContext";
 import { FaPalette, FaMoon } from "react-icons/fa";
 
-const THEME_OPTIONS = [
-  { value: "marota", label: "Marota", icon: FaPalette },
-  { value: "dark", label: "Dark", icon: FaMoon },
-];
+const THEME_META = {
+  marota: {
+    icon: FaPalette,
+    label: "Marota theme",
+    nextTheme: "dark",
+  },
+  dark: {
+    icon: FaMoon,
+    label: "Dark theme",
+    nextTheme: "marota",
+  },
+};
 
 export default function ThemeSwitcher({ compact = false }) {
   const { theme, setTheme } = useTheme();
+  const currentTheme = theme === "dark" ? "dark" : "marota";
+  const currentThemeMeta = THEME_META[currentTheme];
+  const nextThemeMeta = THEME_META[currentThemeMeta.nextTheme];
+  const Icon = currentThemeMeta.icon;
 
   return (
     <div
@@ -15,29 +27,17 @@ export default function ThemeSwitcher({ compact = false }) {
       role="group"
       aria-label="Theme selection"
     >
-      {THEME_OPTIONS.map((option) => {
-        const Icon = option.icon;
-        const isActive = theme === option.value;
-
-        return (
-          <button
-            key={option.value}
-            type="button"
-            aria-label={option.label}
-            title={option.label}
-            aria-pressed={isActive}
-            onClick={() => setTheme(option.value)}
-            className="theme-switcher__btn"
-            data-theme-option={option.value}
-            data-active={isActive ? "true" : "false"}
-          >
-            <Icon aria-hidden="true" />
-            <span className={`theme-switcher__label ${compact ? "theme-switcher__label--compact" : ""}`}>
-              {option.label}
-            </span>
-          </button>
-        );
-      })}
+      <button
+        type="button"
+        aria-label={`Current: ${currentThemeMeta.label}. Switch to ${nextThemeMeta.label}.`}
+        title={`Switch to ${nextThemeMeta.label}`}
+        onClick={() => setTheme(currentThemeMeta.nextTheme)}
+        className="theme-switcher__btn"
+        data-theme-option={currentTheme}
+        data-active="true"
+      >
+        <Icon aria-hidden="true" />
+      </button>
     </div>
   );
 }

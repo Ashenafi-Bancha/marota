@@ -346,11 +346,11 @@ h1,h2,h3,h4,h5 {
 .theme-switcher {
   display: inline-flex;
   align-items: center;
-  gap: 0.15rem;
+  gap: 0;
   background: var(--theme-control-bg);
   border: 1px solid var(--theme-control-border);
   border-radius: 9999px;
-  padding: 0.2rem;
+  padding: 0.22rem;
   box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
   backdrop-filter: blur(8px);
 }
@@ -359,26 +359,16 @@ h1,h2,h3,h4,h5 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
   border-radius: 9999px;
   border: 1px solid var(--theme-control-border);
   background: transparent;
   color: var(--theme-control-text);
-  font-size: 0.78rem;
-  min-height: 1.95rem;
-  padding: 0 0.75rem;
+  font-size: 0.9rem;
+  width: 2.15rem;
+  height: 2.15rem;
+  padding: 0;
   font-weight: 600;
   transition: all 0.2s ease;
-}
-
-.theme-switcher__label {
-  font-size: 0.72rem;
-  letter-spacing: 0.01em;
-  line-height: 1;
-}
-
-.theme-switcher__label--compact {
-  font-size: 0.68rem;
 }
 
 .theme-switcher__btn:hover {
@@ -418,9 +408,9 @@ h1,h2,h3,h4,h5 {
 }
 
 .theme-switcher--compact .theme-switcher__btn {
-  min-height: 1.8rem;
-  padding: 0 0.65rem;
-  font-size: 0.72rem;
+  width: 1.95rem;
+  height: 1.95rem;
+  font-size: 0.8rem;
 }
 
 .brand-wordmark {
