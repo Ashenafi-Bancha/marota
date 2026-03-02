@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import Portfolio1 from "../assets/portfolio/school-life-portfolio.jpg";
-import PortfolioMuseum from "../assets/portfolio/logo2.png";
 import Portfolio2 from "../assets/portfolio/hotel-web.jpg";
 import Portfolio3 from "../assets/portfolio/portfolio-logo.jpg";
 
@@ -16,7 +15,7 @@ export default function Portfolio() {
     },
     {
       title: "Wolatia Heritage Digital Museum Website and Mobile App",
-      img: PortfolioMuseum,
+      img: "/wolayta.png",
       description:
         "Cultural heritage platform built for web and mobile to preserve and showcase Wolatia history.",
     },

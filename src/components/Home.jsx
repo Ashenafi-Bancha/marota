@@ -216,6 +216,54 @@ export default function Hero() {
           </div>
         </div>
       </div>
+
+      <div className="relative z-10 w-full max-w-6xl px-3 pb-6 sm:px-6 lg:px-8">
+        <div className="overflow-hidden rounded-2xl border border-cyan-300/25 bg-[#0f2240]/75 p-4 shadow-[0_16px_40px_rgba(2,8,23,0.35)] backdrop-blur-sm sm:p-6">
+          <div className="grid gap-4 md:grid-cols-2">
+            <article className="group rounded-2xl border border-cyan-300/25 bg-gradient-to-br from-[#112a4b]/90 to-[#0d203c]/90 p-5 text-left transition duration-300 hover:-translate-y-1 hover:border-cyan-300/50">
+              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/35 bg-cyan-400/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-cyan-100">
+                <GraduationCap size={14} />
+                Diploma Courses
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-slate-100 sm:text-base">
+                Diploma courses are divided into five levels with focused learning in three major courses.
+                Diploma level courses are given in person at Marota campuses.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-slate-200">5 Levels</span>
+                <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-slate-200">3 Focus Courses</span>
+                <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-slate-200">In-Person Campus</span>
+              </div>
+            </article>
+
+            <article className="group rounded-2xl border border-yellow-300/25 bg-gradient-to-br from-[#2a2440]/90 to-[#1e1735]/90 p-5 text-left transition duration-300 hover:-translate-y-1 hover:border-yellow-300/50">
+              <div className="inline-flex items-center gap-2 rounded-full border border-yellow-300/35 bg-yellow-300/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-yellow-100">
+                <Clock3 size={14} />
+                Long Term Courses
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-slate-100 sm:text-base">
+                Long term courses are flexible and provided both online and in person,
+                helping learners choose the schedule and format that fits them best.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-slate-200">Online Learning</span>
+                <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-slate-200">In-Person Classes</span>
+                <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-slate-200">Flexible Mode</span>
+              </div>
+            </article>
+          </div>
+
+          <div className="mt-6 flex justify-center">
+            <Link
+              to="/courses"
+              className="inline-flex items-center gap-2 rounded-full border border-cyan-300/45 bg-cyan-400/10 px-6 py-2.5 text-sm font-semibold uppercase tracking-[0.12em] text-cyan-100 transition hover:-translate-y-0.5 hover:border-cyan-200"
+            >
+              Explore Courses
+              <ArrowRight size={16} />
+            </Link>
+          </div>
+        </div>
+      </div>
     </section>
     </>
   );
