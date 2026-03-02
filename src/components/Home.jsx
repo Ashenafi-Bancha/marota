@@ -226,7 +226,7 @@ export default function Hero() {
                 Diploma Courses
               </div>
               <p className="mt-3 text-sm leading-relaxed text-slate-100 sm:text-base">
-                Diploma courses are divided into five levels with focused learning in three major courses.
+                Diploma courses are divided into four levels with focused learning in three major courses.
                 Diploma level courses are given in person at Marota campuses.
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
