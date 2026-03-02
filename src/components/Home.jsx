@@ -239,10 +239,10 @@ export default function Hero() {
             <article className="group rounded-2xl border border-yellow-300/25 bg-gradient-to-br from-[#2a2440]/90 to-[#1e1735]/90 p-5 text-left transition duration-300 hover:-translate-y-1 hover:border-yellow-300/50">
               <div className="inline-flex items-center gap-2 rounded-full border border-yellow-300/35 bg-yellow-300/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-yellow-100">
                 <Clock3 size={14} />
-                Long Term Courses
+                Short Term Courses
               </div>
               <p className="mt-3 text-sm leading-relaxed text-slate-100 sm:text-base">
-                Long term courses are flexible and provided both online and in person,
+                Short term courses are flexible and provided both online and in person,
                 helping learners choose the schedule and format that fits them best.
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
