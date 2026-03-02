@@ -61,6 +61,7 @@ export default function Hero() {
   }, [adText]);
 
   return (
+    <>
     <section id="home" className="relative min-h-[92vh] md:min-h-screen flex flex-col items-center justify-center overflow-hidden px-3">
 
       {/* Background images slideshow */}
@@ -216,5 +217,6 @@ export default function Hero() {
         </div>
       </div>
     </section>
+    </>
   );
 }

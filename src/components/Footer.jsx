@@ -12,6 +12,7 @@ function Footer() {
     { label: "Portifolio", to: "/portfolio" },
     { label: "Gallery", to: "/gallery" },
     { label: "Instructors", to: "/instructors" },
+    { label: "Blog", to: "/blog" },
     { label: "Contact", to: "/contact" },
   ];
 

@@ -18,6 +18,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import CourseLearning from "./pages/CourseLearning";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 
 function App() {
   return (
@@ -77,6 +79,22 @@ function App() {
           element={
             <Layout>
               <Contact />
+            </Layout>
+          }
+        />
+        <Route
+          path="/blog"
+          element={
+            <Layout>
+              <Blog />
+            </Layout>
+          }
+        />
+        <Route
+          path="/blog/:slug"
+          element={
+            <Layout>
+              <BlogPost />
             </Layout>
           }
         />

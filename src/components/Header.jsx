@@ -32,6 +32,7 @@ import ThemeSwitcher from "./ThemeSwitcher";
       { label: "Portifolio", path: "/portfolio" },
       { label: "Gallery", path: "/gallery" },
       { label: "Instructors", path: "/instructors" },
+      { label: "Blog", path: "/blog" },
       { label: "Contact", path: "/contact" },
     ],
     []

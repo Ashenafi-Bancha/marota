@@ -4,6 +4,7 @@ import { SearchProvider } from "../context/SearchContext";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { diplomaLevels, shortCourses } from "../data/courses";
+import { blogPosts } from "../data/blogPosts";
 
 const SITE_URL = "https://marota.tech";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/favicon.png`;
@@ -46,6 +47,12 @@ const SEO_BY_ROUTE = {
     title: "Contact Marota Film and Software College | AI, Software & Film Education Ethiopia",
     description:
       "Contact Marota Film and Software College for admissions, AI and software course inquiries, and film training information in Ethiopia.",
+    indexable: true,
+  },
+  "/blog": {
+    title: "Marota Blog | Student Stories, Software & Film Insights",
+    description:
+      "Read Marota blog updates, student stories, AI and software insights, and film education tips from Marota Film and Software College.",
     indexable: true,
   },
   "/login": {
@@ -104,9 +111,29 @@ const SEO_BY_ROUTE = {
   },
 };
 
+const resolveBlogPostByPath = (pathname) => {
+  if (!pathname.startsWith("/blog/")) return null;
+
+  const slug = pathname.replace(/^\/blog\//, "").replace(/\/+$/, "");
+  if (!slug) return null;
+
+  return blogPosts.find((post) => post.slug === slug) || null;
+};
+
+const buildBlogPostSeo = (post) => ({
+  title: `${post.title} | Marota Blog`,
+  description: post.excerpt,
+  indexable: true,
+});
+
 const resolveSeoForPath = (pathname) => {
   if (pathname.startsWith("/learning/")) {
     return SEO_BY_ROUTE["/learning"];
+  }
+
+  const blogPost = resolveBlogPostByPath(pathname);
+  if (blogPost) {
+    return buildBlogPostSeo(blogPost);
   }
 
   return SEO_BY_ROUTE[pathname] || SEO_BY_ROUTE["/"];
@@ -235,13 +262,77 @@ const buildContactStructuredData = (pageUrl) => ({
   ],
 });
 
+const buildBlogStructuredData = (pageUrl) => ({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Blog",
+      name: "Marota Blog",
+      description:
+        "Stories, practical learning tips, and updates from Marota Film and Software College.",
+      url: pageUrl,
+      publisher: {
+        "@type": "EducationalOrganization",
+        name: "Marota Film and Software College",
+        url: SITE_URL,
+      },
+      blogPost: blogPosts.map((post) => ({
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.excerpt,
+        datePublished: post.date,
+        author: {
+          "@type": "Person",
+          name: post.author,
+        },
+        keywords: post.tags.join(", "),
+      })),
+    },
+  ],
+});
+
+const buildBlogPostStructuredData = (pageUrl, post) => ({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: post.excerpt,
+      datePublished: post.date,
+      dateModified: post.date,
+      articleSection: post.category,
+      keywords: post.tags.join(", "),
+      author: {
+        "@type": "Person",
+        name: post.author,
+      },
+      publisher: {
+        "@type": "EducationalOrganization",
+        name: "Marota Film and Software College",
+        url: SITE_URL,
+      },
+      mainEntityOfPage: pageUrl,
+      url: pageUrl,
+    },
+  ],
+});
+
 const resolveRouteStructuredData = (pathname, pageUrl) => {
+  const blogPost = resolveBlogPostByPath(pathname);
+  if (blogPost) {
+    return buildBlogPostStructuredData(pageUrl, blogPost);
+  }
+
   if (pathname === "/courses") {
     return buildCoursesStructuredData(pageUrl);
   }
 
   if (pathname === "/contact") {
     return buildContactStructuredData(pageUrl);
+  }
+
+  if (pathname === "/blog") {
+    return buildBlogStructuredData(pageUrl);
   }
 
   return null;
