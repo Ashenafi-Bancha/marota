@@ -126,7 +126,7 @@ function Footer() {
           </div>
 
           <div className="w-full max-w-sm">
-            <p className="text-center text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-300 lg:text-left">
+            <p className="text-center text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-300">
               Enroll and pay with
             </p>
             <div className="mt-1 grid grid-cols-6 gap-1.5">
