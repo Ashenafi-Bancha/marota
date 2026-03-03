@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "r
 import Layout from "./components/Layout";
 import Hero from "./components/Home";
 import About from "./components/About";
-import Services from "./components/Services";
+import Courses from "./components/Courses";
 import Instructors from "./components/Instructors";
 import Portfolio from "./components/Portfolio";
 import Gallery from "./components/Gallery";
@@ -71,7 +71,7 @@ function App() {
           path="/courses"
           element={
             <Layout>
-              <Services />
+              <Courses />
             </Layout>
           }
         />

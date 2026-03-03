@@ -1,4 +1,4 @@
-// src/components/Services.jsx
+// src/components/Courses.jsx
 import { useEffect, useMemo, useState } from "react";
 import {
   FaCode,
@@ -9,6 +9,7 @@ import {
   FaDatabase,
   FaNetworkWired,
   FaStar,
+  FaCloudUploadAlt,
 } from "react-icons/fa";
 import { useSearch } from "../context/SearchContext";
 import { useAuth } from "../context/AuthContext";
@@ -43,36 +44,20 @@ const iconMap = {
 
 const MAROTA_PAYMENT_ACCOUNTS = {
   cbe: {
-    label: "Commercial Bank of Ethiopia (CBE)",
+    label: "CBE",
     accountName: "Marota Film and Software College",
     accountNumber: "REPLACE_WITH_MAROTA_CBE_ACCOUNT",
     image: cbeImage,
     instruction:
       "Use this CBE account to complete your enrollment payment. After completing your payment, upload the receipt below for admin verification.",
   },
-  telebirr: {
-    label: "Telebirr",
-    accountName: "Marota Film and Software College",
-    accountNumber: "REPLACE_WITH_MAROTA_TELEBIRR_NUMBER",
-    image: telebirrImage,
-    instruction:
-      "Use this Telebirr number to complete your enrollment payment. After completing your payment, upload the receipt below for admin verification.",
-  },
   boa: {
-    label: "Bank of Abyssinia (BOA)",
+    label: "BOA",
     accountName: "Marota Film and Software College",
     accountNumber: "REPLACE_WITH_MAROTA_BOA_ACCOUNT",
     image: boaImage,
     instruction:
       "Use this BOA account to complete your enrollment payment. After completing your payment, upload the receipt below for admin verification.",
-  },
-  mpesa: {
-    label: "M-Pesa",
-    accountName: "Marota Film and Software College",
-    accountNumber: "REPLACE_WITH_MAROTA_MPESA_NUMBER",
-    image: mpesaImage,
-    instruction:
-      "Use this M-Pesa number to complete your enrollment payment. After completing your payment, upload the receipt below for admin verification.",
   },
   awash: {
     label: "Awash Bank",
@@ -89,6 +74,22 @@ const MAROTA_PAYMENT_ACCOUNTS = {
     image: dashenImage,
     instruction:
       "Use this Dashen Bank account to complete your enrollment payment. After completing your payment, upload the receipt below for admin verification.",
+  },
+  telebirr: {
+    label: "Telebirr",
+    accountName: "Marota Film and Software College",
+    accountNumber: "REPLACE_WITH_MAROTA_TELEBIRR_NUMBER",
+    image: telebirrImage,
+    instruction:
+      "Use this Telebirr number to complete your enrollment payment. After completing your payment, upload the receipt below for admin verification.",
+  },
+  mpesa: {
+    label: "M-Pesa",
+    accountName: "Marota Film and Software College",
+    accountNumber: "REPLACE_WITH_MAROTA_MPESA_NUMBER",
+    image: mpesaImage,
+    instruction:
+      "Use this M-Pesa number to complete your enrollment payment. After completing your payment, upload the receipt below for admin verification.",
   },
 };
 
@@ -370,7 +371,7 @@ const CourseCards = ({
   </div>
 );
 
-const Services = () => {
+const Courses = () => {
   const { searchQuery } = useSearch();
   const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
@@ -746,16 +747,14 @@ const Services = () => {
     filteredDiplomaLevels.length > 0 || filteredShortCourses.length > 0;
 
   return (
-    <section id="services" className="py-24 bg-[#0a192f] text-white relative overflow-hidden">
+    <section id="courses" className="py-24 bg-[#0a192f] text-white relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none opacity-30 bg-[radial-gradient(circle_at_top,_rgba(100,255,218,0.15),_transparent_55%)]" />
       <div className="container relative mx-auto px-6 lg:px-12">
         <div className="text-center mb-14">
           <p className="inline-flex px-4 py-1 rounded-full text-xs tracking-widest uppercase font-semibold bg-[#112240] text-[var(--accent-blue)] border border-cyan-800/60 mb-4">
             Programs
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Our Courses and Services
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Courses</h2>
           <p className="text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Explore our Diploma level programs (divided into four levels) and
             short courses designed to help you grow, learn, and achieve your
@@ -841,35 +840,35 @@ const Services = () => {
             <p className="text-xs font-semibold uppercase tracking-wide text-amber-200">Important</p>
             <ul className="mt-1 list-disc space-y-1 pl-4 text-xs text-slate-200">
               <li>Select a payment provider below and send payment to Marota account.</li>
+              <li>Take a screenshot or download your receipt, then upload it below.</li>
               <li>After payment, upload a clear receipt image or PDF.</li>
               <li>Your enrollment stays pending until admin verifies your payment.</li>
             </ul>
           </div>
 
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
             {Object.entries(MAROTA_PAYMENT_ACCOUNTS).map(([key, account]) => (
               <button
                 key={key}
                 type="button"
                 onClick={() => setPaymentMethod(key)}
-                className={`group relative overflow-hidden rounded-2xl border text-left transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a192f] ${
+                className={`group relative overflow-hidden rounded-2xl border text-left transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#111827] ${
                   paymentMethod === key
-                    ? "border-emerald-300/70 bg-white/10 shadow-[0_12px_28px_rgba(16,185,129,0.28)]"
-                    : "border-white/25 bg-white/5 hover:-translate-y-0.5 hover:border-white/45 hover:shadow-[0_12px_24px_rgba(2,6,23,0.35)]"
+                    ? "border-[var(--accent-blue)] bg-neutral-900/95 shadow-[0_12px_28px_rgba(100,255,218,0.2)]"
+                    : "border-white/25 bg-neutral-900/90 hover:-translate-y-0.5 hover:border-white/45 hover:shadow-[0_12px_24px_rgba(2,6,23,0.35)]"
                 }`}
                 aria-pressed={paymentMethod === key}
               >
                 <img
                   src={account.image}
                   alt={`${account.label} payment option`}
-                  className="h-32 w-full object-cover transition duration-500 group-hover:scale-105"
+                  className="h-20 w-full object-contain bg-white p-2 transition duration-500 group-hover:scale-105"
                 />
-                <div className="bg-[#0b1629] p-3">
-                  <p className="text-sm font-semibold text-white">{account.label}</p>
-                  <p className="mt-1 text-xs text-slate-300">Pay with {account.label}.</p>
+                <div className="bg-neutral-900 p-3">
+                  <p className="text-xs font-semibold text-slate-200">Pay with {account.label}.</p>
                 </div>
                 {paymentMethod === key && (
-                  <span className="absolute right-3 top-3 rounded-full bg-emerald-500 px-2 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow-lg">
+                  <span className="absolute left-2 top-2 rounded-full bg-[var(--accent-blue)] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#0a192f] shadow-lg">
                     Selected
                   </span>
                 )}
@@ -922,7 +921,8 @@ const Services = () => {
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-300">
+              <label className="mb-1 flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-slate-300">
+                <FaCloudUploadAlt className="text-sm text-slate-200" />
                 Upload Receipt
               </label>
               <input
@@ -965,4 +965,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default Courses;

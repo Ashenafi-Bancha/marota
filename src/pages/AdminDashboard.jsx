@@ -17,9 +17,11 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [updatingRoleFor, setUpdatingRoleFor] = useState("");
   const [updatingApplicationFor, setUpdatingApplicationFor] = useState("");
+  const [openingReceiptFor, setOpeningReceiptFor] = useState("");
   const [removingRatingFor, setRemovingRatingFor] = useState("");
   const [statusMessage, setStatusMessage] = useState(null);
   const [supportsApprovalStatus, setSupportsApprovalStatus] = useState(true);
+  const [supportsPaymentEvidence, setSupportsPaymentEvidence] = useState(true);
   const [stats, setStats] = useState({
     users: 0,
     enrollments: 0,
@@ -137,6 +139,9 @@ export default function AdminDashboard() {
     setLoading(true);
     setStatusMessage(null);
 
+    const enrollmentFieldsWithPayment =
+      "id, user_id, course_title, progress, approval_status, created_at, payment_method, payment_account_number, payment_sender_name, payment_reference, payment_uploaded_at, receipt_path";
+
     const [profilesRes, enrollmentsWithStatusRes, ratingsRes] = await Promise.all([
       supabase
         .from("profiles")
@@ -144,7 +149,7 @@ export default function AdminDashboard() {
         .order("created_at", { ascending: false }),
       supabase
         .from("enrollments")
-        .select("id, user_id, course_title, progress, approval_status, created_at")
+        .select(enrollmentFieldsWithPayment)
         .order("created_at", { ascending: false }),
       supabase
         .from("course_ratings")
@@ -166,10 +171,37 @@ export default function AdminDashboard() {
         data: withDefaultApprovedStatus(fallbackRes.data),
       };
       approvalStatusAvailable = false;
+      setSupportsPaymentEvidence(false);
       setStatusMessage({
         type: "info",
         text: "Enrollment approvals are unavailable until the latest migration is applied.",
       });
+    } else if (enrollmentsWithStatusRes.error) {
+      const normalizedErrorMessage = String(
+        enrollmentsWithStatusRes.error.message || ""
+      ).toLowerCase();
+
+      if (
+        normalizedErrorMessage.includes("payment_method") ||
+        normalizedErrorMessage.includes("receipt_path") ||
+        normalizedErrorMessage.includes("payment_uploaded_at")
+      ) {
+        const fallbackRes = await supabase
+          .from("enrollments")
+          .select("id, user_id, course_title, progress, approval_status, created_at")
+          .order("created_at", { ascending: false });
+
+        enrollmentsRes = fallbackRes;
+        setSupportsPaymentEvidence(false);
+        setStatusMessage({
+          type: "info",
+          text: "Payment evidence fields are unavailable until the latest migration is applied.",
+        });
+      } else {
+        setSupportsPaymentEvidence(true);
+      }
+    } else {
+      setSupportsPaymentEvidence(true);
     }
 
     setSupportsApprovalStatus(approvalStatusAvailable);
@@ -299,6 +331,35 @@ export default function AdminDashboard() {
           : "Enrollment application rejected.",
     });
     setUpdatingApplicationFor("");
+  };
+
+  const openEnrollmentReceipt = async (application) => {
+    if (!application?.receipt_path) {
+      setStatusMessage({
+        type: "info",
+        text: "This application has no receipt uploaded.",
+      });
+      return;
+    }
+
+    setOpeningReceiptFor(String(application.id));
+    setStatusMessage(null);
+
+    const { data, error } = await supabase.storage
+      .from("enrollment-receipts")
+      .createSignedUrl(application.receipt_path, 60 * 30);
+
+    if (error || !data?.signedUrl) {
+      setStatusMessage({
+        type: "error",
+        text: error?.message || "Unable to open receipt for this application.",
+      });
+      setOpeningReceiptFor("");
+      return;
+    }
+
+    window.open(data.signedUrl, "_blank", "noopener,noreferrer");
+    setOpeningReceiptFor("");
   };
 
   if (loading) {
@@ -435,6 +496,11 @@ export default function AdminDashboard() {
               Apply the latest database migration to enable approve/reject workflow.
             </p>
           )}
+          {!supportsPaymentEvidence && (
+            <p className="text-sm text-amber-300 mb-3">
+              Payment evidence fields are not available yet. Apply the latest migration.
+            </p>
+          )}
           <div className="space-y-2 max-h-[420px] overflow-auto pr-1">
             {pendingApplications.length === 0 ? (
               <p className="text-sm text-gray-400">No pending applications.</p>
@@ -457,7 +523,37 @@ export default function AdminDashboard() {
                     <p className="text-xs text-gray-400 mt-1">
                       Applicant: {profile?.full_name || `User ${String(application.user_id).slice(0, 8)}`}
                     </p>
+                    {application.payment_method && (
+                      <p className="text-xs text-gray-300 mt-2">
+                        Payment: {String(application.payment_method).toUpperCase()} • Account {application.payment_account_number || "-"}
+                      </p>
+                    )}
+                    {application.payment_sender_name && (
+                      <p className="text-xs text-gray-300 mt-1">
+                        Sender: {application.payment_sender_name}
+                      </p>
+                    )}
+                    {application.payment_reference && (
+                      <p className="text-xs text-gray-300 mt-1">
+                        Ref: {application.payment_reference}
+                      </p>
+                    )}
+                    {application.payment_uploaded_at && (
+                      <p className="text-xs text-gray-400 mt-1">
+                        Uploaded: {new Date(application.payment_uploaded_at).toLocaleString()}
+                      </p>
+                    )}
                     <div className="flex gap-2 mt-3">
+                      <button
+                        type="button"
+                        disabled={!application.receipt_path || openingReceiptFor === String(application.id)}
+                        onClick={() => openEnrollmentReceipt(application)}
+                        className="px-3 py-1.5 text-xs rounded-lg bg-cyan-700 hover:bg-cyan-600 disabled:opacity-50"
+                      >
+                        {openingReceiptFor === String(application.id)
+                          ? "Opening receipt..."
+                          : "View Receipt"}
+                      </button>
                       <button
                         type="button"
                         disabled={isUpdating || !supportsApprovalStatus}

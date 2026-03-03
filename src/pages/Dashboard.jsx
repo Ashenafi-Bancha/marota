@@ -241,7 +241,7 @@ export default function Dashboard() {
         <ul className="space-y-2 text-sm text-gray-300">
           <li className="flex items-start gap-2">
             <FaClock className="text-amber-300 mt-0.5" />
-            Visit the Courses & Services section on Home to submit new enrollment applications.
+            Visit the Courses section on Home to submit new enrollment applications.
           </li>
           <li className="flex items-start gap-2">
             <FaCheckCircle className="text-green-300 mt-0.5" />
