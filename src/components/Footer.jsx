@@ -3,6 +3,12 @@ import { FaFacebookF, FaTelegramPlane, FaTiktok, FaLinkedinIn, FaInstagram, FaYo
 import { FiArrowUpRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo1.png";
+import cbeImage from "../assets/cbe.jpeg";
+import boaImage from "../assets/boa.png";
+import awashImage from "../assets/awash.png";
+import dashenImage from "../assets/dashen.png";
+import telebirrImage from "../assets/telebirr.jpeg";
+import mpesaImage from "../assets/mpesa.png";
 
 function Footer() {
   const quickLinks = [
@@ -14,6 +20,15 @@ function Footer() {
     { label: "Instructors", to: "/instructors" },
     { label: "Blog", to: "/blog" },
     { label: "Contact", to: "/contact" },
+  ];
+
+  const paymentMethods = [
+    { label: "CBE", image: cbeImage },
+    { label: "BOA", image: boaImage },
+    { label: "Awash Bank", image: awashImage },
+    { label: "Dashen Bank", image: dashenImage },
+    { label: "Telebirr", image: telebirrImage },
+    { label: "M-Pesa", image: mpesaImage },
   ];
 
   return (
@@ -98,7 +113,7 @@ function Footer() {
 
       {/* Copyright */}
       <div className="mt-10 border-t border-white/10 pt-5 text-slate-400">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 px-6 md:flex-row">
+        <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-4 px-6 lg:flex-row">
           <div className="flex items-center justify-center gap-2 text-center md:justify-start md:text-left">
             <img
               src={logo}
@@ -108,6 +123,30 @@ function Footer() {
             <span className="text-xs leading-relaxed sm:text-sm md:text-[15px]">
               &copy; {new Date().getFullYear()} Marota. All Rights Reserved.
             </span>
+          </div>
+
+          <div className="w-full max-w-sm">
+            <p className="text-center text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-300 lg:text-left">
+              Enroll and pay with
+            </p>
+            <div className="mt-1 grid grid-cols-6 gap-1.5">
+              {paymentMethods.map((method) => (
+                <Link
+                  key={method.label}
+                  to="/courses#courses"
+                  className="rounded-md border border-white/15 bg-white p-1 transition hover:-translate-y-0.5 hover:border-[var(--accent-blue)]"
+                  aria-label={`Go to courses and pay with ${method.label}`}
+                  title={`Pay with ${method.label}`}
+                >
+                  <img
+                    src={method.image}
+                    alt={method.label}
+                    className="h-5 w-full object-contain"
+                    loading="lazy"
+                  />
+                </Link>
+              ))}
+            </div>
           </div>
 
           <nav aria-label="Legal" className="flex items-center justify-center gap-3 text-sm text-slate-500/90 md:justify-end">
