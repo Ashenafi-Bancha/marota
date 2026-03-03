@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import { useSearch } from "../context/SearchContext";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 import { diplomaLevels, shortCourses } from "../data/courses";
 import { supabase } from "../lib/supabaseClient";
 import {
@@ -500,7 +501,12 @@ const Services = () => {
 
   const handleEnrollCourse = async (course) => {
     if (!user) {
-      window.alert("Please sign in to enroll in a course.");
+      setStatusMessage({
+        type: "info",
+        text: "First create an account to enroll in a course.",
+        actionLabel: "Create account",
+        actionTo: "/signup",
+      });
       return;
     }
 
@@ -641,13 +647,25 @@ const Services = () => {
             goals.
           </p>
           {statusMessage && (
-            <p
-              className={`mt-4 text-sm font-medium ${
-                statusMessage.type === "error" ? "text-red-400" : "text-green-400"
+            <div
+              className={`mt-4 inline-flex flex-wrap items-center justify-center gap-3 rounded-xl border px-4 py-3 text-sm font-medium ${
+                statusMessage.type === "error"
+                  ? "border-red-500/40 bg-red-500/10 text-red-300"
+                  : statusMessage.type === "info"
+                  ? "border-cyan-400/40 bg-cyan-400/10 text-cyan-100"
+                  : "border-green-500/40 bg-green-500/10 text-green-300"
               }`}
             >
-              {statusMessage.text}
-            </p>
+              <span>{statusMessage.text}</span>
+              {statusMessage.actionLabel && statusMessage.actionTo && (
+                <Link
+                  to={statusMessage.actionTo}
+                  className="inline-flex items-center rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-white transition hover:-translate-y-0.5 hover:bg-white/20"
+                >
+                  {statusMessage.actionLabel}
+                </Link>
+              )}
+            </div>
           )}
         </div>
 
