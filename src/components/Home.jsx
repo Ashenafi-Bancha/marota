@@ -10,6 +10,7 @@ import Hero4 from "../assets/camera-male.jpg";
 import Hero5 from "../assets/camera-female.jpg";
 import Hero9 from "../assets/graphics-designer.jpg";
 import Hero10 from "../assets/camera-men.jpg";
+import Testimonials from "./Testimonials";
 
 
 const images = [Hero1, Hero9,Hero10, Hero2, Hero3, Hero4, Hero5,];
@@ -262,9 +263,34 @@ export default function Hero() {
               <ArrowRight size={16} />
             </Link>
           </div>
+
+          <div className="mt-5 border-t border-white/10 pt-5">
+            <a
+              href="#testimonials"
+              className="group flex flex-col items-start justify-between gap-4 rounded-2xl border border-yellow-300/30 bg-gradient-to-r from-yellow-300/10 via-cyan-300/10 to-transparent px-5 py-4 text-left transition duration-300 hover:-translate-y-0.5 hover:border-yellow-200/60 md:flex-row md:items-center"
+            >
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-yellow-200/90">
+                  Student Voices
+                </p>
+                <h3 className="mt-1 text-lg font-semibold text-white sm:text-xl">
+                  What Our Students Say
+                </h3>
+                <p className="mt-1 max-w-2xl text-sm text-slate-200/90 sm:text-base">
+                  Read real stories from learners who transformed their careers with Marota.
+                </p>
+              </div>
+
+              <span className="inline-flex items-center gap-2 rounded-full border border-cyan-300/45 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100 transition group-hover:border-cyan-200 sm:text-sm">
+                Go to Testimonials
+                <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
+              </span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
+    <Testimonials />
     </>
   );
 }

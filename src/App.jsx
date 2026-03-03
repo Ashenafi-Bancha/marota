@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Layout from "./components/Layout";
 import Hero from "./components/Home";
 import About from "./components/About";
@@ -21,9 +22,33 @@ import TermsOfService from "./pages/TermsOfService";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 
+function HashScrollHandler() {
+  const { hash, pathname } = useLocation();
+
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    const targetId = hash.replace("#", "");
+    const timer = window.setTimeout(() => {
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 80);
+
+    return () => window.clearTimeout(timer);
+  }, [hash, pathname]);
+
+  return null;
+}
+
 function App() {
   return (
     <Router>
+      <HashScrollHandler />
       <Routes>
         {/* Home route with shared header/footer */}
         <Route
