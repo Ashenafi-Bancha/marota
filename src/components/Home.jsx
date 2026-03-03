@@ -254,7 +254,7 @@ export default function Hero() {
             </article>
           </div>
 
-          <div className="mt-6 flex justify-center">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/courses"
               className="inline-flex items-center gap-2 rounded-full border border-cyan-300/45 bg-cyan-400/10 px-6 py-2.5 text-sm font-semibold uppercase tracking-[0.12em] text-cyan-100 transition hover:-translate-y-0.5 hover:border-cyan-200"
@@ -262,31 +262,18 @@ export default function Hero() {
               Explore Courses
               <ArrowRight size={16} />
             </Link>
-          </div>
-
-          <div className="mt-5 border-t border-white/10 pt-5">
-            <a
-              href="#testimonials"
-              className="group flex flex-col items-start justify-between gap-4 rounded-2xl border border-yellow-300/30 bg-gradient-to-r from-yellow-300/10 via-cyan-300/10 to-transparent px-5 py-4 text-left transition duration-300 hover:-translate-y-0.5 hover:border-yellow-200/60 md:flex-row md:items-center"
+            <Link
+              to={user ? "/courses" : "/signup"}
+              className="group inline-flex items-center gap-2 rounded-full border border-yellow-300/55 bg-gradient-to-r from-yellow-300/85 via-amber-300/90 to-orange-300/85 px-6 py-2.5 text-sm font-extrabold uppercase tracking-[0.1em] text-[#0a192f] shadow-[0_10px_25px_rgba(250,204,21,0.26)] transition duration-300 hover:-translate-y-0.5 hover:from-yellow-200 hover:to-orange-200"
             >
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[0.16em] text-yellow-200/90">
-                  Student Voices
-                </p>
-                <h3 className="mt-1 text-lg font-semibold text-white sm:text-xl">
-                  What Our Students Say
-                </h3>
-                <p className="mt-1 max-w-2xl text-sm text-slate-200/90 sm:text-base">
-                  Read real stories from learners who transformed their careers with Marota.
-                </p>
-              </div>
-
-              <span className="inline-flex items-center gap-2 rounded-full border border-cyan-300/45 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100 transition group-hover:border-cyan-200 sm:text-sm">
-                Go to Testimonials
-                <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
-              </span>
-            </a>
+              <Award size={16} className="transition-transform duration-200 group-hover:rotate-12" />
+              Enroll & Get Certified
+            </Link>
           </div>
+          <p className="mt-3 text-center text-xs font-medium tracking-wide text-slate-300 sm:text-sm">
+            Start your enrollment today and build job-ready skills with a recognized certificate.
+          </p>
+
         </div>
       </div>
     </section>

@@ -5,6 +5,12 @@ import Ashenafi from "../assets/testimonials/ashenafi.jpg";
 
 const testimonials = [
   {
+    text: "Marota helped me build real full-stack skills, get a job, and start freelancing with confidence.",
+    name: "Ashenafi Bancha",
+    role: "Full Stack Web Developer",
+    image: Ashenafi,
+  },
+  {
     text: "Marota improved my editing workflow through hands-on training. I now deliver client projects faster and with confidence.",
     name: "Temesgen",
     role: "Video Editor",
@@ -15,12 +21,6 @@ const testimonials = [
     name: "Kidest Yonas",
     role: "Graphics Designer",
     image: Kidest,
-  },
-  {
-    text: "Marota transformed my web and design skills through real-world practice and gave me a strong professional foundation.",
-    name: "Ashenafi Bancha",
-    role: "Student, Web & Design Enthusiast",
-    image: Ashenafi,
   },
 ];
 
