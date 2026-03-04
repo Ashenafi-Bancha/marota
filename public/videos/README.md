@@ -2,9 +2,10 @@
 
 Place hero background videos for the homepage in this folder.
 
-Expected filenames used by the app:
-- `marota-hero.webm`
+Expected filenames used by the app (playlist order):
 - `marota-hero.mp4`
+- `marota-hero1.mp4`
+- `marota-hero2.mp4`
 
 Recommended export settings:
 - Resolution: 1920x1080 (or 1280x720 for smaller files)
