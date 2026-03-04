@@ -40,6 +40,7 @@
   --btn-primary-hover-text: #ffffff;
   --btn-auth-shadow: 0 10px 25px rgba(100, 255, 218, 0.2);
   --hero-overlay: radial-gradient(circle at center, rgba(17,34,64,0.8) 0%, rgba(10,25,47,0.95) 70%);
+  --hero-video-filter: saturate(1.08) contrast(1.06) brightness(0.72);
   --hero-card-bg: rgba(11, 29, 54, 0.9);
   --hero-card-border: rgba(250, 204, 21, 0.5);
   --hero-card-shadow: 0 0 36px rgba(250,204,21,0.2);
@@ -97,6 +98,7 @@
   --btn-primary-hover-text: #ffffff;
   --btn-auth-shadow: 0 10px 25px rgba(51, 65, 85, 0.35);
   --hero-overlay: radial-gradient(circle at center, rgba(7, 11, 22, 0.76) 0%, rgba(3, 6, 14, 0.88) 72%);
+  --hero-video-filter: saturate(1.02) contrast(1.04) brightness(0.64);
   --hero-card-bg: rgba(10, 15, 28, 0.88);
   --hero-card-border: rgba(148, 163, 184, 0.45);
   --hero-card-shadow: 0 0 30px rgba(148,163,184,0.2);
@@ -154,6 +156,7 @@
   --btn-primary-hover-text: #ffffff;
   --btn-auth-shadow: 0 10px 22px rgba(59, 130, 246, 0.22);
   --hero-overlay: radial-gradient(circle at center, rgba(255, 255, 255, 0.68) 0%, rgba(241, 245, 249, 0.8) 72%);
+  --hero-video-filter: saturate(0.95) contrast(1.03) brightness(0.86);
   --hero-card-bg: rgba(255, 255, 255, 0.96);
   --hero-card-border: rgba(148, 163, 184, 0.45);
   --hero-card-shadow: 0 14px 30px rgba(15, 23, 42, 0.1);
@@ -579,6 +582,12 @@ h1,h2,h3,h4,h5 {
 [data-theme="dark"] .hero-brand-slogan-text,
 [data-theme="bright"] .hero-brand-slogan-text {
   animation: none !important;
+}
+
+.hero-video {
+  filter: var(--hero-video-filter);
+  transform: scale(1.03);
+  transform-origin: center;
 }
 
 .hero-overlay {

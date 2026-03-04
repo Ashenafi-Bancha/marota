@@ -14,10 +14,16 @@ import Testimonials from "./Testimonials";
 
 
 const images = [Hero1, Hero9,Hero10, Hero2, Hero3, Hero4, Hero5,];
+const heroVideoSources = [
+  { src: "/videos/marota-hero.webm", type: "video/webm" },
+  { src: "/videos/marota-hero.mp4", type: "video/mp4" },
+];
 
 export default function Hero() {
   const [currentImage, setCurrentImage] = useState(0);
   const [typedAdText, setTypedAdText] = useState("");
+  const [hasVideoError, setHasVideoError] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const { user } = useAuth();
   const adText = "Coming Soon in Addis Ababa";
   const adPrefix = "Coming Soon in ";
@@ -28,6 +34,20 @@ export default function Hero() {
       setCurrentImage((prevIndex) => (prevIndex + 1) % images.length);
     }, 4000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncMotionPreference = () => {
+      setPrefersReducedMotion(mediaQuery.matches);
+    };
+
+    syncMotionPreference();
+    mediaQuery.addEventListener("change", syncMotionPreference);
+
+    return () => {
+      mediaQuery.removeEventListener("change", syncMotionPreference);
+    };
   }, []);
 
   useEffect(() => {
@@ -65,18 +85,41 @@ export default function Hero() {
     <>
     <section id="home" className="relative min-h-[92vh] md:min-h-screen flex flex-col items-center justify-center overflow-hidden px-3">
 
-      {/* Background images slideshow */}
+      {/* Background video + image fallback */}
       <div className="absolute inset-0 z-0 ">
-        {images.map((img, index) => (
-          <img
-            key={index}
-            src={img}
-            alt={`Hero ${index + 1}`}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-              index === currentImage ? "opacity-100" : "opacity-0"
-            }`}
-          />
-        ))}
+        <div
+          className={`absolute inset-0 transition-opacity duration-700 ${
+            !prefersReducedMotion && !hasVideoError ? "opacity-35" : "opacity-100"
+          }`}
+        >
+          {images.map((img, index) => (
+            <img
+              key={index}
+              src={img}
+              alt={`Hero ${index + 1}`}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                index === currentImage ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ))}
+        </div>
+
+        {!prefersReducedMotion && !hasVideoError && (
+          <video
+            className="hero-video absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            poster={Hero1}
+            onError={() => setHasVideoError(true)}
+          >
+            {heroVideoSources.map((source) => (
+              <source key={source.src} src={source.src} type={source.type} />
+            ))}
+          </video>
+        )}
 
         {/* Overlay gradient for readability */}
         <div className="hero-overlay absolute inset-0"></div>
