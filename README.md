@@ -1,6 +1,34 @@
 # Marota Film and Software Collage
 
-A modern React + Vite web platform for **Marota Film and Software College**.
+# About Marota
+
+## Introduction
+
+**Marota Film and Software College** is a modern training institute dedicated to empowering young people with practical skills in both the **creative industry** and the **technology sector**.
+
+Marota aims to bridge the gap between talent and opportunity by providing industry-oriented education in areas such as filmmaking, media production, and software development.
+
+The institution believes that technology and creativity together can transform lives and open doors to global opportunities.
+
+## Vision
+
+To become a leading gateway for youth to enter the world of **technology, creativity, and digital innovation**, enabling them to compete in the global digital economy.
+
+## Mission
+
+- To provide **industry-standard training** in film production and software development.
+- To equip students with **practical, real-world skills**.
+- To inspire creativity and innovation among young professionals.
+- To prepare students for careers in the **digital and creative industries**.
+
+## What Makes Marota Unique
+
+- Focus on **practical, project-based learning**
+- Courses designed for **real-world industry needs**
+- Training in both **creative media and modern technology**
+- Opportunities for students to build **professional portfolios**
+
+Marota serves as a **gateway to technology and limitless creativity**, helping students turn their passion into professional careers.
 
 Production domain: **https://marota.tech**
 
