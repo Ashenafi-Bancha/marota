@@ -1,63 +1,65 @@
-# Marota Film and Software Collage
+# Marota Film and Software Collage Website
 
-# About Marota
+# Marota Film and Software College Website
 
-## Introduction
+## Project Overview
 
-**Marota Film and Software College** is a modern training institute dedicated to empowering young people with practical skills in both the **creative industry** and the **technology sector**.
+This project is the official website developed for **Marota Film and Software College**.  
+The website was designed to provide information about the college, its courses, and its mission to empower young people through technology and creative media education.
 
-Marota aims to bridge the gap between talent and opportunity by providing industry-oriented education in areas such as filmmaking, media production, and software development.
+The platform also serves as a digital gateway where students can explore available programs and learn more about the institution.
 
-The institution believes that technology and creativity together can transform lives and open doors to global opportunities.
+## Purpose of the Website
 
-## Vision
+The website was created to:
 
-To become a leading gateway for youth to enter the world of **technology, creativity, and digital innovation**, enabling them to compete in the global digital economy.
+- Present the **identity and vision** of Marota Film and Software College
+- Showcase the **courses and training programs**
+- Provide a **modern online presence** for the college
+- Make it easier for students to **discover and enroll in courses**
 
-## Mission
+## Key Features
 
-- To provide **industry-standard training** in film production and software development.
-- To equip students with **practical, real-world skills**.
-- To inspire creativity and innovation among young professionals.
-- To prepare students for careers in the **digital and creative industries**.
+- Modern and responsive design
+- Course showcase section
+- Information about the college and its mission
+- Social media integration
+- Clean and user-friendly interface
 
-## What Makes Marota Unique
+## Technologies Used
 
-- Focus on **practical, project-based learning**
-- Courses designed for **real-world industry needs**
-- Training in both **creative media and modern technology**
-- Opportunities for students to build **professional portfolios**
+The website was developed using modern web technologies including:
 
-Marota serves as a **gateway to technology and limitless creativity**, helping students turn their passion into professional careers.
+- **React.js**
+- **Tailwind CSS**
+- **Node.js**
+- **Express.js**
+- **PostgreSQL**
 
-Production domain: **https://marota.tech**
+These technologies ensure that the platform is scalable, fast, and easy to maintain.
+
+## Developer
+
+This website was designed and developed by:
+
+**Ashenafi Bancha**  
+Full-Stack Web Developer
+
+The goal of this project was to create a **professional, modern, and scalable platform** that represents the vision of Marota and helps connect students with technology and creative opportunities.
+
+## Future Improvements
+
+Planned future improvements include:
+
+- Online course enrollment system
+- Student portal
+- Learning management system
+- Online certification system
+- Blog and learning resources
 
 ---
 
-## Overview
-
-This frontend delivers:
-
-- Public marketing pages (Home, About, Courses, Portfolio, Gallery, Instructors, Contact)
-- Authentication (Email/Password + OAuth providers)
-- Student experience (Dashboard, My Courses, Learning, Profile)
-- Admin access flow
-- Multi-theme UX (Marota, Dark, Bright)
-- SEO-ready metadata, schema, `robots.txt`, and `sitemap.xml`
-
----
-
-## Tech Stack
-
-- **Framework:** React 19
-- **Build Tool:** Vite 7
-- **Routing:** React Router
-- **Styling:** Tailwind CSS v4 + custom theme tokens
-- **Auth & Data:** Supabase
-- **Icons:** `react-icons`, `lucide-react`
-- **Utilities:** `axios`, `qrcode`, `jspdf`
-
----
+Marota is not just a training center — it is a **gateway to technology and limitless creativity**.
 
 ## Project Structure
 
