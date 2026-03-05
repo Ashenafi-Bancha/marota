@@ -1,7 +1,5 @@
 # Marota Film and Software Collage Website
 
-# Marota Film and Software College Website
-
 ## Project Overview
 
 This project is the official website developed for **Marota Film and Software College**.  
@@ -32,8 +30,7 @@ The website was developed using modern web technologies including:
 
 - **React.js**
 - **Tailwind CSS**
-- **Node.js**
-- **Express.js**
+- **Supase**
 - **PostgreSQL**
 
 These technologies ensure that the platform is scalable, fast, and easy to maintain.
@@ -111,7 +108,6 @@ Three available themes:
 
 - **Marota** (default)
 - **Dark**
-- **Bright**
 
 Theme is managed globally via context and UI icon switcher.
 
