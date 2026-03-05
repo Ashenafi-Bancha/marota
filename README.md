@@ -1,4 +1,4 @@
-# Marota Website (Frontend)
+# Marota Film and Software Collage
 
 A modern React + Vite web platform for **Marota Film and Software College**.
 
