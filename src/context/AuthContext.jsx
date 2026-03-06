@@ -1,6 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
+import {
+  canAccessAdminConsole,
+  getPermissionsForRole,
+  hasRolePermission,
+  normalizeRole,
+} from "../config/adminPermissions";
 
 const AuthContext = createContext();
 
@@ -23,20 +29,20 @@ export const AuthProvider = ({ children }) => {
         .maybeSingle();
 
       if (!error && data?.role) {
-        setRole(String(data.role).toLowerCase());
+        setRole(normalizeRole(data.role));
         return;
       }
 
       const metadataRole = String(currentUser.user_metadata?.role || "").trim();
       if (metadataRole) {
-        setRole(metadataRole.toLowerCase());
+        setRole(normalizeRole(metadataRole));
         return;
       }
 
       setRole("student");
     } catch {
       const metadataRole = String(currentUser.user_metadata?.role || "").trim();
-      setRole(metadataRole ? metadataRole.toLowerCase() : "student");
+      setRole(metadataRole ? normalizeRole(metadataRole) : "student");
     }
   };
 
@@ -98,11 +104,22 @@ export const AuthProvider = ({ children }) => {
     return { error: null };
   };
 
-  const isAdmin = role === "admin";
+  const isAdmin = canAccessAdminConsole(role);
+  const permissions = getPermissionsForRole(role);
+  const hasPermission = (permissionKey) => hasRolePermission(role, permissionKey);
 
   return (
     <AuthContext.Provider
-      value={{ user, role, isAdmin, loading, signOut, signOutError }}
+      value={{
+        user,
+        role,
+        isAdmin,
+        permissions,
+        hasPermission,
+        loading,
+        signOut,
+        signOutError,
+      }}
     >
       {children}
     </AuthContext.Provider>

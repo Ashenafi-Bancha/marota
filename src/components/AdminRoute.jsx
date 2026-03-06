@@ -2,7 +2,8 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function AdminRoute({ children }) {
-  const { user, isAdmin, loading } = useAuth();
+  const { user, isAdmin, hasPermission, loading } = useAuth();
+  const canAccessAdmin = isAdmin || hasPermission("accessAdminConsole");
 
   if (loading) {
     return (
@@ -16,7 +17,7 @@ export default function AdminRoute({ children }) {
     return <Navigate to="/login" replace />;
   }
 
-  if (!isAdmin) {
+  if (!canAccessAdmin) {
     return <Navigate to="/dashboard" replace />;
   }
 

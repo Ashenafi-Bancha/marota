@@ -1,42 +1,7 @@
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Camera, Code, Calendar, Users, ArrowRight, Play, Award } from 'lucide-react'
-import axios from 'axios'
 
 const Home = () => {
-  const [courses, setCourses] = useState([])
-  const [events, setEvents] = useState([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [coursesRes, eventsRes] = await Promise.all([
-          axios.get('/api/courses'),
-          axios.get('/api/events')
-        ])
-        setCourses(coursesRes.data)
-        setEvents(eventsRes.data)
-      } catch (error) {
-        console.error('Error fetching data:', error)
-        // Set fallback data if API fails
-        setCourses([
-          { id: 1, title: 'Digital Cinematography Fundamentals', description: 'Master the basics of digital film production, camera operations, and visual storytelling techniques.' },
-          { id: 2, title: 'Advanced Film Editing', description: 'Professional editing workflows using industry-standard software including Premiere Pro and Final Cut Pro.' },
-          { id: 3, title: 'Full-Stack Web Development', description: 'Complete web development course covering React, Node.js, databases, and deployment strategies.' }
-        ])
-        setEvents([
-          { id: 1, title: 'Industry Professional Workshop', description: 'Learn from working cinematographers and software engineers.', date: '2025-02-15', location: 'Main Studio, Building A' },
-          { id: 2, title: 'Student Film Screening', description: 'Showcase of outstanding student projects.', date: '2025-03-01', location: 'Auditorium, Building B' }
-        ])
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [])
-
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
