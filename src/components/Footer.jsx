@@ -131,11 +131,9 @@ function Footer() {
             </p>
             <div className="mt-1 grid grid-cols-6 gap-1.5">
               {paymentMethods.map((method) => (
-                <Link
+                <div
                   key={method.label}
-                  to="/courses#courses"
-                  className="rounded-md border border-white/15 bg-white p-1 transition hover:-translate-y-0.5 hover:border-[var(--accent-blue)]"
-                  aria-label={`Go to courses and pay with ${method.label}`}
+                  className="rounded-md border border-white/15 bg-white p-1"
                   title={`Pay with ${method.label}`}
                 >
                   <img
@@ -144,7 +142,7 @@ function Footer() {
                     className="h-5 w-full object-contain"
                     loading="lazy"
                   />
-                </Link>
+                </div>
               ))}
             </div>
           </div>
