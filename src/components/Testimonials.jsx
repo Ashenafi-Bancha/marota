@@ -2,6 +2,7 @@
 import Temesgen from "../assets/testimonials/Temesgen.jpg";
 import Kidest from "../assets/testimonials/Kidst.jpg";
 import Ashenafi from "../assets/testimonials/ashenafi.jpg";
+import Bereket from "../assets/testimonials/berekt.jpg";
 
 const testimonials = [
   {
@@ -15,6 +16,12 @@ const testimonials = [
     name: "Temesgen",
     role: "Video Editor",
     image: Temesgen,
+  },
+  {
+    text: "Marota's photography and videography training strengthened my shooting, lighting, and storytelling skills. I can now produce visual projects with much more confidence.",
+    name: "Bereket Mesfin",
+    role: "Photography and Videography Student",
+    image: Bereket,
   },
   {
     text: "Mentorship and project-based learning sharpened my creative process from concept to final output.",
