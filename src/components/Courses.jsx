@@ -779,7 +779,11 @@ const Courses = () => {
           </div>
         )}
 
-        <h3 className="text-3xl md:text-4xl font-bold mb-8 text-center !text-[var(--accent-blue)]">
+        <span id="on-campus-courses" className="block scroll-mt-32" aria-hidden="true" />
+        <h3
+          id="diploma-courses"
+          className="scroll-mt-32 text-3xl md:text-4xl font-bold mb-8 text-center !text-[var(--accent-blue)]"
+        >
           Diploma Level Courses
         </h3>
         {filteredDiplomaLevels.map((level, idx) => (
@@ -804,7 +808,11 @@ const Courses = () => {
           </div>
         ))}
 
-        <h3 className="text-3xl md:text-4xl font-bold mb-8 text-center !text-[var(--accent-blue)]">
+        <span id="online-certification-courses" className="block scroll-mt-32" aria-hidden="true" />
+        <h3
+          id="short-term-courses"
+          className="scroll-mt-32 text-3xl md:text-4xl font-bold mb-8 text-center !text-[var(--accent-blue)]"
+        >
           Short Term Courses(3-6 Months)
         </h3>
         <div className="rounded-2xl bg-[#0f203b]/50 border border-[#1f3b5b] p-4 md:p-6">

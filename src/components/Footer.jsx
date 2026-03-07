@@ -15,7 +15,7 @@ function Footer() {
     { label: "Home", to: "/" },
     { label: "About", to: "/about" },
     { label: "Courses", to: "/courses" },
-    { label: "Portifolio", to: "/portfolio" },
+    { label: "Portfolio", to: "/portfolio" },
     { label: "Gallery", to: "/gallery" },
     { label: "Instructors", to: "/instructors" },
     { label: "Blog", to: "/blog" },

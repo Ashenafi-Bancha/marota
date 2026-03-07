@@ -11,10 +11,18 @@ import Register from "./Register";
 import Modal from "./Modal";
 import ThemeSwitcher from "./ThemeSwitcher";
 
- const Header = () => {
+const initialMobileNavDropdownState = {
+  courses: false,
+  portfolio: false,
+};
+
+const Header = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileNavDropdowns, setMobileNavDropdowns] = useState(
+    initialMobileNavDropdownState
+  );
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [mobileProfileMenuOpen, setMobileProfileMenuOpen] = useState(false);
   const profileMenuRef = useRef(null);
@@ -28,8 +36,32 @@ import ThemeSwitcher from "./ThemeSwitcher";
     () => [
       { label: "Home", path: "/" },
       { label: "About", path: "/about" },
-      { label: "Courses", path: "/courses" },
-      { label: "Portifolio", path: "/portfolio" },
+      {
+        label: "Courses",
+        path: "/courses",
+        dropdownKey: "courses",
+        children: [
+          { label: "Diploma Courses", path: "/courses#diploma-courses" },
+          { label: "Short Term Courses", path: "/courses#short-term-courses" },
+          { label: "On Campus Courses", path: "/courses#on-campus-courses" },
+          {
+            label: "Online Certification Courses",
+            path: "/courses#online-certification-courses",
+          },
+        ],
+      },
+      {
+        label: "Portfolio",
+        path: "/portfolio",
+        dropdownKey: "portfolio",
+        children: [
+          { label: "Films", path: "/portfolio?category=films" },
+          { label: "Graphics", path: "/portfolio?category=graphics" },
+          { label: "Mobile Apps", path: "/portfolio?category=mobile-apps" },
+          { label: "Websites", path: "/portfolio?category=websites" },
+          { label: "Video", path: "/portfolio?category=video" },
+        ],
+      },
       { label: "Gallery", path: "/gallery" },
       { label: "Instructors", path: "/instructors" },
       { label: "Blog", path: "/blog" },
@@ -112,7 +144,14 @@ import ThemeSwitcher from "./ThemeSwitcher";
   useEffect(() => {
     setProfileMenuOpen(false);
     setMobileProfileMenuOpen(false);
+    setMobileNavDropdowns(initialMobileNavDropdownState);
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) {
+      setMobileNavDropdowns(initialMobileNavDropdownState);
+    }
+  }, [menuOpen]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -134,6 +173,18 @@ import ThemeSwitcher from "./ThemeSwitcher";
       });
     }
   }, [menuOpen, mobileProfileMenuOpen]);
+
+  const closeMobileMenu = () => {
+    setMenuOpen(false);
+    setMobileNavDropdowns(initialMobileNavDropdownState);
+  };
+
+  const toggleMobileNavDropdown = (dropdownKey) => {
+    setMobileNavDropdowns((prev) => ({
+      ...prev,
+      [dropdownKey]: !prev[dropdownKey],
+    }));
+  };
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-[#081325]/85 text-white shadow-[0_10px_30px_rgba(2,8,23,0.35)] backdrop-blur-xl">
@@ -189,6 +240,34 @@ import ThemeSwitcher from "./ThemeSwitcher";
         <nav className="mx-6 hidden items-center gap-3 rounded-full border border-white/10 bg-[#112240]/70 px-4 py-2 xl:flex 2xl:gap-4">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
+
+            if (item.children) {
+              return (
+                <div key={item.path} className="group relative">
+                  <Link
+                    to={item.path}
+                    className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm transition-colors hover:bg-cyan-400/10 hover:text-[var(--accent-blue)] ${
+                      isActive ? "bg-cyan-400/15 text-[var(--accent-blue)]" : ""
+                    }`}
+                    aria-haspopup="menu"
+                  >
+                    <span>{item.label}</span>
+                    <FaChevronDown className="text-[10px] transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
+                  </Link>
+                  <div className="invisible pointer-events-none absolute left-0 top-full z-[80] mt-2 min-w-[230px] rounded-xl border border-slate-700 bg-[#0f2240] p-2 opacity-0 shadow-2xl transition duration-150 group-hover:visible group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.path}
+                        to={child.path}
+                        className="btn-dropdown block rounded-lg px-3 py-2 text-sm text-gray-100 hover:bg-[#17345d]"
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
 
             return (
               <Link
@@ -368,11 +447,62 @@ import ThemeSwitcher from "./ThemeSwitcher";
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
 
+            if (item.children) {
+              const isExpanded = mobileNavDropdowns[item.dropdownKey];
+
+              return (
+                <div
+                  key={item.path}
+                  className="rounded-xl border border-slate-700/70 bg-[#102447]/65"
+                >
+                  <div className="flex items-center">
+                    <Link
+                      to={item.path}
+                      onClick={closeMobileMenu}
+                      className={`flex-1 rounded-l-xl px-3 py-2 text-left transition-colors hover:bg-cyan-400/10 hover:text-[var(--accent-blue)] ${
+                        isActive ? "bg-cyan-400/15 text-[var(--accent-blue)]" : ""
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => toggleMobileNavDropdown(item.dropdownKey)}
+                      className="rounded-r-xl border-l border-slate-700/80 px-3 py-2 text-gray-200"
+                      aria-expanded={isExpanded}
+                      aria-label={`Toggle ${item.label} menu`}
+                    >
+                      <FaChevronDown
+                        className={`text-xs transition-transform ${
+                          isExpanded ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                  </div>
+
+                  {isExpanded && (
+                    <div className="space-y-1 border-t border-slate-700/70 px-2 pb-2 pt-2">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.path}
+                          to={child.path}
+                          onClick={closeMobileMenu}
+                          className="btn-dropdown block rounded-lg px-3 py-2 text-sm text-gray-100 hover:bg-[#17345d]"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
             return (
               <Link
                 key={item.path}
                 to={item.path}
-                onClick={() => setMenuOpen(false)}
+                onClick={closeMobileMenu}
                 className={`rounded-lg px-3 py-2 text-center transition-colors hover:bg-cyan-400/10 hover:text-[var(--accent-blue)] ${
                   isActive ? "bg-cyan-400/15 text-[var(--accent-blue)]" : ""
                 }`}
