@@ -37,6 +37,7 @@ export default function Portfolio() {
         img: Portfolio1,
         description: "Film project showcasing school life.",
         categories: ["films", "video"],
+        href: "https://youtu.be/uI_bu83Ae58?si=HyecbfT9SEr3imm7",
       },
       {
         title: "Wolatia Heritage Digital Museum Website and Mobile App",
@@ -119,36 +120,58 @@ export default function Portfolio() {
         </div>
       ) : (
         <div className="grid gap-8 md:grid-cols-3 max-w-7xl mx-auto px-6">
-          {visibleProjects.map((project, idx) => (
-            <div
-              key={idx}
-              className="bg-[#112240] rounded-lg shadow-lg overflow-hidden hover:scale-105 transition"
-            >
-              <div className="w-full aspect-video">
-                <img
-                  src={project.img}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold">{project.title}</h3>
-                <p className="text-gray-400 text-sm mt-2">
-                  {project.description}
-                </p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {project.categories.map((category) => (
-                    <span
-                      key={`${project.title}-${category}`}
-                      className="rounded-full border border-cyan-700/50 bg-cyan-500/10 px-2.5 py-1 text-xs font-semibold text-cyan-200"
-                    >
-                      {categoryLabelMap.get(category) || category}
-                    </span>
-                  ))}
+          {visibleProjects.map((project, idx) => {
+            const cardClassName =
+              "block bg-[#112240] rounded-lg shadow-lg overflow-hidden transition hover:scale-105";
+
+            const cardContent = (
+              <>
+                <div className="w-full aspect-video">
+                  <img
+                    src={project.img}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold">{project.title}</h3>
+                  <p className="text-gray-400 text-sm mt-2">
+                    {project.description}
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {project.categories.map((category) => (
+                      <span
+                        key={`${project.title}-${category}`}
+                        className="rounded-full border border-cyan-700/50 bg-cyan-500/10 px-2.5 py-1 text-xs font-semibold text-cyan-200"
+                      >
+                        {categoryLabelMap.get(category) || category}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </>
+            );
+
+            if (project.href) {
+              return (
+                <a
+                  key={idx}
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${cardClassName} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300`}
+                >
+                  {cardContent}
+                </a>
+              );
+            }
+
+            return (
+              <div key={idx} className={cardClassName}>
+                {cardContent}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
