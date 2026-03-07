@@ -1,4 +1,6 @@
 // src/components/Testimonials.jsx
+import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 import Temesgen from "../assets/testimonials/Temesgen.jpg";
 import Kidest from "../assets/testimonials/Kidst.jpg";
 import Ashenafi from "../assets/testimonials/ashenafi.jpg";
@@ -18,20 +20,23 @@ const testimonials = [
     image: Temesgen,
   },
   {
-    text: "Marota's photography and videography training strengthened my shooting, lighting, and storytelling skills. I can now produce visual projects with much more confidence.",
-    name: "Bereket Mesfin",
-    role: "Photography and Videography Student",
-    image: Bereket,
-  },
-  {
     text: "Mentorship and project-based learning sharpened my creative process from concept to final output.",
     name: "Kidest Yonas",
     role: "Graphics Designer",
     image: Kidest,
   },
+  {
+    text: "Marota's photography and videography training strengthened my shooting, lighting, and storytelling skills. I can now produce visual projects with much more confidence.",
+    name: "Bereket Mesfin",
+    role: "Photography and Videography Student",
+    image: Bereket,
+  },
 ];
 
 export default function Testimonials() {
+  const [showAll, setShowAll] = useState(false);
+  const visibleTestimonials = showAll ? testimonials : testimonials.slice(0, 3);
+
   return (
     <section id="testimonials" className="bg-[#112240] py-20 text-white md:py-24">
       <div className="mx-auto mb-12 max-w-7xl px-6 text-center md:mb-14">
@@ -44,7 +49,7 @@ export default function Testimonials() {
       </div>
 
       <div className="mx-auto grid max-w-6xl gap-7 px-6 md:grid-cols-2 lg:grid-cols-3">
-        {testimonials.map((t, idx) => (
+        {visibleTestimonials.map((t, idx) => (
           <div
             key={idx}
             className="group flex h-full min-h-[360px] flex-col rounded-2xl border border-slate-700/70 bg-[#0a192f] p-7 text-center shadow-lg transition duration-300 hover:-translate-y-1 hover:border-[var(--accent-blue)] hover:shadow-2xl"
@@ -70,6 +75,19 @@ export default function Testimonials() {
           </div>
         ))}
       </div>
+
+      {testimonials.length > 3 && (
+        <div className="max-w-7xl mx-auto px-6 mt-8 text-center">
+          <button
+            type="button"
+            onClick={() => setShowAll((prev) => !prev)}
+            className="inline-flex items-center gap-2 rounded-md bg-[var(--accent-blue)] px-6 py-2 font-semibold text-black transition hover:bg-teal-300 hover:text-white"
+          >
+            {showAll ? "View less testimonials" : "View more testimonials"}
+            <ArrowRight size={16} />
+          </button>
+        </div>
+      )}
     </section>
   );
 }
