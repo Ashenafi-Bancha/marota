@@ -122,22 +122,24 @@ export default function Portfolio() {
         <div className="grid gap-8 md:grid-cols-3 max-w-7xl mx-auto px-6">
           {visibleProjects.map((project, idx) => {
             const cardClassName =
-              "block bg-[#112240] rounded-lg shadow-lg overflow-hidden transition hover:scale-105";
+              "group block rounded-lg border border-[#1f3b5b] bg-[#112240] shadow-lg overflow-hidden transition duration-300 hover:-translate-y-1 hover:border-cyan-300/80 hover:shadow-cyan-500/20 hover:shadow-xl focus-within:border-cyan-300/80";
 
             const cardContent = (
               <>
-                <div className="w-full aspect-video">
+                <div className="relative w-full aspect-video overflow-hidden">
                   <img
                     src={project.img}
                     alt={project.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
+                  <div className="absolute inset-0 flex items-end bg-gradient-to-t from-[#0a192f]/95 via-[#0a192f]/70 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100">
+                    <p className="text-left text-sm leading-relaxed text-gray-100">
+                      {project.description}
+                    </p>
+                  </div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold">{project.title}</h3>
-                  <p className="text-gray-400 text-sm mt-2">
-                    {project.description}
-                  </p>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {project.categories.map((category) => (
                       <span
