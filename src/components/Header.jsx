@@ -434,7 +434,7 @@ const Header = () => {
             {menuOpen ? <FaTimes className="text-red-500" /> : <FaBars className="text-yellow-400" />}
           </button>
 
-          <div className="hidden lg:block lg:ml-4 xl:ml-6">
+          <div className="hidden lg:block lg:ml-10 xl:ml-14">
             <ThemeSwitcher compact />
           </div>
         </div>

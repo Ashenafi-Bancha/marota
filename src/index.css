@@ -364,34 +364,6 @@ h1,h2,h3,h4,h5 {
   align-items: center;
 }
 
-.theme-switcher__tooltip {
-  position: absolute;
-  right: 0;
-  bottom: calc(100% + 0.5rem);
-  z-index: 80;
-  max-width: min(70vw, 260px);
-  padding: 0.35rem 0.55rem;
-  border-radius: 0.5rem;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  background: rgba(2, 6, 23, 0.96);
-  color: #e2e8f0;
-  font-size: 0.68rem;
-  line-height: 1.25;
-  letter-spacing: 0.01em;
-  white-space: normal;
-  pointer-events: none;
-  opacity: 0;
-  transform: translateY(2px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.theme-switcher__control:hover .theme-switcher__tooltip,
-.theme-switcher__control:focus-within .theme-switcher__tooltip,
-.theme-switcher__control.is-hint-visible .theme-switcher__tooltip {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .theme-switcher__btn {
   display: inline-flex;
   align-items: center;
@@ -400,7 +372,7 @@ h1,h2,h3,h4,h5 {
   border: none;
   background: transparent;
   color: var(--theme-control-text);
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   width: auto;
   height: auto;
   padding: 0;
@@ -428,7 +400,7 @@ h1,h2,h3,h4,h5 {
 }
 
 .theme-switcher__btn[data-theme-option="marota"][data-active="true"] {
-  color: #facc15;
+  color: #22d3ee;
   background: transparent;
   border: none;
 }
@@ -444,7 +416,7 @@ h1,h2,h3,h4,h5 {
 }
 
 .theme-switcher--compact .theme-switcher__btn {
-  font-size: 1.05rem;
+  font-size: 1.02rem;
 }
 
 .brand-wordmark {

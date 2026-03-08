@@ -149,7 +149,7 @@ function Footer() {
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-3 md:justify-end">
+          <div className="flex w-full items-center justify-between gap-6 lg:w-auto lg:justify-end">
             <nav aria-label="Legal" className="flex items-center justify-center gap-3 text-sm text-slate-500/90 md:justify-end">
               <Link to="/privacy" className="text-inherit transition-colors duration-200 hover:text-slate-200">
                 Privacy Policy
@@ -159,7 +159,7 @@ function Footer() {
                 Terms of Service
               </Link>
             </nav>
-            <div className="lg:hidden">
+            <div className="ml-8 lg:hidden">
               <ThemeSwitcher compact />
             </div>
           </div>
