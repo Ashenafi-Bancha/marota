@@ -238,7 +238,7 @@ const Header = () => {
         </div>
         
         {/* Desktop Nav */}
-        <nav className="mx-6 hidden items-center gap-3 rounded-full border border-white/10 bg-[#112240]/70 px-4 py-2 xl:flex 2xl:gap-4">
+        <nav className="mx-3 hidden items-center gap-1.5 rounded-full border border-white/10 bg-[#112240]/70 px-2 py-1.5 xl:flex 2xl:gap-2">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
 
@@ -247,7 +247,7 @@ const Header = () => {
                 <div key={item.path} className="group relative">
                   <Link
                     to={item.path}
-                    className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm transition-colors hover:bg-cyan-400/10 hover:text-[var(--accent-blue)] ${
+                    className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-[13px] transition-colors hover:bg-cyan-400/10 hover:text-[var(--accent-blue)] ${
                       isActive ? "bg-cyan-400/15 text-[var(--accent-blue)]" : ""
                     }`}
                     aria-haspopup="menu"
@@ -274,7 +274,7 @@ const Header = () => {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`rounded-full px-3 py-1.5 text-sm transition-colors hover:bg-cyan-400/10 hover:text-[var(--accent-blue)] ${
+                className={`rounded-full px-2.5 py-1.5 text-[13px] transition-colors hover:bg-cyan-400/10 hover:text-[var(--accent-blue)] ${
                   isActive ? "bg-cyan-400/15 text-[var(--accent-blue)]" : ""
                 }`}
               >
@@ -285,11 +285,7 @@ const Header = () => {
         </nav>
 
         {/* Search + Auth */}
-        <div className="flex items-center gap-2 lg:gap-3 shrink-0">
-          <div className="hidden lg:block">
-            <ThemeSwitcher compact />
-          </div>
-
+        <div className="flex items-center gap-1 lg:gap-2 shrink-0">
           {/* Search Bar */}
           <div className="hidden 2xl:block relative">
             <form
@@ -345,7 +341,7 @@ const Header = () => {
 
           {/* Auth Buttons */}
           {user ? (
-            <div className="hidden xl:flex items-center gap-2">
+            <div className="hidden lg:flex items-center gap-2">
               {!isAdmin && (
                 <button
                   type="button"
@@ -405,14 +401,14 @@ const Header = () => {
               </div>
             </div>
           ) : (
-            <div className="hidden xl:flex items-center gap-2">
+            <div className="hidden lg:flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => {
                   setShowLogin(true);
                   setShowRegister(false);
                 }}
-                className="bg-cyan-400 px-3 py-2 rounded-lg hover:bg-cyan-500 text-sm whitespace-nowrap"
+                className="bg-sky-700 px-3 py-2 rounded-lg text-white hover:bg-sky-600 text-sm whitespace-nowrap"
               >
                 Sign In
               </button>
@@ -422,7 +418,7 @@ const Header = () => {
                   setShowRegister(true);
                   setShowLogin(false);
                 }}
-                className="btn-signup bg-yellow-400 px-3 py-2 rounded-lg hover:bg-yellow-500 text-sm whitespace-nowrap"
+                className="btn-signup bg-gradient-to-r from-yellow-300 via-amber-300 to-orange-300 px-3 py-2 rounded-lg text-[#0a192f] font-semibold hover:from-yellow-200 hover:via-amber-200 hover:to-orange-200 text-sm whitespace-nowrap"
               >
                 Sign Up
               </button>
@@ -437,14 +433,16 @@ const Header = () => {
           >
             {menuOpen ? <FaTimes className="text-red-500" /> : <FaBars className="text-yellow-400" />}
           </button>
+
+          <div className="hidden lg:block lg:ml-4 xl:ml-6">
+            <ThemeSwitcher compact />
+          </div>
         </div>
       </div>
 
       {/* Mobile Nav */}
       {menuOpen && (
         <div className="xl:hidden flex max-h-[calc(100vh-7.5rem)] overflow-y-auto flex-col items-stretch gap-4 border-t border-white/10 bg-[#0d1f3c]/95 px-4 py-4 pb-6 backdrop-blur-md">
-          <ThemeSwitcher />
-
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
 
@@ -581,7 +579,7 @@ const Header = () => {
                 setShowLogin(true);
                 setShowRegister(false);
               }}
-              className="bg-cyan-400 px-3 py-2 rounded-lg hover:bg-cyan-500 w-full"
+              className="bg-sky-700 px-3 py-2 rounded-lg text-white hover:bg-sky-600 w-full"
             >
               Sign In
             </button>
@@ -592,7 +590,7 @@ const Header = () => {
                 setShowRegister(true);
                 setShowLogin(false);
               }}
-              className="btn-signup bg-yellow-400 px-3 py-2 rounded-lg hover:bg-yellow-500 w-full"
+              className="btn-signup bg-gradient-to-r from-yellow-300 via-amber-300 to-orange-300 px-3 py-2 rounded-lg text-[#0a192f] font-semibold hover:from-yellow-200 hover:via-amber-200 hover:to-orange-200 w-full"
             >
               Sign Up
             </button>

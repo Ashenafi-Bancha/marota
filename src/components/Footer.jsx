@@ -9,6 +9,7 @@ import awashImage from "../assets/awash.png";
 import dashenImage from "../assets/dashen.png";
 import telebirrImage from "../assets/telebirr.jpeg";
 import mpesaImage from "../assets/mpesa.png";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 function Footer() {
   const quickLinks = [
@@ -148,15 +149,20 @@ function Footer() {
             </div>
           </div>
 
-          <nav aria-label="Legal" className="flex items-center justify-center gap-3 text-sm text-slate-500/90 md:justify-end">
-            <Link to="/privacy" className="text-inherit transition-colors duration-200 hover:text-slate-200">
-              Privacy Policy
-            </Link>
-            <span className="text-slate-700">|</span>
-            <Link to="/terms" className="text-inherit transition-colors duration-200 hover:text-slate-200">
-              Terms of Service
-            </Link>
-          </nav>
+          <div className="flex items-center justify-center gap-3 md:justify-end">
+            <nav aria-label="Legal" className="flex items-center justify-center gap-3 text-sm text-slate-500/90 md:justify-end">
+              <Link to="/privacy" className="text-inherit transition-colors duration-200 hover:text-slate-200">
+                Privacy Policy
+              </Link>
+              <span className="text-slate-700">|</span>
+              <Link to="/terms" className="text-inherit transition-colors duration-200 hover:text-slate-200">
+                Terms of Service
+              </Link>
+            </nav>
+            <div className="lg:hidden">
+              <ThemeSwitcher compact />
+            </div>
+          </div>
         </div>
       </div>
     </footer>
