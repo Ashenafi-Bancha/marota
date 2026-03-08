@@ -64,6 +64,7 @@ const Header = () => {
       },
       { label: "Gallery", path: "/gallery" },
       { label: "Instructors", path: "/instructors" },
+      { label: "Testimonials", path: "/#testimonials" },
       { label: "Blog", path: "/blog" },
       { label: "Contact", path: "/contact" },
     ],
