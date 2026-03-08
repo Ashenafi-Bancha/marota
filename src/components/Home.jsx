@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Camera, Code, Users, Award, GraduationCap, Clock3, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -15,33 +15,13 @@ import VideoShowcase from "./VideoShowcase";
 
 
 const images = [Hero1, Hero9,Hero10, Hero2, Hero3, Hero4, Hero5,];
-const heroVideos = [
-  "/videos/marota-hero.mp4",
-  "/videos/marota-hero1.mp4",
-  "/videos/marota-hero2.mp4",
-];
-const HERO_VIDEO_CROSSFADE_SECONDS = 1.1;
-const HERO_VIDEO_CROSSFADE_MS = 900;
 
 export default function Hero() {
   const [currentImage, setCurrentImage] = useState(0);
   const [typedAdText, setTypedAdText] = useState("");
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-  const [activeVideoLayer, setActiveVideoLayer] = useState(0);
-  const [hasVideoError, setHasVideoError] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [videoLayerSources, setVideoLayerSources] = useState(() => {
-    const firstVideo = heroVideos[0] ?? "";
-    const secondVideo = heroVideos[1] ?? firstVideo;
-    return [firstVideo, secondVideo];
-  });
-  const videoRefs = useRef([null, null]);
-  const transitionTimeoutRef = useRef(null);
-  const isVideoTransitioningRef = useRef(false);
   const { user } = useAuth();
   const adText = "Coming Soon in Addis Ababa";
   const adPrefix = "Coming Soon in ";
-  const shouldRenderVideo = !prefersReducedMotion && !hasVideoError && heroVideos.length > 0;
 
   // Change image every 4 seconds
   useEffect(() => {
@@ -50,123 +30,6 @@ export default function Hero() {
     }, 4000);
     return () => clearInterval(interval);
   }, []);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const syncMotionPreference = () => {
-      setPrefersReducedMotion(mediaQuery.matches);
-    };
-
-    syncMotionPreference();
-    mediaQuery.addEventListener("change", syncMotionPreference);
-
-    return () => {
-      mediaQuery.removeEventListener("change", syncMotionPreference);
-    };
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (transitionTimeoutRef.current) {
-        window.clearTimeout(transitionTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!shouldRenderVideo) {
-      isVideoTransitioningRef.current = false;
-      if (transitionTimeoutRef.current) {
-        window.clearTimeout(transitionTimeoutRef.current);
-        transitionTimeoutRef.current = null;
-      }
-      return;
-    }
-
-    const inactiveLayer = activeVideoLayer === 0 ? 1 : 0;
-    const upcomingIndex = (currentVideoIndex + 1) % heroVideos.length;
-    const upcomingSource = heroVideos[upcomingIndex] ?? heroVideos[currentVideoIndex] ?? "";
-
-    setVideoLayerSources((prevSources) => {
-      if (prevSources[inactiveLayer] === upcomingSource) {
-        return prevSources;
-      }
-
-      const nextSources = [...prevSources];
-      nextSources[inactiveLayer] = upcomingSource;
-      return nextSources;
-    });
-  }, [activeVideoLayer, currentVideoIndex, shouldRenderVideo]);
-
-  const beginVideoCrossfade = () => {
-    if (!shouldRenderVideo || heroVideos.length < 2 || isVideoTransitioningRef.current) {
-      return;
-    }
-
-    const outgoingLayer = activeVideoLayer;
-    const incomingLayer = outgoingLayer === 0 ? 1 : 0;
-    const outgoingVideo = videoRefs.current[outgoingLayer];
-    const incomingVideo = videoRefs.current[incomingLayer];
-
-    if (!incomingVideo) {
-      return;
-    }
-
-    isVideoTransitioningRef.current = true;
-    incomingVideo.currentTime = 0;
-
-    Promise.resolve(incomingVideo.play())
-      .then(() => {
-        setActiveVideoLayer(incomingLayer);
-
-        if (transitionTimeoutRef.current) {
-          window.clearTimeout(transitionTimeoutRef.current);
-        }
-
-        transitionTimeoutRef.current = window.setTimeout(() => {
-          if (outgoingVideo) {
-            outgoingVideo.pause();
-            outgoingVideo.currentTime = 0;
-          }
-
-          setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % heroVideos.length);
-          isVideoTransitioningRef.current = false;
-          transitionTimeoutRef.current = null;
-        }, HERO_VIDEO_CROSSFADE_MS);
-      })
-      .catch(() => {
-        isVideoTransitioningRef.current = false;
-        setHasVideoError(true);
-      });
-  };
-
-  const handleHeroVideoTimeUpdate = (event) => {
-    if (isVideoTransitioningRef.current) {
-      return;
-    }
-
-    const video = event.currentTarget;
-    if (!Number.isFinite(video.duration) || video.duration <= 0) {
-      return;
-    }
-
-    const remainingSeconds = video.duration - video.currentTime;
-    if (remainingSeconds <= HERO_VIDEO_CROSSFADE_SECONDS) {
-      beginVideoCrossfade();
-    }
-  };
-
-  const handleHeroVideoEnded = () => {
-    if (heroVideos.length < 2) {
-      return;
-    }
-
-    beginVideoCrossfade();
-  };
-
-  const handleHeroVideoError = () => {
-    setHasVideoError(true);
-  };
 
   useEffect(() => {
     let charIndex = 0;
@@ -203,13 +66,9 @@ export default function Hero() {
     <>
     <section id="home" className="relative min-h-[92vh] md:min-h-screen flex flex-col items-center justify-center overflow-hidden px-3">
 
-      {/* Background video + image fallback */}
+      {/* Background image slideshow */}
       <div className="absolute inset-0 z-0 ">
-        <div
-          className={`absolute inset-0 transition-opacity duration-700 ${
-            shouldRenderVideo ? "opacity-35" : "opacity-100"
-          }`}
-        >
+        <div className="absolute inset-0">
           {images.map((img, index) => (
             <img
               key={index}
@@ -221,33 +80,6 @@ export default function Hero() {
             />
           ))}
         </div>
-
-        {shouldRenderVideo && (
-          <div className="absolute inset-0">
-            {[0, 1].map((layerIndex) => (
-              <video
-                key={`${layerIndex}-${videoLayerSources[layerIndex]}`}
-                ref={(element) => {
-                  videoRefs.current[layerIndex] = element;
-                }}
-                className={`hero-video absolute inset-0 h-full w-full object-cover pointer-events-none transition-opacity duration-1000 ${
-                  layerIndex === activeVideoLayer ? "opacity-100" : "opacity-0"
-                }`}
-                autoPlay={layerIndex === activeVideoLayer}
-                loop={heroVideos.length === 1}
-                muted
-                playsInline
-                preload="metadata"
-                poster={Hero1}
-                onTimeUpdate={layerIndex === activeVideoLayer ? handleHeroVideoTimeUpdate : undefined}
-                onEnded={layerIndex === activeVideoLayer ? handleHeroVideoEnded : undefined}
-                onError={handleHeroVideoError}
-              >
-                <source src={videoLayerSources[layerIndex]} type="video/mp4" />
-              </video>
-            ))}
-          </div>
-        )}
 
         {/* Overlay gradient for readability */}
         <div className="hero-overlay absolute inset-0"></div>

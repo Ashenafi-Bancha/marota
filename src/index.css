@@ -642,8 +642,195 @@ h1,h2,h3,h4,h5 {
 .hero-stat-value { color: var(--hero-stat-value); }
 .hero-stat-label { color: var(--hero-stat-label); }
 
+.marquee-shell {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+}
+
+.marquee-shell-premium {
+  position: relative;
+  border-radius: 1.25rem;
+  padding-block: 0.45rem;
+}
+
+.marquee-shell-premium::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 50%, rgba(100, 255, 218, 0.2) 0%, transparent 42%),
+    radial-gradient(circle at 88% 45%, rgba(255, 107, 107, 0.16) 0%, transparent 46%);
+  opacity: 0.92;
+}
+
+.marquee-shell-premium .marquee-track {
+  position: relative;
+  z-index: 1;
+}
+
+.marquee-track {
+  --marquee-duration: 80s;
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-slide-right var(--marquee-duration) linear infinite;
+}
+
+.marquee-track-right {
+  animation-name: marquee-slide-right;
+}
+
+.marquee-segment {
+  display: flex;
+  gap: 1.75rem;
+  padding-right: 1.75rem;
+}
+
+.marquee-shell:hover .marquee-track,
+.marquee-shell:focus-within .marquee-track,
+.marquee-shell.is-paused .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-section-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid rgba(148, 163, 184, 0.42);
+  background: linear-gradient(120deg, rgba(19, 43, 73, 0.95) 0%, rgba(22, 61, 97, 0.82) 100%);
+  box-shadow: 0 10px 24px rgba(2, 6, 23, 0.3);
+  color: #e2e8f0;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 0.38rem 0.9rem;
+  text-transform: uppercase;
+}
+
+.marquee-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background:
+    radial-gradient(circle at top right, rgba(100, 255, 218, 0.12) 0%, transparent 42%),
+    radial-gradient(circle at bottom left, rgba(255, 107, 107, 0.11) 0%, transparent 44%),
+    linear-gradient(180deg, rgba(10, 25, 47, 0.95) 0%, rgba(14, 33, 57, 0.96) 100%);
+  box-shadow:
+    0 16px 34px rgba(2, 6, 23, 0.34),
+    inset 0 1px 0 rgba(148, 163, 184, 0.18);
+  backdrop-filter: blur(4px);
+}
+
+.marquee-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 35%,
+    transparent 65%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+}
+
+.marquee-card:hover {
+  border-color: rgba(100, 255, 218, 0.72);
+  box-shadow:
+    0 22px 38px rgba(2, 6, 23, 0.45),
+    0 0 24px rgba(100, 255, 218, 0.18);
+}
+
+.marquee-card:hover::before {
+  opacity: 1;
+}
+
+.marquee-card-testimonial {
+  border-radius: 1.1rem;
+}
+
+.marquee-card-instructor {
+  border-radius: 1.05rem;
+}
+
+.marquee-avatar {
+  border: 2px solid rgba(15, 23, 42, 0.95);
+  box-shadow:
+    0 0 0 2px rgba(100, 255, 218, 0.32),
+    0 12px 22px rgba(2, 6, 23, 0.45);
+}
+
+.marquee-card:hover .marquee-avatar {
+  box-shadow:
+    0 0 0 3px rgba(255, 107, 107, 0.42),
+    0 14px 24px rgba(2, 6, 23, 0.5);
+}
+
+.testimonial-avatar-pair {
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.testimonial-avatar-primary {
+  transform: rotate(-5deg);
+}
+
+.testimonial-avatar-secondary {
+  margin-bottom: 0.25rem;
+  transform: rotate(6deg);
+  opacity: 0.98;
+}
+
+.marquee-card:hover .testimonial-avatar-primary {
+  transform: rotate(-3deg) scale(1.03);
+}
+
+.marquee-card:hover .testimonial-avatar-secondary {
+  transform: rotate(4deg) scale(1.06);
+}
+
+.instructor-social {
+  box-shadow: 0 8px 14px rgba(2, 6, 23, 0.32);
+}
+
+.instructor-social:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
 p {
   line-height: 1.65;
+}
+
+@keyframes marquee-slide-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 @keyframes fadeIn {
@@ -740,5 +927,16 @@ p {
 @media (prefers-reduced-motion: reduce) {
   .route-transition {
     animation: none;
+  }
+
+  .marquee-shell {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .marquee-track {
+    animation: none !important;
+    transform: translateX(0) !important;
   }
 }
