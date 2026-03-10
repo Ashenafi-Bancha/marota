@@ -188,6 +188,25 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
     return Object.keys(newErrors).length === 0;
   };
 
+  const isProfilesPermissionError = (error) => {
+    if (!error) return false;
+    const message = String(error.message || "").toLowerCase();
+    const details = String(error.details || "").toLowerCase();
+    return (
+      error.code === "42501" ||
+      message.includes("row-level security") ||
+      message.includes("permission denied") ||
+      message.includes("policy") ||
+      details.includes("row-level security")
+    );
+  };
+
+  const isDuplicateProfileError = (error) => {
+    if (!error) return false;
+    const message = String(error.message || "").toLowerCase();
+    return error.code === "23505" || message.includes("duplicate key");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
@@ -226,6 +245,26 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
         return;
       }
 
+      // With email confirmation enabled, Supabase may return no active session here.
+      if (!data.session) {
+        setStatusMessage({
+          type: "success",
+          text: "Account created successfully. Please verify your email, then sign in.",
+        });
+
+        setName("");
+        setEmail("");
+        setPhone("");
+        setPassword("");
+        setConfirmPassword("");
+        setErrors({});
+
+        setTimeout(() => {
+          if (onSwitchToLogin) onSwitchToLogin();
+        }, successRedirectDelayMs);
+        return;
+      }
+
       const profilePayloads = [
         {
           id: data.user.id,
@@ -248,11 +287,16 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
 
       for (const payload of profilePayloads) {
         const { error: insertError } = await supabase.from("profiles").insert([payload]);
-        if (!insertError) {
+        if (!insertError || isDuplicateProfileError(insertError)) {
           profileInsertError = null;
           break;
         }
         profileInsertError = insertError;
+      }
+
+      if (isProfilesPermissionError(profileInsertError)) {
+        console.warn("Profile insert skipped due to policy restrictions:", profileInsertError);
+        profileInsertError = null;
       }
 
       if (profileInsertError) {
@@ -281,7 +325,7 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
       setErrors({});
 
       setTimeout(() => {
-        onSwitchToLogin();
+        if (onSwitchToLogin) onSwitchToLogin();
       }, successRedirectDelayMs);
 
     } catch (err) {
