@@ -10,6 +10,8 @@ import {
   FaNetworkWired,
   FaStar,
   FaCloudUploadAlt,
+  FaChevronDown,
+  FaChevronUp,
 } from "react-icons/fa";
 import { useSearch } from "../context/SearchContext";
 import { useAuth } from "../context/AuthContext";
@@ -274,39 +276,44 @@ const CourseCard = ({
         </div>
       </div>
 
-      <div className="mt-5 flex items-center justify-center gap-3 flex-wrap">
-        <button
-          type="button"
-          onClick={() => setShowDetails((prev) => !prev)}
-          className="w-full sm:w-auto px-4 py-2.5 rounded-md text-sm font-semibold"
-        >
-          {showDetails ? "Hide course details" : "View course details"}
-        </button>
-        {!isAdminView && (
-          <button
-            type="button"
-            onClick={() => onEnroll(course)}
-            disabled={isApproved}
-            className={`w-full sm:w-auto px-4 py-2.5 rounded-md text-sm font-semibold ${
-              isApproved
-                ? "opacity-60 cursor-not-allowed"
+      {(!showDetails || !isAdminView) && (
+        <div className="mt-5 flex items-center justify-center gap-3 flex-wrap">
+          {!showDetails && (
+            <button
+              type="button"
+              onClick={() => setShowDetails(true)}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-md text-sm font-semibold"
+            >
+              <FaChevronDown className="text-xs" aria-hidden="true" />
+              View course details
+            </button>
+          )}
+          {!isAdminView && (
+            <button
+              type="button"
+              onClick={() => onEnroll(course)}
+              disabled={isApproved}
+              className={`w-full sm:w-auto px-4 py-2.5 rounded-md text-sm font-semibold ${
+                isApproved
+                  ? "opacity-60 cursor-not-allowed"
+                  : isPending
+                  ? "bg-amber-500 text-gray-900"
+                  : isRejected
+                  ? "bg-red-500 text-white"
+                  : ""
+              }`}
+            >
+              {isApproved
+                ? "Already enrolled"
                 : isPending
-                ? "bg-amber-500 text-gray-900"
+                ? "Pending Approval"
                 : isRejected
-                ? "bg-red-500 text-white"
-                : ""
-            }`}
-          >
-            {isApproved
-              ? "Already enrolled"
-              : isPending
-              ? "Pending Approval"
-              : isRejected
-              ? "Rejected"
-              : "Enroll Now"}
-          </button>
-        )}
-      </div>
+                ? "Rejected"
+                : "Enroll Now"}
+            </button>
+          )}
+        </div>
+      )}
 
       {!isAdminView && <div className="mt-3 text-center">
         {enrollmentStatus && (
@@ -343,6 +350,16 @@ const CourseCard = ({
                 <span className="text-gray-300 text-sm leading-relaxed">{tool}</span>
               </div>
             ))}
+          </div>
+          <div className="mt-4 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setShowDetails(false)}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-md text-sm font-semibold"
+            >
+              <FaChevronUp className="text-xs" aria-hidden="true" />
+              Hide course details
+            </button>
           </div>
         </div>
       )}
