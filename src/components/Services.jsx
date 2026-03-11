@@ -99,6 +99,8 @@ const COURSE_IMAGE_URLS = {
     "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1400&q=80",
   "graphics design":
     "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1400&q=80",
+  "digital marketing":
+    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=80",
   "basic computer skills":
     "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=80",
   "hardware and software maintenance and network service":
@@ -130,6 +132,10 @@ const getCourseImage = (course) => {
 
   if (title.includes("video and photo editing")) {
     return "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1400&q=80";
+  }
+
+  if (title.includes("digital marketing") || title.includes("marketing")) {
+    return "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=80";
   }
 
   if (title.includes("graphic")) {

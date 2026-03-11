@@ -312,6 +312,26 @@ export const shortCourses = [
     iconName: "paint",
   },
   {
+    title: "Digital Marketing",
+    description:
+      "Build job-ready digital marketing skills for Ethiopian and international markets with practical campaigns for Facebook, Telegram, TikTok, YouTube, Instagram, and WhatsApp Business. Learn bilingual content planning, budget-conscious ads, and performance tracking for local businesses, startups, NGOs, and diaspora-focused brands.",
+    tools: [
+      "Digital Marketing Fundamentals",
+      "Audience Research for Ethiopian and Global Markets",
+      "Content Strategy (Amharic + English)",
+      "Facebook and Instagram Marketing (Meta Business Suite)",
+      "Telegram Channel and Community Growth",
+      "TikTok Short-Form Campaign Strategy",
+      "YouTube Content and SEO Basics",
+      "WhatsApp Business for Customer Engagement",
+      "Google Business Profile and Local Search Optimization",
+      "Paid Ads Basics (Meta and Google)",
+      "Analytics, Reporting, and Campaign Optimization",
+      "International Case Studies and Portfolio Project",
+    ],
+    iconName: "pen",
+  },
+  {
     title: "Basic Computer Skills",
     description:
       "Build foundational digital literacy for study, office work, and everyday computer tasks.",
