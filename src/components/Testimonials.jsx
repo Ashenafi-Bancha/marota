@@ -50,7 +50,7 @@ export default function Testimonials() {
           Real stories from learners building careers in design, media, and technology.
         </p>
         <p className="mx-auto mt-4 inline-flex items-center rounded-full border border-slate-400/30 bg-slate-900/30 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-slate-300 md:hidden">
-          Swipe to read more stories
+          Scroll to read more stories
         </p>
       </div>
 

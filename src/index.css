@@ -882,16 +882,43 @@ h1,h2,h3,h4,h5 {
 
 @media (max-width: 640px) {
   .marquee-shell {
-    padding-inline: 0.15rem;
-    scroll-padding-inline: 0.35rem;
+    overflow: visible;
+    padding-inline: 0;
+    padding-bottom: 0;
+    scroll-snap-type: none;
+    scroll-padding-inline: 0;
+  }
+
+  .marquee-shell::-webkit-scrollbar {
+    height: 0;
+  }
+
+  .marquee-track {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    gap: 1rem;
+    padding-inline: 0;
+  }
+
+  .marquee-segment {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 1rem;
+    padding-right: 0;
   }
 
   .marquee-card {
-    width: min(88vw, 320px) !important;
+    width: 100% !important;
+    max-width: 30rem;
+    margin-inline: auto;
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
   }
 
   .marquee-card-testimonial {
-    min-height: 340px;
+    min-height: 0 !important;
   }
 
   .marquee-card-instructor {
