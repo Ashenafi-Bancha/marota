@@ -182,7 +182,7 @@ const Header = () => {
 
   const toggleMobileNavDropdown = (dropdownKey) => {
     setMobileNavDropdowns((prev) => ({
-      ...prev,
+      ...initialMobileNavDropdownState,
       [dropdownKey]: !prev[dropdownKey],
     }));
   };
@@ -442,7 +442,10 @@ const Header = () => {
 
       {/* Mobile Nav */}
       {menuOpen && (
-        <div className="xl:hidden flex max-h-[calc(100vh-7.5rem)] overflow-y-auto flex-col items-stretch gap-4 border-t border-white/10 bg-[#0d1f3c]/95 px-4 py-4 pb-6 backdrop-blur-md">
+        <div className="xl:hidden flex max-h-[calc(100vh-7.5rem)] overflow-y-auto flex-col items-stretch gap-3 border-t border-white/10 bg-gradient-to-b from-[#0c1f3f]/95 via-[#0d2346]/95 to-[#0a1b36]/95 px-4 py-4 pb-6 backdrop-blur-md">
+          <p className="px-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-300/90">
+            Quick Navigation
+          </p>
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
 
@@ -452,47 +455,85 @@ const Header = () => {
               return (
                 <div
                   key={item.path}
-                  className="rounded-xl border border-slate-700/70 bg-[#102447]/65"
+                  className={`overflow-hidden rounded-2xl border transition-colors duration-300 ${
+                    isExpanded
+                      ? "border-cyan-300/55 bg-[#12335f]/80"
+                      : "border-slate-700/70 bg-[#102447]/65"
+                  }`}
                 >
-                  <div className="flex items-center">
-                    <Link
-                      to={item.path}
-                      onClick={closeMobileMenu}
-                      className={`flex-1 rounded-l-xl px-3 py-2 text-left transition-colors hover:bg-cyan-400/10 hover:text-[var(--accent-blue)] ${
-                        isActive ? "bg-cyan-400/15 text-[var(--accent-blue)]" : ""
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={() => toggleMobileNavDropdown(item.dropdownKey)}
-                      className="rounded-r-xl border-l border-slate-700/80 px-3 py-2 text-gray-200"
-                      aria-expanded={isExpanded}
-                      aria-label={`Toggle ${item.label} menu`}
-                    >
+                  <button
+                    type="button"
+                    onClick={() => toggleMobileNavDropdown(item.dropdownKey)}
+                    className={`flex w-full items-center justify-between px-3.5 py-3 text-left transition ${
+                      isExpanded ? "bg-cyan-400/10" : "hover:bg-cyan-400/10"
+                    }`}
+                    aria-expanded={isExpanded}
+                    aria-label={`Toggle ${item.label} menu`}
+                  >
+                    <span>
+                      <span
+                        className={`block text-sm font-semibold ${
+                          isExpanded ? "text-cyan-100" : "text-slate-100"
+                        }`}
+                      >
+                        {item.label}
+                      </span>
+                      <span className="mt-0.5 block text-[11px] uppercase tracking-[0.13em] text-slate-400">
+                        {item.children.length} links
+                      </span>
+                    </span>
+                    <span className="inline-flex items-center gap-2">
+                      <span className="rounded-full border border-slate-500/60 bg-slate-800/55 px-2 py-0.5 text-[10px] font-semibold text-slate-200">
+                        {item.children.length}
+                      </span>
                       <FaChevronDown
-                        className={`text-xs transition-transform ${
+                        className={`text-xs text-slate-200 transition-transform duration-300 ${
                           isExpanded ? "rotate-180" : ""
                         }`}
                       />
-                    </button>
-                  </div>
+                    </span>
+                  </button>
 
-                  {isExpanded && (
-                    <div className="space-y-1 border-t border-slate-700/70 px-2 pb-2 pt-2">
-                      {item.children.map((child) => (
+                  <div
+                    className={`grid transition-all duration-300 ease-out ${
+                      isExpanded
+                        ? "grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="space-y-1.5 border-t border-slate-700/70 bg-[#0d223f]/85 p-2.5">
                         <Link
-                          key={child.path}
-                          to={child.path}
+                          to={item.path}
                           onClick={closeMobileMenu}
-                          className="btn-dropdown block rounded-lg px-3 py-2 text-sm text-gray-100 hover:bg-[#17345d]"
+                          className={`btn-dropdown block rounded-xl border px-3 py-2.5 transition ${
+                            isActive
+                              ? "border-cyan-300/60 bg-cyan-300/15 text-cyan-100"
+                              : "border-slate-600/80 bg-slate-900/35 text-slate-100 hover:border-cyan-300/45 hover:bg-cyan-300/10"
+                          }`}
                         >
-                          {child.label}
+                          <span className="block text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">
+                            Overview
+                          </span>
+                          <span className="mt-1 block text-sm font-semibold">
+                            View all {item.label}
+                          </span>
                         </Link>
-                      ))}
+
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.path}
+                            to={child.path}
+                            onClick={closeMobileMenu}
+                            className="btn-dropdown flex items-center justify-between rounded-xl border border-slate-600/75 bg-slate-900/30 px-3 py-2.5 text-sm text-slate-100 transition hover:border-cyan-300/45 hover:bg-cyan-300/10"
+                          >
+                            <span>{child.label}</span>
+                            <span className="h-1.5 w-1.5 rounded-full bg-cyan-300/85" aria-hidden="true" />
+                          </Link>
+                        ))}
+                      </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               );
             }
@@ -502,8 +543,10 @@ const Header = () => {
                 key={item.path}
                 to={item.path}
                 onClick={closeMobileMenu}
-                className={`rounded-lg px-3 py-2 text-center transition-colors hover:bg-cyan-400/10 hover:text-[var(--accent-blue)] ${
-                  isActive ? "bg-cyan-400/15 text-[var(--accent-blue)]" : ""
+                className={`rounded-xl border px-3 py-2.5 text-left text-sm font-semibold transition ${
+                  isActive
+                    ? "border-cyan-300/60 bg-cyan-300/15 text-cyan-100"
+                    : "border-slate-700/75 bg-[#102447]/60 text-slate-100 hover:border-cyan-300/45 hover:bg-cyan-300/10"
                 }`}
               >
                 {item.label}
