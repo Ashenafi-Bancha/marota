@@ -826,6 +826,79 @@ h1,h2,h3,h4,h5 {
   transform: translateY(-2px) scale(1.05);
 }
 
+@media (max-width: 1024px) {
+  .marquee-shell {
+    overflow-x: auto;
+    overflow-y: visible;
+    padding-inline: 0.35rem;
+    padding-bottom: 0.55rem;
+    mask-image: none;
+    -webkit-mask-image: none;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .marquee-shell::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .marquee-shell::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background: rgba(148, 163, 184, 0.45);
+  }
+
+  .marquee-shell-premium::before {
+    opacity: 0.72;
+  }
+
+  .marquee-track {
+    width: auto;
+    min-width: 100%;
+    padding-inline: 0.2rem;
+    animation: none !important;
+    transform: translateX(0) !important;
+  }
+
+  .marquee-segment {
+    gap: 1rem;
+    padding-right: 1rem;
+  }
+
+  .marquee-segment[aria-hidden="true"] {
+    display: none;
+  }
+
+  .marquee-card {
+    width: min(84vw, 320px) !important;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .marquee-card:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .marquee-shell {
+    padding-inline: 0.15rem;
+    scroll-padding-inline: 0.35rem;
+  }
+
+  .marquee-card {
+    width: min(88vw, 320px) !important;
+  }
+
+  .marquee-card-testimonial {
+    min-height: 340px;
+  }
+
+  .marquee-card-instructor {
+    padding: 1.2rem !important;
+  }
+}
+
 p {
   line-height: 1.65;
 }

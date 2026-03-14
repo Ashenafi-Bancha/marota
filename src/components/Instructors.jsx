@@ -34,6 +34,9 @@ export default function Instructors() {
         <span className="marquee-section-badge">Expert Mentors</span>
         <h2 className="mt-4 text-4xl font-bold text-[var(--accent-blue)]">Meet Our Instructors</h2>
         <p className="text-gray-400 mt-2">Learn from professionals with years of experience.</p>
+        <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-slate-300 md:hidden">
+          Swipe to explore each instructor
+        </p>
       </div>
 
       <div className="max-w-7xl mx-auto px-6">
