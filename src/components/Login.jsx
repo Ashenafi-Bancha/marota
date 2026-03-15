@@ -1,6 +1,6 @@
 // src/components/Login.jsx
 import { useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { supabase } from "../shared/lib/supabaseClient";
 import {
   getOAuthNotConfiguredMessage,
   isOAuthProviderConfigured,
@@ -320,7 +320,7 @@ export default function Login({ onLoginSuccess, onSwitchToRegister }) {
       </button>
 
       <div className="text-center text-sm text-[var(--text-lighter)]">
-        Don’t have an account?{" "}
+        Donâ€™t have an account?{" "}
         <button
           type="button"
           onClick={onSwitchToRegister}

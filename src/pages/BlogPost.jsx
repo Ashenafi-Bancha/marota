@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, CalendarDays, Clock3, Tag, UserRound } from "lucide-react";
-import { blogPosts } from "../data/blogPosts";
+import { blogPosts } from "../features/blog/data/blogPosts";
 
 const formatDate = (date) =>
   new Date(date).toLocaleDateString("en-US", {
@@ -128,7 +128,7 @@ export default function BlogPost() {
                 >
                   <p className="text-xs uppercase tracking-[0.14em] text-cyan-300">{related.category}</p>
                   <h3 className="mt-2 text-sm font-semibold text-white">{related.title}</h3>
-                  <p className="mt-2 text-xs text-slate-300">{formatDate(related.date)} • {related.readTime} min</p>
+                  <p className="mt-2 text-xs text-slate-300">{formatDate(related.date)} â€¢ {related.readTime} min</p>
                   <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-cyan-100">
                     Read story
                     <ArrowRight size={13} />

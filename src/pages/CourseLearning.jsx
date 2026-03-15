@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { supabase } from "../lib/supabaseClient";
-import { useAuth } from "../context/AuthContext";
-import { parseCourseIdentity } from "../utils/courseIdentity";
-import { isMissingApprovalStatusColumnError } from "../utils/enrollmentApproval";
+import { supabase } from "../shared/lib/supabaseClient";
+import { useAuth } from "../features/auth/context/AuthProvider";
+import { parseCourseIdentity } from "../features/courses/utils/courseIdentity";
+import { isMissingApprovalStatusColumnError } from "../features/courses/utils/enrollmentApproval";
 
 const toPercent = (completed, total) => {
   if (!total) return 0;
@@ -326,7 +326,7 @@ export default function CourseLearning() {
         <div>
           <h1 className="text-3xl font-bold">{parsedCourse.title || "Course Learning"}</h1>
           <p className="text-gray-300 mt-1">
-            {parsedCourse.scope || "Short Course"} • MVP learning workspace
+            {parsedCourse.scope || "Short Course"} â€¢ MVP learning workspace
           </p>
         </div>
         <Link
@@ -360,7 +360,7 @@ export default function CourseLearning() {
                 </p>
               </div>
               <div className="text-sm text-gray-300">
-                {modules.length} modules • {allLessons.length} lessons
+                {modules.length} modules â€¢ {allLessons.length} lessons
               </div>
             </div>
             <div className="w-full h-2 bg-gray-700 rounded-full overflow-hidden mt-3">
@@ -502,7 +502,7 @@ export default function CourseLearning() {
                       quizzes.map((quiz) => (
                         <div key={quiz.id} className="mt-3 text-xs text-gray-300 space-y-1">
                           <p className="font-medium text-gray-100">{quiz.title}</p>
-                          <p>{quiz.question_count} questions • Pass {quiz.pass_score}%</p>
+                          <p>{quiz.question_count} questions â€¢ Pass {quiz.pass_score}%</p>
                           <div className="flex flex-wrap gap-2">
                             {quiz.quiz_url && (
                               <a href={quiz.quiz_url} target="_blank" rel="noreferrer" className="text-cyan-300 hover:text-cyan-200">
@@ -554,7 +554,7 @@ export default function CourseLearning() {
                       tests.map((test) => (
                         <div key={test.id} className="mt-3 text-xs text-gray-300 space-y-1">
                           <p className="font-medium text-gray-100">{test.title}</p>
-                          <p>{test.duration_minutes ? `${test.duration_minutes} min • ` : ""}Pass {test.pass_score}%</p>
+                          <p>{test.duration_minutes ? `${test.duration_minutes} min â€¢ ` : ""}Pass {test.pass_score}%</p>
                           <div className="flex flex-wrap gap-2">
                             {test.test_guide_url && (
                               <a href={test.test_guide_url} target="_blank" rel="noreferrer" className="text-cyan-300 hover:text-cyan-200">

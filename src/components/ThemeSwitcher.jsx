@@ -1,4 +1,4 @@
-import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "../app/providers/ThemeProvider";
 import { FaDesktop, FaMoon } from "react-icons/fa";
 
 const THEME_META = {

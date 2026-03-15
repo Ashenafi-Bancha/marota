@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaHome, FaUserCircle } from "react-icons/fa";
-import { supabase } from "../lib/supabaseClient";
-import { useAuth } from "../context/AuthContext";
+import { supabase } from "../shared/lib/supabaseClient";
+import { useAuth } from "../features/auth/context/AuthProvider";
 
 export default function Profile() {
   const { user } = useAuth();

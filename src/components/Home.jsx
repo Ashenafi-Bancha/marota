@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Camera, Code, Users, Award, GraduationCap, Clock3, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../features/auth/context/AuthProvider";
 
 import Hero1 from "../assets/pc-users-group.jpg";
 import Hero2 from "../assets/camera.jpg";

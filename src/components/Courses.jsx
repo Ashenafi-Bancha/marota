@@ -13,8 +13,8 @@ import {
   FaChevronDown,
   FaChevronUp,
 } from "react-icons/fa";
-import { useSearch } from "../context/SearchContext";
-import { useAuth } from "../context/AuthContext";
+import { useSearch } from "../app/providers/SearchProvider";
+import { useAuth } from "../features/auth/context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import cbeImage from "../assets/cbe.jpeg";
@@ -23,16 +23,16 @@ import boaImage from "../assets/boa.png";
 import mpesaImage from "../assets/mpesa.png";
 import awashImage from "../assets/awash.png";
 import dashenImage from "../assets/dashen.png";
-import { diplomaLevels, shortCourses } from "../data/courses";
-import { supabase } from "../lib/supabaseClient";
+import { diplomaLevels, shortCourses } from "../features/courses/data/courses";
+import { supabase } from "../shared/lib/supabaseClient";
 import {
   isMissingApprovalStatusColumnError,
   withDefaultApprovedStatus,
-} from "../utils/enrollmentApproval";
+} from "../features/courses/utils/enrollmentApproval";
 import {
   buildCourseIdentity,
   normalizeCourseIdentity,
-} from "../utils/courseIdentity";
+} from "../features/courses/utils/courseIdentity";
 
 const iconMap = {
   network: <FaNetworkWired className="text-4xl text-[#ff6b6b]" />,
@@ -220,7 +220,7 @@ const CourseCard = ({
             >
               {curriculumStatus === "ready"
                 ? "Curriculum Ready"
-                : "Coming Soon • Curriculum in progress"}
+                : "Coming Soon â€¢ Curriculum in progress"}
             </span>
           )}
         </div>
@@ -267,7 +267,7 @@ const CourseCard = ({
         <div className="mt-2 flex flex-wrap items-center justify-center gap-3 text-xs text-center">
           <span className="text-gray-400">
             {aggregateRating
-              ? `Average ${aggregateRating.average} • ${aggregateRating.count} reviews`
+              ? `Average ${aggregateRating.average} â€¢ ${aggregateRating.count} reviews`
               : "No ratings yet"}
           </span>
           {!isAdminView && userRating > 0 && (

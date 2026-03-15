@@ -3,9 +3,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/logo1.png";
 import { FaBars, FaTimes, FaSearch, FaUserCircle, FaChevronDown, FaSignOutAlt } from "react-icons/fa";
-import { useSearch } from "../context/SearchContext";
-import { diplomaLevels, shortCourses } from "../data/courses";
-import { useAuth } from "../context/AuthContext";
+import { useSearch } from "../app/providers/SearchProvider";
+import { diplomaLevels, shortCourses } from "../features/courses/data/courses";
+import { useAuth } from "../features/auth/context/AuthProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Modal from "./Modal";
@@ -204,7 +204,7 @@ const Header = () => {
                         className="btn-dropdown w-full text-left px-4 py-3 hover:bg-gray-700 transition flex flex-col"
                       >
                         <span className="text-sm font-semibold text-white">{course.title}</span>
-                        <span className="text-xs text-gray-400">{course.group} • {course.type}</span>
+                        <span className="text-xs text-gray-400">{course.group} â€¢ {course.type}</span>
                       </button>
                     </li>
                   ))}
@@ -305,7 +305,7 @@ const Header = () => {
                             {course.title}
                           </span>
                           <span className="text-xs text-gray-400">
-                            {course.group} • {course.type}
+                            {course.group} â€¢ {course.type}
                           </span>
                         </button>
                       </li>

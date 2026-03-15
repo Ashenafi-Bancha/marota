@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { supabase } from "../shared/lib/supabaseClient";
 import {
   canAccessAdminConsole,
   getPermissionsForRole,

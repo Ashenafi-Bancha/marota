@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Register from "../components/Register";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../features/auth/context/AuthProvider";
 import { FaTimes } from "react-icons/fa";
 
 export default function RegisterPage() {

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Login from "../components/Login";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../features/auth/context/AuthProvider";
 import { FaTimes } from "react-icons/fa";
 
 export default function LoginPage() {

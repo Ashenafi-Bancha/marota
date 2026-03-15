@@ -1,6 +1,6 @@
 // src/components/Register.jsx
 import { useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { supabase } from "../shared/lib/supabaseClient";
 import {
   getOAuthNotConfiguredMessage,
   isOAuthProviderConfigured,
@@ -552,10 +552,10 @@ export default function Register({ onRegisterSuccess, onSwitchToLogin }) {
           </div>
           <p className="mb-1 font-medium text-slate-200">Password guidance:</p>
           <ul className="space-y-1">
-            <li className={hasMinLength ? "text-emerald-300" : "text-slate-400"}>• Minimum 6 characters</li>
-            <li className={hasLetter ? "text-emerald-300" : "text-slate-400"}>• Include at least one letter</li>
-            <li className={hasNumber ? "text-emerald-300" : "text-slate-400"}>• Include at least one number (recommended)</li>
-            <li className={hasSymbol ? "text-emerald-300" : "text-slate-400"}>• Include at least one symbol (recommended)</li>
+            <li className={hasMinLength ? "text-emerald-300" : "text-slate-400"}>â€¢ Minimum 6 characters</li>
+            <li className={hasLetter ? "text-emerald-300" : "text-slate-400"}>â€¢ Include at least one letter</li>
+            <li className={hasNumber ? "text-emerald-300" : "text-slate-400"}>â€¢ Include at least one number (recommended)</li>
+            <li className={hasSymbol ? "text-emerald-300" : "text-slate-400"}>â€¢ Include at least one symbol (recommended)</li>
           </ul>
         </div>
       </div>

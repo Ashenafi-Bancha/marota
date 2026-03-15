@@ -1,10 +1,10 @@
 import Header from "./Header";
 import Footer from "./Footer";
-import { SearchProvider } from "../context/SearchContext";
+import { SearchProvider } from "../app/providers/SearchProvider";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { diplomaLevels, shortCourses } from "../data/courses";
-import { blogPosts } from "../data/blogPosts";
+import { diplomaLevels, shortCourses } from "../features/courses/data/courses";
+import { blogPosts } from "../features/blog/data/blogPosts";
 
 const SITE_URL = "https://marota.tech";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/favicon.png`;

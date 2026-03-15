@@ -1,20 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
 import QRCode from "qrcode";
-import { supabase } from "../lib/supabaseClient";
-import { useAuth } from "../context/AuthContext";
-import { diplomaLevels, shortCourses } from "../data/courses";
+import { supabase } from "../shared/lib/supabaseClient";
+import { useAuth } from "../features/auth/context/AuthProvider";
+import { diplomaLevels, shortCourses } from "../features/courses/data/courses";
 import logoUrl from "../assets/logo1.png";
 import { Link, Navigate } from "react-router-dom";
 import { FaHome, FaLinkedin } from "react-icons/fa";
 import {
   isMissingApprovalStatusColumnError,
   withDefaultApprovedStatus,
-} from "../utils/enrollmentApproval";
+} from "../features/courses/utils/enrollmentApproval";
 import {
   buildCourseIdentity,
   normalizeCourseIdentity,
   parseCourseIdentity,
-} from "../utils/courseIdentity";
+} from "../features/courses/utils/courseIdentity";
 
 export default function MyCourses() {
   const { user, isAdmin, loading: authLoading } = useAuth();
@@ -577,7 +577,7 @@ export default function MyCourses() {
                       </span>
                     </div>
                     <p className="text-xs text-gray-400">
-                      {scopeLabel} • {details?.type || ""}
+                      {scopeLabel} â€¢ {details?.type || ""}
                     </p>
                   </div>
                 </div>
@@ -628,7 +628,7 @@ export default function MyCourses() {
                           </Link>
                         ) : (
                           <span className="w-full inline-flex items-center justify-center px-3 py-2 rounded-full text-xs font-semibold bg-gray-700 text-gray-200">
-                            Coming Soon • Curriculum in progress
+                            Coming Soon â€¢ Curriculum in progress
                           </span>
                         ))}
                     </div>
@@ -651,7 +651,7 @@ export default function MyCourses() {
                           </Link>
                         ) : (
                           <span className="w-full inline-flex items-center justify-center px-3 py-2 rounded-full text-xs font-semibold bg-gray-700 text-gray-200">
-                            Coming Soon • Curriculum in progress
+                            Coming Soon â€¢ Curriculum in progress
                           </span>
                         ))}
                     </div>
@@ -668,7 +668,7 @@ export default function MyCourses() {
           <div className="w-full max-w-6xl bg-gray-900 rounded-2xl border border-gray-700 shadow-2xl overflow-hidden">
             <div className="flex items-center justify-between px-5 py-3 border-b border-gray-700">
               <h3 className="text-base md:text-lg font-semibold text-white">
-                Certificate Preview • {previewTitle}
+                Certificate Preview â€¢ {previewTitle}
               </h3>
               <button
                 type="button"
@@ -676,7 +676,7 @@ export default function MyCourses() {
                 className="btn-modal-close"
                 aria-label="Close certificate preview"
               >
-                ✕
+                âœ•
               </button>
             </div>
             <div className="p-4 bg-gray-950 max-h-[82vh] overflow-auto">

@@ -21,18 +21,18 @@ import {
   FaUsers,
   FaWallet,
 } from "react-icons/fa";
-import { supabase } from "../lib/supabaseClient";
-import { useAuth } from "../context/AuthContext";
-import { shortCourses } from "../data/courses";
+import { supabase } from "../shared/lib/supabaseClient";
+import { useAuth } from "../features/auth/context/AuthProvider";
+import { shortCourses } from "../features/courses/data/courses";
 import {
   isMissingApprovalStatusColumnError,
   withDefaultApprovedStatus,
-} from "../utils/enrollmentApproval";
+} from "../features/courses/utils/enrollmentApproval";
 import {
   buildCourseIdentity,
   normalizeCourseIdentity,
   parseCourseIdentity,
-} from "../utils/courseIdentity";
+} from "../features/courses/utils/courseIdentity";
 import { ADMIN_ROLES, isMasterAdminRole } from "../config/adminPermissions";
 import "./AdminDashboard.css";
 
@@ -3165,7 +3165,7 @@ export default function AdminDashboard() {
                         <div>
                           <h3>{quizRow.title}</h3>
                           <p>
-                            Quiz • {quizRow.question_count} questions • pass {quizRow.pass_score}%
+                            Quiz â€¢ {quizRow.question_count} questions â€¢ pass {quizRow.pass_score}%
                           </p>
                         </div>
                         <span className="pill pill-neutral">Order {quizRow.sort_order}</span>
@@ -3261,7 +3261,7 @@ export default function AdminDashboard() {
                         <div>
                           <h3>{testRow.title}</h3>
                           <p>
-                            Test • {testRow.duration_minutes || 0} min • pass {testRow.pass_score}%
+                            Test â€¢ {testRow.duration_minutes || 0} min â€¢ pass {testRow.pass_score}%
                           </p>
                         </div>
                         <span className="pill pill-neutral">Order {testRow.sort_order}</span>
@@ -3511,7 +3511,7 @@ export default function AdminDashboard() {
                       <div>
                         <h3>{announcementRow.title}</h3>
                         <p>
-                          {announcementRow.audience} audience • {formatDateTime(announcementRow.created_at)}
+                          {announcementRow.audience} audience â€¢ {formatDateTime(announcementRow.created_at)}
                         </p>
                       </div>
                       <span className={`pill ${statusBadgeClass(announcementRow.status)}`}>
@@ -3607,8 +3607,8 @@ export default function AdminDashboard() {
                         <span>{formatDateTime(activity.created_at)}</span>
                       </div>
                       <p>
-                        {actorName} ({activity.actor_role || "admin"}) • {activity.action_type}
-                        {activity.target_type ? ` • ${activity.target_type}` : ""}
+                        {actorName} ({activity.actor_role || "admin"}) â€¢ {activity.action_type}
+                        {activity.target_type ? ` â€¢ ${activity.target_type}` : ""}
                         {activity.target_id ? `:${activity.target_id}` : ""}
                       </p>
                     </div>

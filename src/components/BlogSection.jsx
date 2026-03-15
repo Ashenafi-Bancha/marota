@@ -16,7 +16,7 @@ import {
   TrendingUp,
   UserRound,
 } from "lucide-react";
-import { blogPosts } from "../data/blogPosts";
+import { blogPosts } from "../features/blog/data/blogPosts";
 
 const SAVED_POSTS_KEY = "marota_saved_blog_posts";
 
@@ -191,7 +191,7 @@ export default function BlogSection({ preview = false }) {
                         key={tag.name}
                         className="rounded-full border border-slate-600 bg-[#13294a] px-2.5 py-1 text-[11px] text-slate-200"
                       >
-                        #{tag.name} · {tag.count}
+                        #{tag.name} Â· {tag.count}
                       </span>
                     ))}
                   </div>
@@ -327,9 +327,9 @@ export default function BlogSection({ preview = false }) {
 
                   <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-slate-400">
                     <span>{formatDate(post.date)}</span>
-                    <span>•</span>
+                    <span>â€¢</span>
                     <span>{post.readTime} min read</span>
-                    <span>•</span>
+                    <span>â€¢</span>
                     <span>{post.author}</span>
                   </div>
 

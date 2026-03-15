@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { FaBook, FaCheckCircle, FaClock, FaHome, FaUserCircle } from "react-icons/fa";
-import { supabase } from "../lib/supabaseClient";
-import { useAuth } from "../context/AuthContext";
+import { supabase } from "../shared/lib/supabaseClient";
+import { useAuth } from "../features/auth/context/AuthProvider";
 import {
   isMissingApprovalStatusColumnError,
   withDefaultApprovedStatus,
-} from "../utils/enrollmentApproval";
-import { normalizeCourseIdentity, parseCourseIdentity } from "../utils/courseIdentity";
+} from "../features/courses/utils/enrollmentApproval";
+import { normalizeCourseIdentity, parseCourseIdentity } from "../features/courses/utils/courseIdentity";
 
 export default function Dashboard() {
   const { user, isAdmin } = useAuth();
@@ -205,7 +205,7 @@ export default function Dashboard() {
                   <div>
                     <p className="text-white font-medium">{parsedCourse.title || item.course_title}</p>
                     <p className="text-xs text-gray-400">
-                      {parsedCourse.scope || "Course"} • Progress {item.progress || 0}%
+                      {parsedCourse.scope || "Course"} â€¢ Progress {item.progress || 0}%
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-2">
@@ -227,7 +227,7 @@ export default function Dashboard() {
                         </span>
                       ) : (
                         <span className="px-3 py-1 rounded-full text-xs font-semibold bg-gray-700 text-gray-200">
-                          Coming Soon • Curriculum in progress
+                          Coming Soon â€¢ Curriculum in progress
                         </span>
                       ))}
                   </div>
