@@ -1,9 +1,9 @@
 // src/components/Testimonials.jsx
 import { useState } from "react";
-import Temesgen from "../assets/testimonials/Temesgen.jpg";
-import Kidest from "../assets/testimonials/Kidst.jpg";
-import Ashu from "../assets/testimonials/ashu.jpg";
-import Bereket from "../assets/testimonials/berekt.jpg";
+import Temesgen from "../../../assets/testimonials/Temesgen.jpg";
+import Kidest from "../../../assets/testimonials/Kidst.jpg";
+import Ashu from "../../../assets/testimonials/ashu.jpg";
+import Bereket from "../../../assets/testimonials/berekt.jpg";
 
 const testimonials = [
   {
