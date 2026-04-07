@@ -1,5 +1,17 @@
 import { useEffect, useState } from "react";
-import { Camera, Code, Users, Award, GraduationCap, Clock3, ArrowRight } from "lucide-react";
+import {
+  Camera,
+  Code,
+  Users,
+  Award,
+  GraduationCap,
+  Clock3,
+  ArrowRight,
+  ShieldCheck,
+  BriefcaseBusiness,
+  Layers3,
+  ChevronDown,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../auth/context/AuthProvider";
 
@@ -11,14 +23,78 @@ import Hero5 from "../../../assets/camera-female.jpg";
 import Hero9 from "../../../assets/graphics-designer.jpg";
 import Hero10 from "../../../assets/camera-men.jpg";
 import Testimonials from "../components/Testimonials";
-import VideoShowcase from "../components/VideoShowcase";
+import Contact from "./ContactPage";
 
 
 const images = [Hero1, Hero9,Hero10, Hero2, Hero3, Hero4, Hero5,];
 
+const valueCards = [
+  {
+    title: "Hands-On Training",
+    description:
+      "Learn by doing with practical projects, studio activities, and guided real-world exercises.",
+    icon: Layers3,
+  },
+  {
+    title: "Career-Ready Outcomes",
+    description:
+      "Build a portfolio, strengthen your confidence, and prepare for freelance or full-time opportunities.",
+    icon: BriefcaseBusiness,
+  },
+  {
+    title: "Trusted Learning Path",
+    description:
+      "Structured learning roadmap with mentor support, progress checkpoints, and recognized certificates.",
+    icon: ShieldCheck,
+  },
+];
+
+const learningJourney = [
+  {
+    title: "Choose Your Track",
+    detail: "Pick Diploma or Short Term courses based on your goals.",
+  },
+  {
+    title: "Learn by Practice",
+    detail: "Work on practical tasks and guided projects every week.",
+  },
+  {
+    title: "Get Mentored",
+    detail: "Receive feedback from instructors and improve with clear direction.",
+  },
+  {
+    title: "Graduate with Portfolio",
+    detail: "Finish with real work samples and certificate-backed confidence.",
+  },
+];
+
+const faqs = [
+  {
+    question: "Do I need prior experience to join?",
+    answer:
+      "No. Most beginner tracks are designed to start from fundamentals and gradually build practical skills.",
+  },
+  {
+    question: "Are courses available online and in person?",
+    answer:
+      "Yes. Marota offers flexible delivery depending on the program, including in-person and blended options.",
+  },
+  {
+    question: "Will I get a certificate after completion?",
+    answer:
+      "Yes. Learners who complete required coursework and assessments receive a recognized certificate.",
+  },
+  {
+    question: "How do I start enrollment?",
+    answer:
+      "Go to the Courses page, choose your program, submit enrollment, and follow payment and approval steps.",
+  },
+];
+
 export default function Hero() {
   const [currentImage, setCurrentImage] = useState(0);
   const [typedAdText, setTypedAdText] = useState("");
+  const [openFaqIndex, setOpenFaqIndex] = useState(0);
   const { user } = useAuth();
   const adText = "Coming Soon in Addis Ababa";
   const adPrefix = "Coming Soon in ";
@@ -280,7 +356,151 @@ export default function Hero() {
         </div>
       </div>
     </section>
-    <VideoShowcase />
+
+    <section className="bg-[#08182d] py-8 md:py-10">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-2 gap-3 px-4 text-center sm:grid-cols-4 sm:gap-4">
+        {[
+          "Industry-focused curriculum",
+          "Mentor-led practical sessions",
+          "Portfolio-based graduation",
+          "Career support and guidance",
+        ].map((item) => (
+          <div
+            key={item}
+            className="rounded-xl border border-cyan-300/20 bg-[#0e2340]/75 px-3 py-3 text-xs font-semibold uppercase tracking-[0.08em] text-slate-200 sm:text-sm"
+          >
+            {item}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section className="bg-[#0a192f] py-16 md:py-20">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="inline-flex rounded-full border border-cyan-300/35 bg-cyan-400/10 px-4 py-1 text-xs font-bold uppercase tracking-[0.16em] text-cyan-100">
+            Why Marota
+          </p>
+          <h2 className="mt-4 text-3xl font-black text-white sm:text-4xl">Built for Learners Who Want Real Results</h2>
+          <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+            Marota is more than a course catalog. It is a practice-first learning environment focused on skills you can apply immediately.
+          </p>
+        </div>
+
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {valueCards.map((card) => {
+            const Icon = card.icon;
+            return (
+              <article
+                key={card.title}
+                className="rounded-2xl border border-white/15 bg-[#112240]/85 p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/45"
+              >
+                <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-300/35 bg-cyan-400/10 text-cyan-100">
+                  <Icon size={20} />
+                </div>
+                <h3 className="mt-4 text-lg font-bold text-white">{card.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-300">{card.description}</p>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section className="bg-[#0c1f38] py-16 md:py-20">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="inline-flex rounded-full border border-yellow-300/35 bg-yellow-300/10 px-4 py-1 text-xs font-bold uppercase tracking-[0.16em] text-yellow-100">
+            Learning Journey
+          </p>
+          <h2 className="mt-4 text-3xl font-black text-white sm:text-4xl">From Enrollment to Career Confidence</h2>
+        </div>
+
+        <div className="mt-8 grid gap-4 md:grid-cols-4">
+          {learningJourney.map((step, index) => (
+            <article
+              key={step.title}
+              className="rounded-2xl border border-white/15 bg-[#102744]/85 p-5 text-left"
+            >
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-cyan-300/40 bg-cyan-400/10 text-xs font-bold text-cyan-100">
+                {index + 1}
+              </span>
+              <h3 className="mt-3 text-base font-bold text-white">{step.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-300">{step.detail}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section className="bg-[#0a192f] py-16 md:py-20">
+      <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
+        <div className="text-center">
+          <p className="inline-flex rounded-full border border-yellow-300/35 bg-yellow-300/10 px-4 py-1 text-xs font-bold uppercase tracking-[0.16em] text-yellow-100">
+            FAQ
+          </p>
+          <h2 className="mt-4 text-3xl font-black text-white sm:text-4xl">Frequently Asked Questions</h2>
+        </div>
+
+        <div className="mt-8 space-y-3">
+          {faqs.map((item, index) => {
+            const isOpen = openFaqIndex === index;
+            return (
+              <article
+                key={item.question}
+                className={`overflow-hidden rounded-xl border bg-[#112240]/85 transition-colors ${
+                  isOpen ? "border-yellow-300/45" : "border-white/15"
+                }`}
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenFaqIndex(isOpen ? -1 : index)}
+                  className="btn-icon flex w-full items-center justify-between gap-3 bg-transparent px-4 py-4 text-left"
+                >
+                  <span className="text-sm font-semibold text-white sm:text-base">{item.question}</span>
+                  <ChevronDown
+                    size={18}
+                    className={`shrink-0 transition-transform ${
+                      isOpen ? "rotate-180 text-yellow-200" : "text-slate-300"
+                    }`}
+                  />
+                </button>
+                {isOpen && <p className="px-4 pb-4 text-sm leading-relaxed text-slate-300">{item.answer}</p>}
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section className="bg-[#0b203c] py-16 md:py-20">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+        <div className="rounded-3xl border border-cyan-300/25 bg-gradient-to-r from-[#122948] via-[#102744] to-[#182840] p-6 text-center sm:p-8">
+          <h2 className="text-3xl font-black text-white sm:text-4xl">Ready to Build Your Digital Future?</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
+            Start your journey with Marota today. Explore programs, choose your track, and begin learning with practical guidance.
+          </p>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              to={user ? "/courses" : "/signup"}
+              className="inline-flex items-center gap-2 rounded-full border border-yellow-300/55 bg-gradient-to-r from-yellow-300/85 via-amber-300/90 to-orange-300/85 px-6 py-3 text-sm font-extrabold uppercase tracking-[0.1em] text-[#0a192f] shadow-[0_10px_25px_rgba(250,204,21,0.26)] transition duration-300 hover:-translate-y-0.5 hover:from-yellow-200 hover:to-orange-200"
+            >
+              Apply Now
+              <ArrowRight size={16} />
+            </Link>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 rounded-full border border-cyan-300/45 bg-cyan-400/10 px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-cyan-100 transition hover:-translate-y-0.5 hover:border-cyan-200"
+            >
+              Contact Team
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Contact />
+
     <Testimonials />
     </>
   );

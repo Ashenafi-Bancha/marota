@@ -47,6 +47,13 @@ export default function Portfolio() {
         categories: ["mobile-apps", "websites"],
       },
       {
+        title: "Wolaita Calendar Mobile App",
+        img: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=1400&q=80",
+        description:
+          "Mobile app for tracking Wolaita calendar dates, cultural events, and important local milestones.",
+        categories: ["mobile-apps"],
+      },
+      {
         title: "Hotel Website",
         img: Portfolio2,
         description: "Modern web application built with React.",

@@ -181,6 +181,9 @@ const CourseCard = ({
 }) => {
   const [showDetails, setShowDetails] = useState(false);
   const courseImage = getCourseImage(course);
+  const courseTitleLower = String(course.title || "").toLowerCase();
+  const hideDetailsForCourse =
+    courseTitleLower.includes("videography") && courseTitleLower.includes("photography");
   const visibleRating = userRating || Math.round(aggregateRating?.average || 0);
   const previewTools = (course.tools || []).slice(0, 4);
   const isApproved = enrollmentStatus === "approved";
@@ -229,21 +232,23 @@ const CourseCard = ({
       <h4 className="text-lg sm:text-xl md:text-2xl font-semibold mt-5 text-white text-center">{course.title}</h4>
       <p className="text-gray-300 mt-3 leading-relaxed text-sm text-center">{course.description}</p>
 
-      <div className="mt-4 flex flex-wrap gap-2 justify-center">
-        {previewTools.map((tool) => (
-          <span
-            key={`${course.title}-${tool}`}
-            className="px-2.5 py-1 rounded-md text-xs bg-[#0a192f] text-gray-300 border border-gray-700"
-          >
-            {tool}
-          </span>
-        ))}
-        {(course.tools?.length || 0) > 4 && (
-          <span className="px-2.5 py-1 rounded-md text-xs bg-[#0a192f] text-[var(--accent-blue)] border border-cyan-800/60">
-            +{(course.tools?.length || 0) - 4} more
-          </span>
-        )}
-      </div>
+      {!hideDetailsForCourse && (
+        <div className="mt-4 flex flex-wrap gap-2 justify-center">
+          {previewTools.map((tool) => (
+            <span
+              key={`${course.title}-${tool}`}
+              className="px-2.5 py-1 rounded-md text-xs bg-[#0a192f] text-gray-300 border border-gray-700"
+            >
+              {tool}
+            </span>
+          ))}
+          {(course.tools?.length || 0) > 4 && (
+            <span className="px-2.5 py-1 rounded-md text-xs bg-[#0a192f] text-[var(--accent-blue)] border border-cyan-800/60">
+              +{(course.tools?.length || 0) - 4} more
+            </span>
+          )}
+        </div>
+      )}
 
       <div className="mt-5 p-3 rounded-xl bg-[#0a192f] border border-[#1f3b5b]">
         <div className="flex items-center justify-center gap-1">
@@ -278,7 +283,7 @@ const CourseCard = ({
 
       {(!showDetails || !isAdminView) && (
         <div className="mt-5 flex items-center justify-center gap-3 flex-wrap">
-          {!showDetails && (
+          {!showDetails && !hideDetailsForCourse && (
             <button
               type="button"
               onClick={() => setShowDetails(true)}
@@ -335,7 +340,7 @@ const CourseCard = ({
         )}
       </div>}
 
-      {showDetails && (
+      {showDetails && !hideDetailsForCourse && (
         <div className="mt-4 rounded-xl border border-[#1f3b5b] bg-[#0a192f] p-4">
           <p className="text-sm font-semibold text-[var(--accent-blue)] mb-3 text-center">What you will learn</p>
           <div className="grid sm:grid-cols-2 gap-2">

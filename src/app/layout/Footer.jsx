@@ -50,7 +50,7 @@ function Footer() {
             <h4 className="brand-wordmark text-2xl font-bold tracking-wide">Marota</h4>
           </Link>
           <p className="max-w-sm text-sm leading-relaxed text-slate-300/95">
-            Marota equips students with practical skills in film production and software development through hands-on training, mentorship, and industry-focused learning.
+            Marota is a film and software training college. We teach practical skills through real projects, mentor support, and career-focused courses.
           </p>
         </div>
 
@@ -117,13 +117,8 @@ function Footer() {
       <div className="mt-10 border-t border-white/10 pt-5 text-slate-400">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-4 px-6 lg:flex-row">
           <div className="flex items-center justify-center gap-2 text-center md:justify-start md:text-left">
-            <img
-              src={logo}
-              alt="Marota Logo"
-              className="h-5 w-5 rounded-full object-contain ring-1 ring-white/20 md:h-6 md:w-6"
-            />
             <span className="text-xs leading-relaxed sm:text-sm md:text-[15px]">
-              &copy; {new Date().getFullYear()} Marota. All Rights Reserved.
+              &copy; {new Date().getFullYear()} Marota Film and Software collage. All Rights Reserved.
             </span>
           </div>
 
