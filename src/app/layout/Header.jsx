@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo1.png";
-import { FaBars, FaTimes, FaSearch, FaUserCircle, FaChevronDown, FaSignOutAlt } from "react-icons/fa";
+import { FaBars, FaTimes, FaSearch, FaUserCircle, FaChevronDown, FaSignOutAlt, FaChevronRight } from "react-icons/fa";
 import { useSearch } from "../providers/SearchProvider";
 import { diplomaLevels, shortCourses } from "../../features/courses/data/courses";
 import { useAuth } from "../../features/auth/context/AuthProvider";
@@ -17,6 +17,10 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [mobileProfileMenuOpen, setMobileProfileMenuOpen] = useState(false);
+  const [mobileExpandedSections, setMobileExpandedSections] = useState({
+    courses: true,
+    portfolio: false,
+  });
   const profileMenuRef = useRef(null);
   const mobileProfilePanelRef = useRef(null);
   const { searchQuery, setSearchQuery } = useSearch();
@@ -135,9 +139,35 @@ const Header = () => {
     "User";
 
   useEffect(() => {
+    setMenuOpen(false);
     setProfileMenuOpen(false);
     setMobileProfileMenuOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) {
+      document.body.style.overflow = "";
+      return;
+    }
+
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [menuOpen]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -163,6 +193,21 @@ const Header = () => {
   const closeMobileMenu = () => {
     setMenuOpen(false);
   };
+
+  const toggleMobileSection = (sectionKey) => {
+    setMobileExpandedSections((prev) => ({
+      ...prev,
+      [sectionKey]: !prev[sectionKey],
+    }));
+  };
+
+  const mobileRevealClass = menuOpen
+    ? "opacity-100 translate-y-0"
+    : "opacity-0 translate-y-1";
+
+  const getMobileRevealStyle = (index) => ({
+    transitionDelay: menuOpen ? `${80 + index * 35}ms` : "0ms",
+  });
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-[#081325]/85 text-white shadow-[0_10px_30px_rgba(2,8,23,0.35)] backdrop-blur-xl">
@@ -204,7 +249,7 @@ const Header = () => {
                         className="btn-dropdown w-full text-left px-4 py-3 hover:bg-gray-700 transition flex flex-col"
                       >
                         <span className="text-sm font-semibold text-white">{course.title}</span>
-                        <span className="text-xs text-gray-400">{course.group} â€¢ {course.type}</span>
+                          <span className="text-xs text-gray-400">{course.group} - {course.type}</span>
                       </button>
                     </li>
                   ))}
@@ -305,7 +350,7 @@ const Header = () => {
                             {course.title}
                           </span>
                           <span className="text-xs text-gray-400">
-                            {course.group} â€¢ {course.type}
+                            {course.group} - {course.type}
                           </span>
                         </button>
                       </li>
@@ -417,163 +462,231 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Nav */}
-      {menuOpen && (
-        <div className="xl:hidden flex max-h-[calc(100vh-7.5rem)] overflow-y-auto flex-col items-stretch gap-3 border-t border-white/10 bg-gradient-to-b from-[#0c1f3f]/95 via-[#0d2346]/95 to-[#0a1b36]/95 px-4 py-4 pb-6 backdrop-blur-md">
-          <p className="px-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-300/90">
-            Quick Navigation
-          </p>
-          {navItems.map((item) => {
-            const isActive = location.pathname === item.path;
+      <button
+        type="button"
+        aria-label="Close mobile menu backdrop"
+        onClick={closeMobileMenu}
+        className={`xl:hidden fixed inset-0 top-[4.5rem] z-40 bg-slate-950/55 backdrop-blur-[1px] transition-opacity duration-300 ${
+          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+      />
 
-            if (item.children) {
-              return (
-                <div
-                  key={item.path}
-                  className={`overflow-hidden rounded-2xl border transition ${
-                    isActive
-                      ? "border-cyan-300/60 bg-cyan-300/15"
-                      : "border-slate-700/75 bg-[#102447]/65"
-                  }`}
-                >
+      {/* Mobile Nav */}
+      <div
+        aria-hidden={!menuOpen}
+        className={`xl:hidden relative z-50 overflow-hidden border-t border-white/10 bg-gradient-to-b from-[#0c1f3f]/95 via-[#0d2346]/95 to-[#0a1b36]/95 backdrop-blur-md transition-all duration-300 ease-out ${
+          menuOpen
+            ? "max-h-[calc(100vh-4.5rem)] opacity-100"
+            : "max-h-0 opacity-0"
+        }`}
+      >
+        <div
+          className={`mx-auto flex max-h-[calc(100vh-7.5rem)] w-full max-w-[1400px] flex-col gap-4 overflow-y-auto px-4 py-4 pb-6 transition-transform duration-300 ease-out ${
+            menuOpen ? "translate-y-0" : "-translate-y-2"
+          }`}
+        >
+            <div className="flex items-center justify-between rounded-2xl border border-white/15 bg-white/5 px-3.5 py-2.5">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Menu</p>
+                <p className="text-sm font-semibold text-slate-100">Browse Marota</p>
+              </div>
+              <ThemeSwitcher compact />
+            </div>
+
+            <div className="grid grid-cols-3 gap-2">
+              <Link
+                to="/"
+                onClick={closeMobileMenu}
+                className={`rounded-xl border border-slate-700/75 bg-[#102447]/65 px-3 py-2 text-center text-xs font-semibold uppercase tracking-[0.09em] text-slate-100 transition-all duration-300 ${mobileRevealClass}`}
+                style={getMobileRevealStyle(0)}
+              >
+                Home
+              </Link>
+              <Link
+                to="/courses"
+                onClick={closeMobileMenu}
+                className={`rounded-xl border border-slate-700/75 bg-[#102447]/65 px-3 py-2 text-center text-xs font-semibold uppercase tracking-[0.09em] text-slate-100 transition-all duration-300 ${mobileRevealClass}`}
+                style={getMobileRevealStyle(1)}
+              >
+                Courses
+              </Link>
+              <Link
+                to="/contact"
+                onClick={closeMobileMenu}
+                className={`rounded-xl border border-slate-700/75 bg-[#102447]/65 px-3 py-2 text-center text-xs font-semibold uppercase tracking-[0.09em] text-slate-100 transition-all duration-300 ${mobileRevealClass}`}
+                style={getMobileRevealStyle(2)}
+              >
+                Contact
+              </Link>
+            </div>
+
+            <div className="space-y-2">
+              {navItems.map((item, itemIndex) => {
+                const isActive = location.pathname === item.path;
+
+                if (item.children) {
+                  const sectionKey = item.dropdownKey || item.path;
+                  const isExpanded = !!mobileExpandedSections[sectionKey];
+
+                  return (
+                    <div
+                      key={item.path}
+                      className={`overflow-hidden rounded-2xl border transition-all duration-300 ${mobileRevealClass} ${
+                        isActive || isExpanded
+                          ? "border-cyan-300/50 bg-cyan-300/10"
+                          : "border-slate-700/75 bg-[#102447]/65"
+                      }`}
+                      style={getMobileRevealStyle(itemIndex + 3)}
+                    >
+                      <div className="flex items-center gap-2 border-b border-slate-700/60 px-2 py-2">
+                        <Link
+                          to={item.path}
+                          onClick={closeMobileMenu}
+                          className="flex-1 rounded-xl px-2.5 py-2 text-sm font-semibold text-slate-100"
+                        >
+                          {item.label}
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => toggleMobileSection(sectionKey)}
+                          className="btn-icon inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-600/70 bg-slate-900/35 text-slate-100"
+                          aria-label={`Toggle ${item.label} links`}
+                        >
+                          <FaChevronDown
+                            className={`text-xs transition-transform ${isExpanded ? "rotate-180" : ""}`}
+                          />
+                        </button>
+                      </div>
+
+                      {isExpanded && (
+                        <div className="space-y-1.5 bg-[#0d223f]/85 p-2.5">
+                          {item.children.map((child) => (
+                            <Link
+                              key={child.path}
+                              to={child.path}
+                              onClick={closeMobileMenu}
+                              className="btn-dropdown flex items-center justify-between rounded-xl border border-slate-600/75 bg-slate-900/30 px-3 py-2.5 text-sm text-slate-100 transition hover:border-cyan-300/45 hover:bg-cyan-300/10"
+                            >
+                              <span>{child.label}</span>
+                              <FaChevronRight className="text-[10px] text-cyan-200" />
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                return (
                   <Link
+                    key={item.path}
                     to={item.path}
                     onClick={closeMobileMenu}
-                    className={`block border-b px-3.5 py-3 text-left text-sm font-semibold transition ${
+                    className={`rounded-xl border px-3 py-2.5 text-left text-sm font-semibold transition-all duration-300 ${mobileRevealClass} ${
                       isActive
-                        ? "border-cyan-300/40 text-cyan-100"
-                        : "border-slate-700/70 text-slate-100 hover:bg-cyan-400/10 hover:text-cyan-100"
+                        ? "border-cyan-300/60 bg-cyan-300/15 text-cyan-100"
+                        : "border-slate-700/75 bg-[#102447]/60 text-slate-100 hover:border-cyan-300/45 hover:bg-cyan-300/10"
                     }`}
+                    style={getMobileRevealStyle(itemIndex + 3)}
                   >
-                    <span className="block">{item.label}</span>
-                    <span className="mt-0.5 block text-[11px] uppercase tracking-[0.13em] text-slate-400">
-                      {item.children.length} links
-                    </span>
+                    {item.label}
                   </Link>
+                );
+              })}
+            </div>
 
-                  <div className="space-y-1.5 bg-[#0d223f]/85 p-2.5">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.path}
-                        to={child.path}
-                        onClick={closeMobileMenu}
-                        className="btn-dropdown flex items-center justify-between rounded-xl border border-slate-600/75 bg-slate-900/30 px-3 py-2.5 text-sm text-slate-100 transition hover:border-cyan-300/45 hover:bg-cyan-300/10"
+            {user ? (
+              <div className="w-full rounded-2xl border border-slate-700/75 bg-[#0f2240]/80 p-3">
+                <div className="flex flex-col items-center gap-3 w-full">
+                  {!isAdmin && (
+                    <button
+                      type="button"
+                      onClick={() => goToProtectedPage("/my-courses")}
+                      className="btn-icon px-3 py-2 rounded-lg w-full bg-cyan-600 text-white inline-flex items-center justify-center hover:bg-cyan-500"
+                    >
+                      My Courses
+                    </button>
+                  )}
+                  {isAdmin && (
+                    <button
+                      type="button"
+                      onClick={() => goToProtectedPage("/admin")}
+                      className="btn-icon px-3 py-2 rounded-lg w-full bg-cyan-600 text-white inline-flex items-center justify-center hover:bg-cyan-500"
+                    >
+                      Admin
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setMobileProfileMenuOpen((prev) => !prev)}
+                    className="btn-icon px-3 py-2 rounded-lg w-full bg-gray-700 text-gray-100 inline-flex items-center justify-center gap-2 hover:bg-gray-600"
+                    title={user?.email || profileLabel}
+                  >
+                    <FaUserCircle />
+                    <span>{profileLabel}</span>
+                    <FaChevronDown className={`text-xs transition-transform ${mobileProfileMenuOpen ? "rotate-180" : ""}`} />
+                  </button>
+
+                  {mobileProfileMenuOpen && (
+                    <div
+                      ref={mobileProfilePanelRef}
+                      className="w-full rounded-xl border border-slate-700 bg-[#0f2240] p-2 max-h-[40vh] overflow-y-auto"
+                    >
+                      <div className="px-3 py-2 border-b border-slate-700/70 mb-1">
+                        <p className="text-sm font-semibold text-white truncate">{profileLabel}</p>
+                        <p className="text-xs text-gray-400 truncate">{user?.email || ""}</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => goToProtectedPage("/profile")}
+                        className="btn-dropdown w-full rounded-lg px-3 py-2.5 text-left text-sm text-gray-100 hover:bg-[#17345d]"
                       >
-                        <span>{child.label}</span>
-                        <span
-                          className="h-1.5 w-1.5 rounded-full bg-cyan-300/85"
-                          aria-hidden="true"
-                        />
-                      </Link>
-                    ))}
-                  </div>
+                        Profile
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleSignOutFromMenu}
+                        className="btn-danger w-full rounded-lg px-3 py-2.5 text-left text-sm"
+                      >
+                        <span className="inline-flex items-center gap-2">
+                          <FaSignOutAlt className="text-xs" />
+                          Sign Out
+                        </span>
+                      </button>
+                    </div>
+                  )}
                 </div>
-              );
-            }
-
-            return (
-              <Link
-                key={item.path}
-                to={item.path}
-                onClick={closeMobileMenu}
-                className={`rounded-xl border px-3 py-2.5 text-left text-sm font-semibold transition ${
-                  isActive
-                    ? "border-cyan-300/60 bg-cyan-300/15 text-cyan-100"
-                    : "border-slate-700/75 bg-[#102447]/60 text-slate-100 hover:border-cyan-300/45 hover:bg-cyan-300/10"
-                }`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        {user ? (
-          <div className="flex flex-col items-center gap-3 w-full">
-            {!isAdmin && (
-              <button
-                type="button"
-                onClick={() => goToProtectedPage("/my-courses")}
-                className="px-3 py-2 rounded-lg w-full bg-cyan-600 text-white inline-flex items-center justify-center hover:bg-cyan-500"
-              >
-                My Courses
-              </button>
-            )}
-            {isAdmin && (
-              <button
-                type="button"
-                onClick={() => goToProtectedPage("/admin")}
-                className="px-3 py-2 rounded-lg w-full bg-cyan-600 text-white inline-flex items-center justify-center hover:bg-cyan-500"
-              >
-                Admin
-              </button>
-            )}
-            <button
-              type="button"
-              onClick={() => setMobileProfileMenuOpen((prev) => !prev)}
-              className="px-3 py-2 rounded-lg w-full bg-gray-700 text-gray-100 inline-flex items-center justify-center gap-2 hover:bg-gray-600"
-              title={user?.email || profileLabel}
-            >
-              <FaUserCircle />
-              <span>{profileLabel}</span>
-              <FaChevronDown className={`text-xs transition-transform ${mobileProfileMenuOpen ? "rotate-180" : ""}`} />
-            </button>
-
-            {mobileProfileMenuOpen && (
-              <div
-                ref={mobileProfilePanelRef}
-                className="w-full rounded-xl border border-slate-700 bg-[#0f2240] p-2 max-h-[40vh] overflow-y-auto"
-              >
-                <div className="px-3 py-2 border-b border-slate-700/70 mb-1">
-                  <p className="text-sm font-semibold text-white truncate">{profileLabel}</p>
-                  <p className="text-xs text-gray-400 truncate">{user?.email || ""}</p>
+              </div>
+            ) : (
+              <div className="w-full rounded-2xl border border-slate-700/75 bg-[#0f2240]/80 p-3">
+                <div className="flex flex-col items-center gap-3 w-full">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      setShowLogin(true);
+                      setShowRegister(false);
+                    }}
+                    className="btn-auth px-3 py-2 rounded-lg text-white w-full"
+                  >
+                    Sign In
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      setShowRegister(true);
+                      setShowLogin(false);
+                    }}
+                    className="btn-signup bg-gradient-to-r from-yellow-300 via-amber-300 to-orange-300 px-3 py-2 rounded-lg text-[#0a192f] font-semibold hover:from-yellow-200 hover:via-amber-200 hover:to-orange-200 w-full"
+                  >
+                    Sign Up
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => goToProtectedPage("/profile")}
-                  className="btn-dropdown w-full rounded-lg px-3 py-2.5 text-left text-sm text-gray-100 hover:bg-[#17345d]"
-                >
-                  Profile
-                </button>
-                <button
-                  type="button"
-                  onClick={handleSignOutFromMenu}
-                  className="btn-danger w-full rounded-lg px-3 py-2.5 text-left text-sm"
-                >
-                  <span className="inline-flex items-center gap-2">
-                    <FaSignOutAlt className="text-xs" />
-                    Sign Out
-                    </span>
-                </button>
               </div>
             )}
           </div>
-        ) : (
-          <div className="flex flex-col items-center gap-3 w-full">
-            <button
-              type="button"
-              onClick={() => {
-                setMenuOpen(false);
-                setShowLogin(true);
-                setShowRegister(false);
-              }}
-              className="bg-sky-700 px-3 py-2 rounded-lg text-white hover:bg-sky-600 w-full"
-            >
-              Sign In
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setMenuOpen(false);
-                setShowRegister(true);
-                setShowLogin(false);
-              }}
-              className="btn-signup bg-gradient-to-r from-yellow-300 via-amber-300 to-orange-300 px-3 py-2 rounded-lg text-[#0a192f] font-semibold hover:from-yellow-200 hover:via-amber-200 hover:to-orange-200 w-full"
-            >
-              Sign Up
-            </button>
-          </div>
-        )}
         </div>
-      )}
 
       {showLogin && (
         <Modal onClose={() => setShowLogin(false)}>

@@ -5,6 +5,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import Portfolio1 from "../../../assets/portfolio/school-life-portfolio.jpg";
 import Portfolio2 from "../../../assets/portfolio/hotel-web.jpg";
 import Portfolio3 from "../../../assets/portfolio/portfolio-logo.jpg";
+import WolaitaCalendarUi from "../../../assets/portfolio/wolaita-calendar-ui.svg";
 
 const portfolioCategories = [
   { label: "All", value: "all" },
@@ -48,7 +49,7 @@ export default function Portfolio() {
       },
       {
         title: "Wolaita Calendar Mobile App",
-        img: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=1400&q=80",
+        img: WolaitaCalendarUi,
         description:
           "Mobile app for tracking Wolaita calendar dates, cultural events, and important local milestones.",
         categories: ["mobile-apps"],
