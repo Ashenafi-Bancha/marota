@@ -144,7 +144,7 @@ function Footer() {
             </div>
           </div>
 
-          <div className="flex w-full items-center justify-between gap-6 lg:w-auto lg:justify-end">
+          <div className="flex w-full flex-col items-center gap-3 lg:w-auto lg:flex-row lg:justify-end">
             <nav aria-label="Legal" className="flex items-center justify-center gap-3 text-sm text-slate-500/90 md:justify-end">
               <Link to="/privacy" className="text-inherit transition-colors duration-200 hover:text-slate-200">
                 Privacy Policy
@@ -154,8 +154,12 @@ function Footer() {
                 Terms of Service
               </Link>
             </nav>
-            <div className="ml-8 lg:hidden">
-              <ThemeSwitcher compact />
+            <div className="w-full max-w-[260px] rounded-xl border border-white/15 bg-[#0b1b33] px-3 py-2 lg:hidden">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-300">Theme</p>
+              <p className="mt-1 text-xs text-slate-400">Choose your preferred look for small screens.</p>
+              <div className="mt-2 inline-flex">
+                <ThemeSwitcher compact />
+              </div>
             </div>
           </div>
         </div>

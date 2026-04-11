@@ -9,7 +9,6 @@ import { useAuth } from "../../features/auth/context/AuthProvider";
 import Login from "../../features/auth/components/LoginForm";
 import Register from "../../features/auth/components/RegisterForm";
 import Modal from "../../shared/ui/Modal";
-import ThemeSwitcher from "../../shared/ui/ThemeSwitcher";
 
 const Header = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -455,9 +454,6 @@ const Header = () => {
             <span>{menuOpen ? "Close" : "Menu"}</span>
           </button>
 
-          <div className="hidden lg:block lg:ml-10 xl:ml-14">
-            <ThemeSwitcher compact />
-          </div>
         </div>
       </div>
 
@@ -472,7 +468,6 @@ const Header = () => {
         <div className="flex max-h-[min(78vh,640px)] min-h-0 flex-col">
             <div className="border-b border-white/10 px-4 py-3">
               <div className="flex items-center justify-end gap-2">
-                <ThemeSwitcher compact />
                 <button
                   type="button"
                   onClick={closeMobileMenu}
