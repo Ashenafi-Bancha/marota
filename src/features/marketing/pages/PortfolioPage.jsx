@@ -5,6 +5,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import Portfolio1 from "../../../assets/portfolio/school-life-portfolio.jpg";
 import Portfolio2 from "../../../assets/portfolio/hotel-web.jpg";
 import Portfolio3 from "../../../assets/portfolio/portfolio-logo.jpg";
+import WolaitaHeritage from "../../../assets/portfolio/wolaita-heritage.png";
 import WolaitaCalendarUi from "../../../assets/portfolio/wolaita-calendar-ui.svg";
 
 const portfolioCategories = [
@@ -42,7 +43,7 @@ export default function Portfolio() {
       },
       {
         title: "Wolatia Heritage Digital Museum Website and Mobile App",
-        img: "/wolayta.png",
+        img: WolaitaHeritage,
         description:
           "Cultural heritage platform built for web and mobile to preserve and showcase Wolatia history.",
         categories: ["mobile-apps", "websites"],

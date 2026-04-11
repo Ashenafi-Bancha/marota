@@ -190,27 +190,26 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="grid items-center gap-7 lg:grid-cols-[1.1fr_0.9fr] lg:gap-9">
-          <div className="text-center lg:text-left">
-            <h1 className="hero-main-title font-bold leading-tight my-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl p-2 mx-auto text-center lg:mx-0 lg:text-left">
+        <div className="text-center">
+            <h1 className="hero-main-title font-bold leading-tight my-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl p-2 mx-auto text-center">
               Marota Film
               <span className="hero-main-title-accent">
                 {" "}
                 and Software Collage </span>
             </h1>
 
-            <p className="hero-brand-slogan mx-auto mb-2 max-w-4xl px-3 text-base sm:text-xl md:text-2xl lg:text-3xl font-semibold leading-snug lg:mx-0 lg:px-2 lg:text-left">
+            <p className="hero-brand-slogan mx-auto mb-2 max-w-4xl px-3 text-base sm:text-xl md:text-2xl lg:text-3xl font-semibold leading-snug">
               <span className="hero-brand-slogan-text">
                 Your Gateway to a Limitless Digital Future
               </span>
             </p>
 
-            <p className="hero-main-description text-base sm:text-lg md:text-2xl mb-2 max-w-3xl leading-relaxed mx-auto px-2 sm:px-4 py-2 lg:mx-0 lg:px-2 lg:text-left">
+            <p className="hero-main-description text-base sm:text-lg md:text-2xl mb-2 max-w-3xl leading-relaxed mx-auto px-2 sm:px-4 py-2">
               Join our comprehensive programs in cinematography and software
               development. Learn from experts and launch your creative career.
             </p>
 
-            <div className="flex flex-wrap gap-3 sm:gap-4 justify-center mb-2 py-2 w-full max-w-xl mx-auto lg:mx-0 lg:justify-start">
+            <div className="flex flex-wrap gap-3 sm:gap-4 justify-center mb-2 py-2 w-full max-w-xl mx-auto">
               <Link
                 to={user ? "/dashboard" : "/signup"}
                 className="hero-primary-cta group inline-flex w-full items-center justify-center gap-2 px-7 py-3 text-center font-semibold transition hover:translate-y-[-3px] md:rounded-lg rounded-3xl sm:w-auto"
@@ -227,7 +226,7 @@ export default function Hero() {
               </Link>
             </div>
 
-            <div className="mx-auto mt-3 flex w-full max-w-3xl flex-wrap items-center justify-center gap-2 sm:gap-3 px-2 lg:mx-0 lg:justify-start lg:px-0">
+            <div className="mx-auto mt-3 flex w-full max-w-3xl flex-wrap items-center justify-center gap-2 sm:gap-3 px-2">
               {[
                 "No prior experience required",
                 "Hands-on projects",
@@ -241,37 +240,6 @@ export default function Hero() {
                 </span>
               ))}
             </div>
-          </div>
-
-          <aside className="mx-auto w-full max-w-md md:max-w-3xl lg:max-w-[430px]">
-            <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-1">
-              <article className="group relative overflow-hidden rounded-[26px] border border-cyan-300/35 bg-[#0d203a]/75 shadow-[0_20px_40px_rgba(2,8,23,0.42)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_26px_50px_rgba(2,8,23,0.5)]">
-                <img
-                  src={Hero10}
-                  alt="Camera students practicing at Marota"
-                  className="h-[230px] w-full object-cover transition duration-500 group-hover:scale-[1.04] sm:h-[250px] md:h-[220px] lg:h-[250px]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#08152a]/90 via-[#08152a]/35 to-transparent" />
-                <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/20 bg-[#081a32]/72 p-3 text-left backdrop-blur-sm">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-cyan-200">Creative Production</p>
-                  <p className="mt-1 text-sm font-semibold text-white">Hands-on camera training with industry workflow.</p>
-                </div>
-              </article>
-
-              <article className="group relative overflow-hidden rounded-[26px] border border-cyan-300/35 bg-[#0d203a]/75 shadow-[0_20px_40px_rgba(2,8,23,0.42)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_26px_50px_rgba(2,8,23,0.5)]">
-                <img
-                  src={Hero1}
-                  alt="Coding students learning together"
-                  className="h-[230px] w-full object-cover transition duration-500 group-hover:scale-[1.04] sm:h-[250px] md:h-[220px] lg:h-[250px]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#08152a]/90 via-[#08152a]/35 to-transparent" />
-                <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/20 bg-[#081a32]/72 p-3 text-left backdrop-blur-sm">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-cyan-200">Software Lab</p>
-                  <p className="mt-1 text-sm font-semibold text-white">Coding students building real projects.</p>
-                </div>
-              </article>
-            </div>
-          </aside>
         </div>
       </div>
 

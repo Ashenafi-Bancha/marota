@@ -23,6 +23,7 @@ const Header = () => {
   });
   const profileMenuRef = useRef(null);
   const mobileProfilePanelRef = useRef(null);
+  const mobileDrawerScrollRef = useRef(null);
   const { searchQuery, setSearchQuery } = useSearch();
   const { user, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
@@ -190,6 +191,11 @@ const Header = () => {
     }
   }, [menuOpen, mobileProfileMenuOpen]);
 
+  useEffect(() => {
+    if (!menuOpen || !mobileDrawerScrollRef.current) return;
+    mobileDrawerScrollRef.current.scrollTop = 0;
+  }, [menuOpen]);
+
   const closeMobileMenu = () => {
     setMenuOpen(false);
   };
@@ -200,14 +206,6 @@ const Header = () => {
       [sectionKey]: !prev[sectionKey],
     }));
   };
-
-  const mobileRevealClass = menuOpen
-    ? "opacity-100 translate-y-0"
-    : "opacity-0 translate-y-1";
-
-  const getMobileRevealStyle = (index) => ({
-    transitionDelay: menuOpen ? `${80 + index * 35}ms` : "0ms",
-  });
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-[#081325]/85 text-white shadow-[0_10px_30px_rgba(2,8,23,0.35)] backdrop-blur-xl">
@@ -449,11 +447,12 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="xl:hidden text-2xl h-10 w-10 inline-flex items-center justify-center rounded-lg border border-white/15 bg-white/5"
+            className="xl:hidden inline-flex h-11 items-center justify-center gap-2 rounded-full border border-white/20 bg-[#13294a]/90 px-3 text-sm font-semibold text-slate-100 shadow-[0_10px_20px_rgba(2,8,23,0.35)] transition hover:border-cyan-300/45 hover:bg-[#17345d]"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
           >
-            {menuOpen ? <FaTimes className="text-red-500" /> : <FaBars className="text-yellow-400" />}
+            {menuOpen ? <FaTimes className="text-base" /> : <FaBars className="text-base" />}
+            <span>{menuOpen ? "Close" : "Menu"}</span>
           </button>
 
           <div className="hidden lg:block lg:ml-10 xl:ml-14">
@@ -466,7 +465,7 @@ const Header = () => {
         type="button"
         aria-label="Close mobile menu backdrop"
         onClick={closeMobileMenu}
-        className={`xl:hidden fixed inset-0 top-[4.5rem] z-40 bg-slate-950/55 backdrop-blur-[1px] transition-opacity duration-300 ${
+        className={`xl:hidden fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-[1px] transition-opacity duration-300 ${
           menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       />
@@ -474,54 +473,32 @@ const Header = () => {
       {/* Mobile Nav */}
       <div
         aria-hidden={!menuOpen}
-        className={`xl:hidden relative z-50 overflow-hidden border-t border-white/10 bg-gradient-to-b from-[#0c1f3f]/95 via-[#0d2346]/95 to-[#0a1b36]/95 backdrop-blur-md transition-all duration-300 ease-out ${
-          menuOpen
-            ? "max-h-[calc(100vh-4.5rem)] opacity-100"
-            : "max-h-0 opacity-0"
+        className={`xl:hidden fixed inset-y-0 right-0 z-50 w-[86vw] max-w-[360px] border-l border-white/10 bg-gradient-to-b from-[#0d2346] via-[#0c1f3f] to-[#0a1b36] shadow-[-22px_0_40px_rgba(2,8,23,0.45)] transition-transform duration-300 ease-out ${
+          menuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div
-          className={`mx-auto flex max-h-[calc(100vh-7.5rem)] w-full max-w-[1400px] flex-col gap-4 overflow-y-auto px-4 py-4 pb-6 transition-transform duration-300 ease-out ${
-            menuOpen ? "translate-y-0" : "-translate-y-2"
-          }`}
-        >
-            <div className="flex items-center justify-between rounded-2xl border border-white/15 bg-white/5 px-3.5 py-2.5">
+        <div className="flex h-full flex-col">
+            <div className="flex items-center justify-between border-b border-white/10 px-4 py-4">
               <div>
                 <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Menu</p>
                 <p className="text-sm font-semibold text-slate-100">Browse Marota</p>
               </div>
-              <ThemeSwitcher compact />
+              <div className="flex items-center gap-2">
+                <ThemeSwitcher compact />
+                <button
+                  type="button"
+                  onClick={closeMobileMenu}
+                  className="btn-icon inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/35 text-slate-100"
+                  aria-label="Close mobile menu"
+                >
+                  <FaTimes className="text-sm" />
+                </button>
+              </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-2">
-              <Link
-                to="/"
-                onClick={closeMobileMenu}
-                className={`rounded-xl border border-slate-700/75 bg-[#102447]/65 px-3 py-2 text-center text-xs font-semibold uppercase tracking-[0.09em] text-slate-100 transition-all duration-300 ${mobileRevealClass}`}
-                style={getMobileRevealStyle(0)}
-              >
-                Home
-              </Link>
-              <Link
-                to="/courses"
-                onClick={closeMobileMenu}
-                className={`rounded-xl border border-slate-700/75 bg-[#102447]/65 px-3 py-2 text-center text-xs font-semibold uppercase tracking-[0.09em] text-slate-100 transition-all duration-300 ${mobileRevealClass}`}
-                style={getMobileRevealStyle(1)}
-              >
-                Courses
-              </Link>
-              <Link
-                to="/contact"
-                onClick={closeMobileMenu}
-                className={`rounded-xl border border-slate-700/75 bg-[#102447]/65 px-3 py-2 text-center text-xs font-semibold uppercase tracking-[0.09em] text-slate-100 transition-all duration-300 ${mobileRevealClass}`}
-                style={getMobileRevealStyle(2)}
-              >
-                Contact
-              </Link>
-            </div>
-
-            <div className="space-y-2">
-              {navItems.map((item, itemIndex) => {
+            <div ref={mobileDrawerScrollRef} className="flex-1 overflow-y-auto px-4 py-4">
+              <div className="space-y-2">
+              {navItems.map((item) => {
                 const isActive = location.pathname === item.path;
 
                 if (item.children) {
@@ -531,25 +508,24 @@ const Header = () => {
                   return (
                     <div
                       key={item.path}
-                      className={`overflow-hidden rounded-2xl border transition-all duration-300 ${mobileRevealClass} ${
+                      className={`overflow-hidden rounded-xl border transition-colors ${
                         isActive || isExpanded
                           ? "border-cyan-300/50 bg-cyan-300/10"
                           : "border-slate-700/75 bg-[#102447]/65"
                       }`}
-                      style={getMobileRevealStyle(itemIndex + 3)}
                     >
-                      <div className="flex items-center gap-2 border-b border-slate-700/60 px-2 py-2">
+                      <div className="flex items-center gap-2 border-b border-slate-700/60 px-2 py-1.5">
                         <Link
                           to={item.path}
                           onClick={closeMobileMenu}
-                          className="flex-1 rounded-xl px-2.5 py-2 text-sm font-semibold text-slate-100"
+                          className="flex-1 rounded-lg px-2.5 py-2 text-sm font-semibold text-slate-100"
                         >
                           {item.label}
                         </Link>
                         <button
                           type="button"
                           onClick={() => toggleMobileSection(sectionKey)}
-                          className="btn-icon inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-600/70 bg-slate-900/35 text-slate-100"
+                          className="btn-icon inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-600/70 bg-slate-900/35 text-slate-100"
                           aria-label={`Toggle ${item.label} links`}
                         >
                           <FaChevronDown
@@ -559,13 +535,13 @@ const Header = () => {
                       </div>
 
                       {isExpanded && (
-                        <div className="space-y-1.5 bg-[#0d223f]/85 p-2.5">
+                        <div className="space-y-1.5 bg-[#0d223f]/85 p-2">
                           {item.children.map((child) => (
                             <Link
                               key={child.path}
                               to={child.path}
                               onClick={closeMobileMenu}
-                              className="btn-dropdown flex items-center justify-between rounded-xl border border-slate-600/75 bg-slate-900/30 px-3 py-2.5 text-sm text-slate-100 transition hover:border-cyan-300/45 hover:bg-cyan-300/10"
+                              className="btn-dropdown flex items-center justify-between rounded-lg border border-slate-600/75 bg-slate-900/30 px-3 py-2.5 text-sm text-slate-100 transition hover:border-cyan-300/45 hover:bg-cyan-300/10"
                             >
                               <span>{child.label}</span>
                               <FaChevronRight className="text-[10px] text-cyan-200" />
@@ -582,21 +558,21 @@ const Header = () => {
                     key={item.path}
                     to={item.path}
                     onClick={closeMobileMenu}
-                    className={`rounded-xl border px-3 py-2.5 text-left text-sm font-semibold transition-all duration-300 ${mobileRevealClass} ${
+                    className={`block rounded-xl border px-3 py-2.5 text-left text-sm font-semibold transition-colors ${
                       isActive
                         ? "border-cyan-300/60 bg-cyan-300/15 text-cyan-100"
                         : "border-slate-700/75 bg-[#102447]/60 text-slate-100 hover:border-cyan-300/45 hover:bg-cyan-300/10"
                     }`}
-                    style={getMobileRevealStyle(itemIndex + 3)}
                   >
                     {item.label}
                   </Link>
                 );
               })}
+              </div>
             </div>
 
             {user ? (
-              <div className="w-full rounded-2xl border border-slate-700/75 bg-[#0f2240]/80 p-3">
+              <div className="w-full border-t border-white/10 bg-[#0f2240]/80 p-4">
                 <div className="flex flex-col items-center gap-3 w-full">
                   {!isAdmin && (
                     <button
@@ -658,7 +634,7 @@ const Header = () => {
                 </div>
               </div>
             ) : (
-              <div className="w-full rounded-2xl border border-slate-700/75 bg-[#0f2240]/80 p-3">
+              <div className="w-full border-t border-white/10 bg-[#0f2240]/80 p-4">
                 <div className="flex flex-col items-center gap-3 w-full">
                   <button
                     type="button"
@@ -685,8 +661,8 @@ const Header = () => {
                 </div>
               </div>
             )}
-          </div>
         </div>
+          </div>
 
       {showLogin && (
         <Modal onClose={() => setShowLogin(false)}>
