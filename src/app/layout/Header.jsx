@@ -19,7 +19,7 @@ const Header = () => {
   const [mobileProfileMenuOpen, setMobileProfileMenuOpen] = useState(false);
   const [mobileExpandedSections, setMobileExpandedSections] = useState({
     courses: true,
-    portfolio: false,
+    portfolio: true,
   });
   const profileMenuRef = useRef(null);
   const mobileProfilePanelRef = useRef(null);
@@ -198,6 +198,7 @@ const Header = () => {
 
   const closeMobileMenu = () => {
     setMenuOpen(false);
+    setMobileProfileMenuOpen(false);
   };
 
   const toggleMobileSection = (sectionKey) => {
@@ -447,9 +448,10 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="xl:hidden inline-flex h-11 items-center justify-center gap-2 rounded-full border border-white/20 bg-[#13294a]/90 px-3 text-sm font-semibold text-slate-100 shadow-[0_10px_20px_rgba(2,8,23,0.35)] transition hover:border-cyan-300/45 hover:bg-[#17345d]"
+            className="xl:hidden inline-flex h-11 items-center justify-center gap-2 rounded-full border border-cyan-200/25 bg-gradient-to-r from-[#13325c] to-[#17345d] px-3 text-sm font-semibold text-slate-100 shadow-[0_10px_20px_rgba(2,8,23,0.35)] transition hover:border-cyan-300/60 hover:from-[#173b6b] hover:to-[#1d4378]"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
           >
             {menuOpen ? <FaTimes className="text-base" /> : <FaBars className="text-base" />}
             <span>{menuOpen ? "Close" : "Menu"}</span>
@@ -465,7 +467,7 @@ const Header = () => {
         type="button"
         aria-label="Close mobile menu backdrop"
         onClick={closeMobileMenu}
-        className={`xl:hidden fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-[1px] transition-opacity duration-300 ${
+        className={`xl:hidden fixed inset-0 z-40 bg-slate-950/75 backdrop-blur-sm transition-opacity duration-300 ${
           menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       />
@@ -473,31 +475,59 @@ const Header = () => {
       {/* Mobile Nav */}
       <div
         aria-hidden={!menuOpen}
-        className={`xl:hidden fixed inset-y-0 right-0 z-50 w-[86vw] max-w-[360px] border-l border-white/10 bg-gradient-to-b from-[#0d2346] via-[#0c1f3f] to-[#0a1b36] shadow-[-22px_0_40px_rgba(2,8,23,0.45)] transition-transform duration-300 ease-out ${
+        role="dialog"
+        aria-modal="true"
+        className={`xl:hidden fixed inset-y-0 right-0 z-50 w-[88vw] max-w-[380px] border-l border-cyan-200/20 bg-gradient-to-b from-[#0f2850] via-[#0d2346] to-[#081b36] shadow-[-26px_0_48px_rgba(2,8,23,0.5)] transition-transform duration-300 ease-out ${
           menuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex h-full flex-col">
-            <div className="flex items-center justify-between border-b border-white/10 px-4 py-4">
-              <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Menu</p>
-                <p className="text-sm font-semibold text-slate-100">Browse Marota</p>
+        <div className="flex h-full min-h-0 flex-col">
+            <div className="border-b border-white/10 px-4 pb-4 pt-5">
+              <div className="mb-4 flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-200/70">Navigation</p>
+                  <p className="text-base font-semibold text-slate-100">Browse Marota</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <ThemeSwitcher compact />
+                  <button
+                    type="button"
+                    onClick={closeMobileMenu}
+                    className="btn-icon inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/35 text-slate-100"
+                    aria-label="Close mobile menu"
+                  >
+                    <FaTimes className="text-sm" />
+                  </button>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <ThemeSwitcher compact />
-                <button
-                  type="button"
+
+              <div className="grid grid-cols-3 gap-2">
+                <Link
+                  to="/"
                   onClick={closeMobileMenu}
-                  className="btn-icon inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/35 text-slate-100"
-                  aria-label="Close mobile menu"
+                  className="rounded-xl border border-cyan-200/30 bg-cyan-300/10 px-3 py-2 text-center text-xs font-semibold text-cyan-100"
                 >
-                  <FaTimes className="text-sm" />
-                </button>
+                  Home
+                </Link>
+                <Link
+                  to="/courses"
+                  onClick={closeMobileMenu}
+                  className="rounded-xl border border-cyan-200/20 bg-slate-900/30 px-3 py-2 text-center text-xs font-semibold text-slate-100"
+                >
+                  Courses
+                </Link>
+                <Link
+                  to="/contact"
+                  onClick={closeMobileMenu}
+                  className="rounded-xl border border-cyan-200/20 bg-slate-900/30 px-3 py-2 text-center text-xs font-semibold text-slate-100"
+                >
+                  Contact
+                </Link>
               </div>
             </div>
 
-            <div ref={mobileDrawerScrollRef} className="flex-1 overflow-y-auto px-4 py-4">
-              <div className="space-y-2">
+            <div ref={mobileDrawerScrollRef} className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
+              <div className="space-y-2.5 pb-3">
               {navItems.map((item) => {
                 const isActive = location.pathname === item.path;
 
@@ -510,15 +540,15 @@ const Header = () => {
                       key={item.path}
                       className={`overflow-hidden rounded-xl border transition-colors ${
                         isActive || isExpanded
-                          ? "border-cyan-300/50 bg-cyan-300/10"
-                          : "border-slate-700/75 bg-[#102447]/65"
+                          ? "border-cyan-300/60 bg-cyan-300/15"
+                          : "border-slate-600/70 bg-[#102447]/70"
                       }`}
                     >
-                      <div className="flex items-center gap-2 border-b border-slate-700/60 px-2 py-1.5">
+                      <div className="flex items-center gap-2 border-b border-slate-700/60 px-2.5 py-2">
                         <Link
                           to={item.path}
                           onClick={closeMobileMenu}
-                          className="flex-1 rounded-lg px-2.5 py-2 text-sm font-semibold text-slate-100"
+                          className="flex-1 rounded-lg px-2.5 py-2 text-sm font-semibold tracking-wide text-slate-100"
                         >
                           {item.label}
                         </Link>
@@ -535,13 +565,13 @@ const Header = () => {
                       </div>
 
                       {isExpanded && (
-                        <div className="space-y-1.5 bg-[#0d223f]/85 p-2">
+                        <div className="space-y-1.5 bg-[#0d223f]/90 p-2">
                           {item.children.map((child) => (
                             <Link
                               key={child.path}
                               to={child.path}
                               onClick={closeMobileMenu}
-                              className="btn-dropdown flex items-center justify-between rounded-lg border border-slate-600/75 bg-slate-900/30 px-3 py-2.5 text-sm text-slate-100 transition hover:border-cyan-300/45 hover:bg-cyan-300/10"
+                              className="btn-dropdown flex items-center justify-between rounded-lg border border-slate-600/75 bg-slate-900/35 px-3 py-2.5 text-sm text-slate-100 transition hover:border-cyan-300/55 hover:bg-cyan-300/10"
                             >
                               <span>{child.label}</span>
                               <FaChevronRight className="text-[10px] text-cyan-200" />
@@ -558,10 +588,10 @@ const Header = () => {
                     key={item.path}
                     to={item.path}
                     onClick={closeMobileMenu}
-                    className={`block rounded-xl border px-3 py-2.5 text-left text-sm font-semibold transition-colors ${
+                    className={`block rounded-xl border px-3 py-3 text-left text-sm font-semibold tracking-wide transition-colors ${
                       isActive
-                        ? "border-cyan-300/60 bg-cyan-300/15 text-cyan-100"
-                        : "border-slate-700/75 bg-[#102447]/60 text-slate-100 hover:border-cyan-300/45 hover:bg-cyan-300/10"
+                        ? "border-cyan-300/70 bg-cyan-300/15 text-cyan-100"
+                        : "border-slate-600/70 bg-[#102447]/70 text-slate-100 hover:border-cyan-300/55 hover:bg-cyan-300/10"
                     }`}
                   >
                     {item.label}
