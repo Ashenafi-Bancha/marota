@@ -22,6 +22,8 @@ const Header = () => {
     portfolio: true,
   });
   const profileMenuRef = useRef(null);
+  const mobileMenuRef = useRef(null);
+  const mobileMenuButtonRef = useRef(null);
   const mobileProfilePanelRef = useRef(null);
   const mobileDrawerScrollRef = useRef(null);
   const { searchQuery, setSearchQuery } = useSearch();
@@ -146,18 +148,6 @@ const Header = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    if (!menuOpen) {
-      document.body.style.overflow = "";
-      return;
-    }
-
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
-
-  useEffect(() => {
     if (!menuOpen) return;
 
     const handleKeyDown = (event) => {
@@ -176,11 +166,18 @@ const Header = () => {
       if (!profileMenuRef.current.contains(event.target)) {
         setProfileMenuOpen(false);
       }
+
+      if (!menuOpen) return;
+      const clickedMenuButton = mobileMenuButtonRef.current?.contains(event.target);
+      const clickedMenuPanel = mobileMenuRef.current?.contains(event.target);
+      if (!clickedMenuButton && !clickedMenuPanel) {
+        setMenuOpen(false);
+      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [menuOpen]);
 
   useEffect(() => {
     if (menuOpen && mobileProfileMenuOpen && mobileProfilePanelRef.current) {
@@ -448,7 +445,8 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="xl:hidden inline-flex h-11 items-center justify-center gap-2 rounded-full border border-cyan-200/25 bg-gradient-to-r from-[#13325c] to-[#17345d] px-3 text-sm font-semibold text-slate-100 shadow-[0_10px_20px_rgba(2,8,23,0.35)] transition hover:border-cyan-300/60 hover:from-[#173b6b] hover:to-[#1d4378]"
+            ref={mobileMenuButtonRef}
+            className="xl:hidden inline-flex h-11 items-center justify-center gap-2 rounded-full border border-white/20 bg-[#13294a]/90 px-3 text-sm font-semibold text-slate-100 shadow-[0_10px_20px_rgba(2,8,23,0.35)] transition hover:border-cyan-300/45 hover:bg-[#17345d]"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
@@ -463,66 +461,26 @@ const Header = () => {
         </div>
       </div>
 
-      <button
-        type="button"
-        aria-label="Close mobile menu backdrop"
-        onClick={closeMobileMenu}
-        className={`xl:hidden fixed inset-0 z-40 bg-slate-950/75 backdrop-blur-sm transition-opacity duration-300 ${
-          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-      />
-
       {/* Mobile Nav */}
       <div
+        ref={mobileMenuRef}
         aria-hidden={!menuOpen}
-        role="dialog"
-        aria-modal="true"
-        className={`xl:hidden fixed inset-y-0 right-0 z-50 w-[88vw] max-w-[380px] border-l border-cyan-200/20 bg-gradient-to-b from-[#0f2850] via-[#0d2346] to-[#081b36] shadow-[-26px_0_48px_rgba(2,8,23,0.5)] transition-transform duration-300 ease-out ${
-          menuOpen ? "translate-x-0" : "translate-x-full"
+        className={`xl:hidden absolute left-3 right-3 top-[calc(100%-2px)] z-50 overflow-hidden rounded-2xl border border-cyan-200/20 bg-gradient-to-b from-[#0f2850] via-[#0d2346] to-[#081b36] shadow-[0_18px_48px_rgba(2,8,23,0.55)] transition-all duration-300 ease-out ${
+          menuOpen ? "translate-y-0 scale-100 opacity-100 pointer-events-auto" : "-translate-y-2 scale-[0.98] opacity-0 pointer-events-none"
         }`}
       >
-        <div className="flex h-full min-h-0 flex-col">
-            <div className="border-b border-white/10 px-4 pb-4 pt-5">
-              <div className="mb-4 flex items-center justify-between">
-                <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-200/70">Navigation</p>
-                  <p className="text-base font-semibold text-slate-100">Browse Marota</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <ThemeSwitcher compact />
-                  <button
-                    type="button"
-                    onClick={closeMobileMenu}
-                    className="btn-icon inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/35 text-slate-100"
-                    aria-label="Close mobile menu"
-                  >
-                    <FaTimes className="text-sm" />
-                  </button>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-2">
-                <Link
-                  to="/"
+        <div className="flex max-h-[min(78vh,640px)] min-h-0 flex-col">
+            <div className="border-b border-white/10 px-4 py-3">
+              <div className="flex items-center justify-end gap-2">
+                <ThemeSwitcher compact />
+                <button
+                  type="button"
                   onClick={closeMobileMenu}
-                  className="rounded-xl border border-cyan-200/30 bg-cyan-300/10 px-3 py-2 text-center text-xs font-semibold text-cyan-100"
+                  className="btn-icon inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/35 text-slate-100"
+                  aria-label="Close mobile menu"
                 >
-                  Home
-                </Link>
-                <Link
-                  to="/courses"
-                  onClick={closeMobileMenu}
-                  className="rounded-xl border border-cyan-200/20 bg-slate-900/30 px-3 py-2 text-center text-xs font-semibold text-slate-100"
-                >
-                  Courses
-                </Link>
-                <Link
-                  to="/contact"
-                  onClick={closeMobileMenu}
-                  className="rounded-xl border border-cyan-200/20 bg-slate-900/30 px-3 py-2 text-center text-xs font-semibold text-slate-100"
-                >
-                  Contact
-                </Link>
+                  <FaTimes className="text-sm" />
+                </button>
               </div>
             </div>
 
