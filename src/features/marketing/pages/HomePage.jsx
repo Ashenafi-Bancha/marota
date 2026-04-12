@@ -94,20 +94,41 @@ const faqs = [
 export default function Hero() {
   const [currentImage, setCurrentImage] = useState(0);
   const [typedAdText, setTypedAdText] = useState("");
+  const [isSmallScreen, setIsSmallScreen] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.innerWidth < 768;
+  });
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
   const { user } = useAuth();
   const adText = "Coming Soon in Addis Ababa";
   const adPrefix = "Coming Soon in ";
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Change image every 4 seconds
   useEffect(() => {
+    if (isSmallScreen) return undefined;
+
     const interval = setInterval(() => {
       setCurrentImage((prevIndex) => (prevIndex + 1) % images.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isSmallScreen]);
 
   useEffect(() => {
+    if (isSmallScreen) {
+      setTypedAdText(adText);
+      return undefined;
+    }
+
     let charIndex = 0;
     let activeTimeout;
     let isCancelled = false;
@@ -136,7 +157,7 @@ export default function Hero() {
         window.clearTimeout(activeTimeout);
       }
     };
-  }, [adText]);
+  }, [adText, isSmallScreen]);
 
   return (
     <>
@@ -144,7 +165,15 @@ export default function Hero() {
 
       {/* Background image slideshow */}
       <div className="absolute inset-0 z-0 ">
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 md:hidden">
+          <img
+            src={Hero1}
+            alt="Hero background"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        </div>
+
+        <div className="absolute inset-0 hidden md:block">
           {images.map((img, index) => (
             <img
               key={index}
@@ -169,19 +198,25 @@ export default function Hero() {
             <span className="absolute -bottom-10 -right-10 h-36 w-36 rounded-full bg-cyan-300/20 blur-2xl animate-pulse" />
 
             <div className="relative z-10 text-center">
-              <p className="hero-announcement-label text-sm sm:text-base font-extrabold tracking-[0.2em] uppercase animate-pulse">
+              <p className={`hero-announcement-label text-sm sm:text-base font-extrabold tracking-[0.2em] uppercase ${isSmallScreen ? "" : "animate-pulse"}`}>
                 Big Update
               </p>
               <h2 className="hero-announcement-title mt-1 text-2xl sm:text-3xl md:text-4xl font-black leading-tight">
-                <span className="hero-announcement-prefix">{typedAdText.slice(0, Math.min(typedAdText.length, adPrefix.length))}</span>
-                <span className="hero-announcement-main">{typedAdText.length > adPrefix.length ? typedAdText.slice(adPrefix.length) : ""}</span>
-                <span className="hero-announcement-cursor ml-1 inline-block w-[2px] h-[1em] animate-pulse align-middle" />
+                {isSmallScreen ? (
+                  <span className="hero-announcement-main">{adText}</span>
+                ) : (
+                  <>
+                    <span className="hero-announcement-prefix">{typedAdText.slice(0, Math.min(typedAdText.length, adPrefix.length))}</span>
+                    <span className="hero-announcement-main">{typedAdText.length > adPrefix.length ? typedAdText.slice(adPrefix.length) : ""}</span>
+                    <span className="hero-announcement-cursor ml-1 inline-block w-[2px] h-[1em] animate-pulse align-middle" />
+                  </>
+                )}
               </h2>
               <p className="hero-announcement-desc mt-2 text-sm sm:text-base">
                 Marota is expanding with a new branch in Addis Ababa.
               </p>
 
-              <div className="mt-3 flex items-center justify-center gap-2">
+              <div className={`mt-3 items-center justify-center gap-2 ${isSmallScreen ? "hidden" : "flex"}`}>
                 <span className="h-2.5 w-2.5 rounded-full bg-yellow-300 animate-bounce" />
                 <span className="h-2.5 w-2.5 rounded-full bg-cyan-300 animate-bounce [animation-delay:120ms]" />
                 <span className="h-2.5 w-2.5 rounded-full bg-yellow-300 animate-bounce [animation-delay:240ms]" />
