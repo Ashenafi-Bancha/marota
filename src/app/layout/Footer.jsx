@@ -156,8 +156,7 @@ function Footer() {
             </nav>
             <div className="w-full max-w-[260px] rounded-xl border border-white/15 bg-[#0b1b33] px-3 py-2 lg:hidden">
               <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-300">Theme</p>
-              <p className="mt-1 text-xs text-slate-400">Choose your preferred look for small screens.</p>
-              <div className="mt-2 inline-flex">
+              <div className="mt-1.5 inline-flex">
                 <ThemeSwitcher compact />
               </div>
             </div>

@@ -163,7 +163,7 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-7xl px-3 sm:px-5 text-center mt-2 md:mt-0 mx-auto">
-        <div className="mb-5 flex justify-center lg:justify-start">
+        <div className="mb-5 flex justify-center">
           <div className="hero-announcement-card relative w-full max-w-4xl overflow-hidden rounded-2xl px-5 py-4 sm:px-7 sm:py-5">
             <span className="absolute -top-8 -left-8 h-28 w-28 rounded-full bg-yellow-300/20 blur-2xl animate-pulse" />
             <span className="absolute -bottom-10 -right-10 h-36 w-36 rounded-full bg-cyan-300/20 blur-2xl animate-pulse" />

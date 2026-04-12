@@ -259,7 +259,7 @@ img {
   backdrop-filter: blur(6px);
 }
 
-button:not(.btn-signup):not(.btn-icon):not(.btn-danger):not(.btn-dropdown):not(.btn-link):not(.btn-auth):not(.btn-modal-close):not([aria-label^="Rate"]):not([aria-label="Search"]) {
+button:not(.btn-signup):not(.btn-icon):not(.btn-danger):not(.btn-dropdown):not(.btn-link):not(.btn-auth):not(.btn-modal-close):not(.btn-oauth):not([aria-label^="Rate"]):not([aria-label="Search"]) {
   background-color: var(--btn-primary-bg) !important;
   color: var(--btn-primary-text) !important;
   border-radius: 0.375rem !important;
@@ -267,12 +267,12 @@ button:not(.btn-signup):not(.btn-icon):not(.btn-danger):not(.btn-dropdown):not(.
   transition: all 0.2s ease !important;
 }
 
-button:not(.btn-signup):not(.btn-icon):not(.btn-danger):not(.btn-dropdown):not(.btn-link):not(.btn-auth):not(.btn-modal-close):not([aria-label^="Rate"]):not([aria-label="Search"]):hover:not(:disabled) {
+button:not(.btn-signup):not(.btn-icon):not(.btn-danger):not(.btn-dropdown):not(.btn-link):not(.btn-auth):not(.btn-modal-close):not(.btn-oauth):not([aria-label^="Rate"]):not([aria-label="Search"]):hover:not(:disabled) {
   background-color: var(--btn-primary-hover-bg) !important;
   color: var(--btn-primary-hover-text) !important;
 }
 
-button:not(.btn-signup):not(.btn-icon):not(.btn-danger):not(.btn-dropdown):not(.btn-link):not(.btn-auth):not(.btn-modal-close):not([aria-label^="Rate"]):not([aria-label="Search"]):disabled {
+button:not(.btn-signup):not(.btn-icon):not(.btn-danger):not(.btn-dropdown):not(.btn-link):not(.btn-auth):not(.btn-modal-close):not(.btn-oauth):not([aria-label^="Rate"]):not([aria-label="Search"]):disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
@@ -534,6 +534,19 @@ h1,h2,h3,h4,h5 {
 [data-theme="bright"] .border-\[\#28476b\],
 [data-theme="bright"] .border-\[\#355678\] {
   border-color: rgba(148, 163, 184, 0.55) !important;
+}
+
+[data-theme="bright"] .btn-oauth {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.98) 100%) !important;
+  border-color: rgba(148, 163, 184, 0.52) !important;
+  color: #0f172a !important;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="bright"] .btn-oauth:hover:not(:disabled) {
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%) !important;
+  border-color: rgba(37, 99, 235, 0.45) !important;
+  color: #0f172a !important;
 }
 
 [data-theme="bright"] .btn-auth {
