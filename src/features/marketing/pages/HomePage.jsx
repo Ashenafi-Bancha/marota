@@ -477,38 +477,6 @@ export default function Hero() {
       </div>
     </section>
 
-    <section className="bg-[#0a192f] py-16 md:py-20">
-      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="inline-flex rounded-full border border-cyan-300/35 bg-cyan-400/10 px-4 py-1 text-xs font-bold uppercase tracking-[0.16em] text-cyan-100">
-            Why Marota
-          </p>
-          <h2 className="mt-4 text-3xl font-black text-white sm:text-4xl">Built for Learners Who Want Real Results</h2>
-          <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
-            Marota is more than a course catalog. It is a practice-first learning environment focused on skills you can apply immediately.
-          </p>
-        </div>
-
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {valueCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <article
-                key={card.title}
-                className="rounded-2xl border border-white/15 bg-[#112240]/85 p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/45"
-              >
-                <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-300/35 bg-cyan-400/10 text-cyan-100">
-                  <Icon size={20} />
-                </div>
-                <h3 className="mt-4 text-lg font-bold text-white">{card.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-300">{card.description}</p>
-              </article>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-
     <section className="bg-[#0c1f38] py-16 md:py-20">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-3xl text-center">
@@ -539,7 +507,7 @@ export default function Hero() {
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-4xl text-center">
           <p className="inline-flex rounded-lg border border-yellow-300/45 bg-[#102744] px-5 py-2 text-sm font-black uppercase tracking-[0.2em] text-yellow-200">
-            Marota Tech
+            Marota Digital Studio
           </p>
           <p className="mt-4 text-xs font-bold uppercase tracking-[0.24em] text-cyan-100/90 sm:text-sm">
             Your Vision. Our Craft. Real Results.
@@ -631,6 +599,38 @@ export default function Hero() {
               View Portfolio
             </Link>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section className="bg-[#0a192f] py-16 md:py-20">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="inline-flex rounded-full border border-cyan-300/35 bg-cyan-400/10 px-4 py-1 text-xs font-bold uppercase tracking-[0.16em] text-cyan-100">
+            Why Marota
+          </p>
+          <h2 className="mt-4 text-3xl font-black text-white sm:text-4xl">Built for Learners Who Want Real Results</h2>
+          <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+            Marota is more than a course catalog. It is a practice-first learning environment focused on skills you can apply immediately.
+          </p>
+        </div>
+
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {valueCards.map((card) => {
+            const Icon = card.icon;
+            return (
+              <article
+                key={card.title}
+                className="rounded-2xl border border-white/15 bg-[#112240]/85 p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/45"
+              >
+                <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-300/35 bg-cyan-400/10 text-cyan-100">
+                  <Icon size={20} />
+                </div>
+                <h3 className="mt-4 text-lg font-bold text-white">{card.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-300">{card.description}</p>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
