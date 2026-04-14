@@ -3,6 +3,12 @@ import {
   Camera,
   Code,
   Users,
+  Globe,
+  Building2,
+  Hotel,
+  School,
+  Smartphone,
+  Bot,
   Award,
   GraduationCap,
   Clock3,
@@ -65,6 +71,51 @@ const learningJourney = [
   {
     title: "Graduate with Portfolio",
     detail: "Finish with real work samples and certificate-backed confidence.",
+  },
+];
+
+const serviceCards = [
+  {
+    title: "NGO Websites & Platforms",
+    description:
+      "We design and develop complete NGO websites with donation-ready pages, campaign storytelling, and clear community communication.",
+    icon: Globe,
+    tags: ["Donation pages", "Campaign-ready", "SEO friendly"],
+  },
+  {
+    title: "Digital Systems for Organizations",
+    description:
+      "From internal portals to public-facing digital systems, we help organizations modernize how they serve people.",
+    icon: Building2,
+    tags: ["Custom workflows", "Scalable architecture", "Secure access"],
+  },
+  {
+    title: "Hotel & Hospitality Websites",
+    description:
+      "Modern hotel websites with service showcases, booking-focused user flows, and mobile-first performance.",
+    icon: Hotel,
+    tags: ["Booking-focused", "Fast loading", "Brand-aligned UI"],
+  },
+  {
+    title: "School & Education Portals",
+    description:
+      "We build school websites and education portals for announcements, admissions, and student communication.",
+    icon: School,
+    tags: ["Admissions info", "Parent updates", "Program pages"],
+  },
+  {
+    title: "Business Websites & Landing Pages",
+    description:
+      "Conversion-focused business websites and high-impact landing pages built for growth, visibility, and trust.",
+    icon: BriefcaseBusiness,
+    tags: ["Lead generation", "Brand credibility", "Sales-ready pages"],
+  },
+  {
+    title: "Mobile Apps + AI Automation",
+    description:
+      "We create Android and iOS apps and integrate AI-powered automation to reduce repetitive work and improve speed.",
+    icon: Smartphone,
+    tags: ["Android & iOS", "AI integration", "Workflow automation"],
   },
 ];
 
@@ -466,6 +517,77 @@ export default function Hero() {
               <p className="mt-2 text-sm leading-relaxed text-slate-300">{step.detail}</p>
             </article>
           ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="services" className="bg-[#091d36] py-16 md:py-20">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="inline-flex rounded-full border border-cyan-300/35 bg-cyan-400/10 px-4 py-1 text-xs font-bold uppercase tracking-[0.16em] text-cyan-100">
+            Services We Provide
+          </p>
+          <h2 className="mt-4 text-3xl font-black text-white sm:text-4xl">
+            Marota Trains Talent and Builds Real Digital Products
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+            Beyond courses, we build production-ready products for NGOs, hotels, schools, businesses, and growing teams.
+            If you need a reliable partner to deliver websites, apps, and AI-powered systems, Marota is ready.
+          </p>
+        </div>
+
+        <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {serviceCards.map((service) => {
+            const Icon = service.icon;
+            return (
+              <article
+                key={service.title}
+                className="rounded-2xl border border-white/15 bg-[#112240]/85 p-5 text-left transition duration-300 hover:-translate-y-1 hover:border-cyan-300/45"
+              >
+                <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-300/35 bg-cyan-400/10 text-cyan-100">
+                  <Icon size={20} />
+                </div>
+                <h3 className="mt-4 text-lg font-bold text-white">{service.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-300">{service.description}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {service.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-slate-200"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        <div className="mt-8 rounded-3xl border border-yellow-300/25 bg-gradient-to-r from-[#152f53] via-[#102a4a] to-[#183557] p-6 text-center sm:p-8">
+          <div className="inline-flex items-center gap-2 rounded-full border border-yellow-300/45 bg-yellow-300/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-yellow-100">
+            <Bot size={14} />
+            Build With Marota
+          </div>
+          <p className="mx-auto mt-3 max-w-3xl text-sm leading-relaxed text-slate-200 sm:text-base">
+            Looking for a full website, landing page, mobile app, or AI automation for your team?
+            We combine practical experience from our training ecosystem with professional delivery for real clients.
+          </p>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 rounded-full border border-yellow-300/55 bg-gradient-to-r from-yellow-300/85 via-amber-300/90 to-orange-300/85 px-6 py-3 text-sm font-extrabold uppercase tracking-[0.1em] text-[#0a192f] shadow-[0_10px_25px_rgba(250,204,21,0.26)] transition duration-300 hover:-translate-y-0.5 hover:from-yellow-200 hover:to-orange-200"
+            >
+              Request a Service
+              <ArrowRight size={16} />
+            </Link>
+            <Link
+              to="/portfolio"
+              className="inline-flex items-center gap-2 rounded-full border border-cyan-300/45 bg-cyan-400/10 px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-cyan-100 transition hover:-translate-y-0.5 hover:border-cyan-200"
+            >
+              View Portfolio
+            </Link>
+          </div>
         </div>
       </div>
     </section>
