@@ -76,46 +76,60 @@ const learningJourney = [
 
 const serviceCards = [
   {
-    title: "NGO Websites & Platforms",
+    title: "Full NGO Websites",
     description:
-      "We design and develop complete NGO websites with donation-ready pages, campaign storytelling, and clear community communication.",
+      "Complete NGO websites with donation pages, campaign storytelling, and trust-focused design.",
     icon: Globe,
-    tags: ["Donation pages", "Campaign-ready", "SEO friendly"],
+    tags: ["Donation pages", "Campaign-ready", "SEO-ready"],
   },
   {
     title: "Digital Systems for Organizations",
     description:
-      "From internal portals to public-facing digital systems, we help organizations modernize how they serve people.",
+      "Custom digital systems that modernize daily operations and improve how teams serve people.",
     icon: Building2,
-    tags: ["Custom workflows", "Scalable architecture", "Secure access"],
+    tags: ["Custom workflows", "Secure access", "Scalable"],
   },
   {
-    title: "Hotel & Hospitality Websites",
+    title: "Hotel Websites",
     description:
-      "Modern hotel websites with service showcases, booking-focused user flows, and mobile-first performance.",
+      "Hotel and hospitality websites with service highlights, booking-focused flow, and clean UX.",
     icon: Hotel,
     tags: ["Booking-focused", "Fast loading", "Brand-aligned UI"],
   },
   {
-    title: "School & Education Portals",
+    title: "School Websites & Portals",
     description:
-      "We build school websites and education portals for announcements, admissions, and student communication.",
+      "Education platforms for admissions, announcements, and parent-student communication.",
     icon: School,
     tags: ["Admissions info", "Parent updates", "Program pages"],
   },
   {
-    title: "Business Websites & Landing Pages",
+    title: "Business Websites",
     description:
-      "Conversion-focused business websites and high-impact landing pages built for growth, visibility, and trust.",
+      "Professional business websites that improve visibility, credibility, and lead generation.",
     icon: BriefcaseBusiness,
-    tags: ["Lead generation", "Brand credibility", "Sales-ready pages"],
+    tags: ["Lead generation", "Brand trust", "Growth-ready"],
   },
   {
-    title: "Mobile Apps + AI Automation",
+    title: "Landing Pages",
     description:
-      "We create Android and iOS apps and integrate AI-powered automation to reduce repetitive work and improve speed.",
+      "High-converting campaign and product landing pages built to turn visitors into clients.",
+    icon: Layers3,
+    tags: ["Conversion focused", "Fast launch", "Ad-ready"],
+  },
+  {
+    title: "Android & iOS Apps",
+    description:
+      "Cross-platform mobile apps built for reliability, speed, and smooth user experience.",
     icon: Smartphone,
-    tags: ["Android & iOS", "AI integration", "Workflow automation"],
+    tags: ["Android", "iOS", "API integrated"],
+  },
+  {
+    title: "AI Workflow Automation",
+    description:
+      "AI integrations that automate repetitive tasks, improve response time, and increase team productivity.",
+    icon: Bot,
+    tags: ["Process automation", "AI integration", "Time saving"],
   },
 ];
 
@@ -523,37 +537,44 @@ export default function Hero() {
 
     <section id="services" className="bg-[#091d36] py-16 md:py-20">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="inline-flex rounded-full border border-cyan-300/35 bg-cyan-400/10 px-4 py-1 text-xs font-bold uppercase tracking-[0.16em] text-cyan-100">
-            Services We Provide
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="inline-flex rounded-lg border border-yellow-300/45 bg-[#102744] px-5 py-2 text-sm font-black uppercase tracking-[0.2em] text-yellow-200">
+            Marota Tech
           </p>
-          <h2 className="mt-4 text-3xl font-black text-white sm:text-4xl">
-            Marota Trains Talent and Builds Real Digital Products
+          <p className="mt-4 text-xs font-bold uppercase tracking-[0.24em] text-cyan-100/90 sm:text-sm">
+            Your Vision. Our Craft. Real Results.
+          </p>
+          <h2 className="mt-4 text-3xl font-black leading-tight text-white sm:text-5xl">
+            We Not Just Teach, We Build
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
-            Beyond courses, we build production-ready products for NGOs, hotels, schools, businesses, and growing teams.
-            If you need a reliable partner to deliver websites, apps, and AI-powered systems, Marota is ready.
+          <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-slate-300 sm:text-base">
+            Marota gives practical courses and also builds real digital products.
+            We create websites, landing pages, mobile apps, and AI-powered automations for NGOs, organizations, hotels, schools, and businesses.
+          </p>
+          <div className="mx-auto mt-7 h-px w-full max-w-3xl bg-gradient-to-r from-transparent via-cyan-300/40 to-transparent" />
+          <p className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-slate-300">
+            What We Build For Clients
           </p>
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {serviceCards.map((service) => {
             const Icon = service.icon;
             return (
               <article
                 key={service.title}
-                className="rounded-2xl border border-white/15 bg-[#112240]/85 p-5 text-left transition duration-300 hover:-translate-y-1 hover:border-cyan-300/45"
+                className="rounded-2xl border border-white/15 bg-[#112240]/85 p-5 text-left transition duration-300 hover:-translate-y-1 hover:border-yellow-300/45"
               >
                 <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-300/35 bg-cyan-400/10 text-cyan-100">
                   <Icon size={20} />
                 </div>
-                <h3 className="mt-4 text-lg font-bold text-white">{service.title}</h3>
+                <h3 className="mt-4 text-base font-bold text-white">{service.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-300">{service.description}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {service.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-slate-200"
+                      className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] text-slate-200"
                     >
                       {tag}
                     </span>
@@ -564,14 +585,36 @@ export default function Hero() {
           })}
         </div>
 
-        <div className="mt-8 rounded-3xl border border-yellow-300/25 bg-gradient-to-r from-[#152f53] via-[#102a4a] to-[#183557] p-6 text-center sm:p-8">
-          <div className="inline-flex items-center gap-2 rounded-full border border-yellow-300/45 bg-yellow-300/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-yellow-100">
-            <Bot size={14} />
+        <div className="mt-8 rounded-3xl border border-yellow-300/30 bg-[#111f36] p-6 text-center shadow-[0_16px_40px_rgba(2,8,23,0.3)] sm:p-8">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-yellow-100/90">
+            Also Learn From Us
+          </p>
+          <h3 className="mt-3 text-2xl font-black text-white sm:text-3xl">
+            We Not Just Teach, We Build
+          </h3>
+          <p className="mx-auto mt-3 max-w-3xl text-sm leading-relaxed text-slate-200 sm:text-base">
+            Want to learn these skills yourself? Join Marota courses in web development, mobile app development,
+            graphics, and video production taught with practical, project-based training.
+          </p>
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            {["Web Development", "Mobile App Dev", "Graphic Design", "Video Editing", "Landing Pages"].map((item) => (
+              <span
+                key={item}
+                className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs text-slate-100"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-6 rounded-3xl border border-cyan-300/25 bg-gradient-to-r from-[#152f53] via-[#102a4a] to-[#183557] p-6 text-center sm:p-8">
+          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/45 bg-cyan-400/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-cyan-100">
             Build With Marota
           </div>
           <p className="mx-auto mt-3 max-w-3xl text-sm leading-relaxed text-slate-200 sm:text-base">
-            Looking for a full website, landing page, mobile app, or AI automation for your team?
-            We combine practical experience from our training ecosystem with professional delivery for real clients.
+            Need a full website, landing page, mobile app, or AI automation?
+            Marota is ready to deliver your product from planning to launch.
           </p>
           <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
             <Link
